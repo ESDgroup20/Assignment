@@ -3,7 +3,9 @@ View: web/ "INDEX.html" </br>
 Controler: src.java/ "Servlet file" </br>
 
 Create DB name: ESDweb
-username: root
-password: 123456
+-Username: root
+-password: 123456
+</br>
+<sub>"jdbc:derby://localhost:1527/ESDweb", "root", "123456"
 
 
