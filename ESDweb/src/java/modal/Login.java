@@ -5,10 +5,20 @@
  */
 package modal;
 
+import java.sql.SQLException;
+import utils.ConnectDB;
+
 /**
  *
  * @author Marken Tuan Nguyen
  */
 public class Login {
+    
+    ConnectDB conn = new ConnectDB();
+    public String loginQuery;
+    
+    public Login() throws SQLException, ClassNotFoundException{
+        this.loginQuery = conn.doSelectQuery("SELECT * FROM ACCOUNT");
+    }
     
 }
