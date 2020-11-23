@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modal.user.Login;
+import modal.utils.LoginDAO;
 
 /**
  *
@@ -32,14 +32,13 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
+            throws ServletException, IOException, SQLException {
         
         
-        Login login = new Login();
-        String s = login.loginQuery;
+        LoginDAO login = new LoginDAO();
+        String s = login.LoginSelection();
 
         request.setAttribute("data", s);
         RequestDispatcher view = request.getRequestDispatcher("LoginJSP.jsp");
@@ -51,10 +50,10 @@ public class LoginServlet extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Login Servlet Page</title>");            
+//            out.println("<title>LoginDAO Servlet Page</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Login Servlet Page " + request.getContextPath() + "</h1>");
+//            out.println("<h1>LoginDAO Servlet Page " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
@@ -76,8 +75,6 @@ public class LoginServlet extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,8 +92,6 @@ public class LoginServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
