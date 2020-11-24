@@ -8,9 +8,11 @@ package modal.utils;
 import java.sql.SQLException;
 import database.ConnectDB;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import modal.user.User;
 
 /**
  *
@@ -19,23 +21,21 @@ import java.sql.Statement;
 public class LoginDAO {
     
     Connection conn = null;
-    Statement state = null;
     ResultSet rs = null;
+    PreparedStatement pre = null;
     
     String loginQuery = "SELECT * FROM ACCOUNT";
     
     public LoginDAO() throws SQLException {
 //        this.loginQuery = conn.doSelectQuery("SELECT * FROM ACCOUNT");
         conn = ConnectDB.getConnection();
-        state = conn.createStatement();
-        rs = state.executeQuery(loginQuery);
         
-        
-
     }
     
-    public String LoginSelection() throws SQLException{
+    public String loginSelection() throws SQLException{
         
+        pre = conn.prepareStatement(loginQuery);
+        rs = pre.executeQuery();
         StringBuilder sb = new StringBuilder();
         ResultSetMetaData metaData =  rs.getMetaData();
         int size = metaData.getColumnCount();
@@ -49,10 +49,36 @@ public class LoginDAO {
         }
 
         rs.close();
-        state.close();
         conn.close();
 //        return "CONNECTED";
         return sb.toString();
     }
+    
+    public User loginAuth(User user) throws SQLException{
+        String username = user.getUserName();
+        String password = user.getUserPass();
+        
+        String loginQueryAuth = "SELECT * FROM ACCOUNT WHERE USERNAME = ? AND PASSWORD = ?";
+        
+//        System.out.println("Your user name is " + username);          
+//        System.out.println("Your password is " + password);
+//        System.out.println("Query is: "+loginQueryAuth);
+        
+        conn = ConnectDB.getConnection();
+        pre = conn.prepareStatement(loginQueryAuth);
+        pre.setString(1, username);
+        pre.setString(2, password);
+        rs = pre.executeQuery();
+        
+        if (!rs.next()) { user.setValid(false); }
+        else { user.setValid(true); }
+        
+        rs.close();
+        pre.close();
+        conn.close();
+        
+        return user;
+    }
+    
     
 }

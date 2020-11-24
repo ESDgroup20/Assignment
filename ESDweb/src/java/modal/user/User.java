@@ -14,7 +14,8 @@ public class User {
     String userName;
     String userPass;
     String userRole;    //Admin, Patient, Nurse, Doctor
-
+    boolean valid;
+    
     public User() {
     }
 
@@ -33,13 +34,31 @@ public class User {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getUserPass() {
         return userPass;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
     }
 
     public String getUserRole() {
         return userRole;
     }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+    
+    
     
     
 }

@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modal.user.User;
 import modal.utils.LoginDAO;
 
 /**
@@ -38,25 +39,22 @@ public class LoginServlet extends HttpServlet {
         
         
         LoginDAO login = new LoginDAO();
-        String s = login.LoginSelection();
-
-        request.setAttribute("data", s);
-        RequestDispatcher view = request.getRequestDispatcher("LoginJSP.jsp");
-        view.forward(request,response);
+//        String s = login.loginSelection();
+//        request.setAttribute("str", s);
         
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>LoginDAO Servlet Page</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>LoginDAO Servlet Page " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+
+        User user = new User();
+        user.setUserName(request.getParameter("us"));
+        user.setUserPass(request.getParameter("pw"));
+        user = login.loginAuth(user);
+        
+        if (user.isValid()) {
+            request.setAttribute("data", user);
+            RequestDispatcher view = request.getRequestDispatcher("LoginJSP.jsp");
+            view.forward(request,response);
+        } else {
+            System.out.println("WRONG ACCOUNT !!!");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
