@@ -37,24 +37,37 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         
-        
+        String path = null;
         LoginDAO login = new LoginDAO();
-//        String s = login.loginSelection();
-//        request.setAttribute("str", s);
+        
+        
         
 
         User user = new User();
         user.setUserName(request.getParameter("us"));
         user.setUserPass(request.getParameter("pw"));
-        user = login.loginAuth(user);
         
-        if (user.isValid()) {
-            request.setAttribute("data", user);
-            RequestDispatcher view = request.getRequestDispatcher("LoginJSP.jsp");
-            view.forward(request,response);
-        } else {
-            System.out.println("WRONG ACCOUNT !!!");
+        
+        String action = request.getParameter("act");
+//        System.out.println("???");
+        if(action.equals("Login")){
+            user = login.loginAuth(user);
+            if (user.isValid()) {
+                request.setAttribute("data", user);
+                path = "/view/LoginJSP.jsp";
+            } else {
+                System.out.println("WRONG ACCOUNT !!!");
+            }
+        } else if(action.equals("FastTrack")){
+            String s = login.loginSelection();
+//            System.out.println("s= "+s);
+            request.setAttribute("str", s);
+            path = "/view/TestJSP.jsp";
+            
         }
+        RequestDispatcher view = request.getRequestDispatcher(path);
+        view.forward(request,response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -14,11 +14,6 @@
     </head>
     <body>
         <% 
-//            String tempStr = (String) request.getAttribute("str") ;
-//            out.println(tempStr);
-//            out.println("<br>--------------------------------------------------<br>");
-            
-            
             User details = (User) request.getAttribute("data") ;
             out.println("Login Successfully");
             out.println("<br>USERNAME is: "+details.getUserName());

@@ -30,25 +30,7 @@ public class ConnectDB {
 //            System.out.println(e.getMessage());
         }
         return conn;
-//        state = con.createStatement();
-//        rs = state.executeQuery(query);
-//        ResultSetMetaData metaData =  rs.getMetaData();
-//        int size = metaData.getColumnCount();
-//
-//        while (rs.next()) {
-//
-//            for(int i=0; i<size; i++){  // check how many column
-//                String temp = rs.getString(i+1) + "&emsp;";
-//                sb.append(temp);
-//                sb.append("<br>");
-//            }
-//
-////              System.out.println(rs.getString(1) + "&emsp;&emsp;&emsp;" + rs.getString(2)+"&emsp;&emsp;&emsp;"+rs.getString(3));
-//        }
-//        rs.close();
-//        state.close();
-//        con.close();
-//        return sb.toString();
+//     
     } //class
     
 }

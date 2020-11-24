@@ -12,12 +12,15 @@ and open the template in the editor.
     </head>
     <body>
         <form action="LoginServlet" method="post">
+            
             Fast Track button: <br>
-            <input type="submit" value="FastTrack">
+            <input type="submit" name="act" value="FastTrack">
+            
             <br><br><br>
+            
             Username: <input type="text" name="us" value="" /><br>
             Password: <input type="text" name="pw" value="" /><br>
-            <input type="submit" value="Login" />
+            <input type="submit" name="act" value="Login" />
         </form>
     </body>
 </html>

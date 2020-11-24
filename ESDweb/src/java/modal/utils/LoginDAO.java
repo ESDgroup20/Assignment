@@ -24,8 +24,7 @@ public class LoginDAO {
     ResultSet rs = null;
     PreparedStatement pre = null;
     
-    String loginQuery = "SELECT * FROM ACCOUNT";
-    
+  
     public LoginDAO() throws SQLException {
 //        this.loginQuery = conn.doSelectQuery("SELECT * FROM ACCOUNT");
         conn = ConnectDB.getConnection();
@@ -34,6 +33,7 @@ public class LoginDAO {
     
     public String loginSelection() throws SQLException{
         
+        String loginQuery = "SELECT * FROM ACCOUNT";
         pre = conn.prepareStatement(loginQuery);
         rs = pre.executeQuery();
         StringBuilder sb = new StringBuilder();
@@ -64,7 +64,6 @@ public class LoginDAO {
 //        System.out.println("Your password is " + password);
 //        System.out.println("Query is: "+loginQueryAuth);
         
-        conn = ConnectDB.getConnection();
         pre = conn.prepareStatement(loginQueryAuth);
         pre.setString(1, username);
         pre.setString(2, password);
