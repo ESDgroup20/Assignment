@@ -1,5 +1,5 @@
 Modal: src.java/ "MODAL file" </br>
-View: web/ "INDEX.html" & "JSP file" </br>
+View: web.view/ "JSP file" </br>
 Controler: src.java/ "Servlet file" </br>
 
 Create DB name: ESDweb
