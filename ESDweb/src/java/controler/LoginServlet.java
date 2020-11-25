@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 //        System.out.println("???");
         if(action.equals("Login")){
             user = login.loginAuth(user);
-            if (user.isValid()) {
+            if (user.isUserValid()) {
                 request.setAttribute("data", user);
                 path = "/view/LoginJSP.jsp";
             } else {

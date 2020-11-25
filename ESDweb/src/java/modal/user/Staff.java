@@ -9,6 +9,6 @@ package modal.user;
  *
  * @author Marken Tuan Nguyen
  */
-public class Nurse {
+public class Staff extends User{
     
 }

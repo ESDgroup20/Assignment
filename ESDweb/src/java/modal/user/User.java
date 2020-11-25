@@ -10,11 +10,12 @@ package modal.user;
  * @author Marken Tuan Nguyen
  */
 public class User {
-    String userId;
-    String userName;
-    String userPass;
-    String userRole;    //Admin, Patient, Nurse, Doctor
-    boolean valid;
+    private String userId;
+    private String userName;
+    private String userPass;
+    private String userRole;    //Admin, Patient, Staff
+    private String userAddress;
+    private boolean userValid;
     
     public User() {
     }
@@ -28,6 +29,10 @@ public class User {
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -50,15 +55,24 @@ public class User {
         return userRole;
     }
 
-    public boolean isValid() {
-        return valid;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public String getUserAddress() {
+        return userAddress;
     }
-    
-    
-    
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public boolean isUserValid() {
+        return userValid;
+    }
+
+    public void setUserValid(boolean userValid) {
+        this.userValid = userValid;
+    }
     
 }

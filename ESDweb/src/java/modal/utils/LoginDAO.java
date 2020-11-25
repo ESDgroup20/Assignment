@@ -33,7 +33,7 @@ public class LoginDAO {
     
     public String loginSelection() throws SQLException{
         
-        String loginQuery = "SELECT * FROM ACCOUNT";
+        String loginQuery = "SELECT * FROM USERS";
         pre = conn.prepareStatement(loginQuery);
         rs = pre.executeQuery();
         StringBuilder sb = new StringBuilder();
@@ -58,19 +58,15 @@ public class LoginDAO {
         String username = user.getUserName();
         String password = user.getUserPass();
         
-        String loginQueryAuth = "SELECT * FROM ACCOUNT WHERE USERNAME = ? AND PASSWORD = ?";
-        
-//        System.out.println("Your user name is " + username);          
-//        System.out.println("Your password is " + password);
-//        System.out.println("Query is: "+loginQueryAuth);
-        
+        String loginQueryAuth = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+                
         pre = conn.prepareStatement(loginQueryAuth);
         pre.setString(1, username);
         pre.setString(2, password);
         rs = pre.executeQuery();
         
-        if (!rs.next()) { user.setValid(false); }
-        else { user.setValid(true); }
+        if (!rs.next()) { user.setUserValid(false); }
+        else { user.setUserValid(true); }
         
         rs.close();
         pre.close();

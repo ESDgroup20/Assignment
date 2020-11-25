@@ -9,6 +9,10 @@ package modal.user;
  *
  * @author Marken Tuan Nguyen
  */
-public class Admin {
+public class Admin extends User{
+    
+    public Admin(){
+        
+    }
     
 }
