@@ -10,7 +10,6 @@ package modal.user;
  * @author Marken Tuan Nguyen
  */
 public class User {
-    private String userId;
     private String userName;
     private String userPass;
     private String userRole;    //Admin, Patient, Staff
@@ -20,19 +19,9 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String userName, String userPass, String userRole) {
-        this.userId = userId;
+    public User(String userName, String userPass) {
         this.userName = userName;
         this.userPass = userPass;
-        this.userRole = userRole;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getUserName() {

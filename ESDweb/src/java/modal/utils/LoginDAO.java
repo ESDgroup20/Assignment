@@ -54,9 +54,7 @@ public class LoginDAO {
         return sb.toString();
     }
     
-    public User loginAuth(User user) throws SQLException{
-        String username = user.getUserName();
-        String password = user.getUserPass();
+    public User loginAuth(String username, String password) throws SQLException{
         
         String loginQueryAuth = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
                 
@@ -65,14 +63,16 @@ public class LoginDAO {
         pre.setString(2, password);
         rs = pre.executeQuery();
         
-        if (!rs.next()) { user.setUserValid(false); }
-        else { user.setUserValid(true); }
+        while (rs.next()) { 
+            User user = new User(rs.getString(1),rs.getString(2));
+            return user;
+        }
         
         rs.close();
         pre.close();
         conn.close();
         
-        return user;
+        return null;
     }
     
     

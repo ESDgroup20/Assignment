@@ -14,10 +14,14 @@
     </head>
     <body>
         <% 
-            User details = (User) request.getAttribute("data") ;
+            User details = (User) request.getSession().getAttribute("data");
             out.println("Login Successfully");
             out.println("<br>USERNAME is: "+details.getUserName());
             out.println("<br>PASSWORD is: "+details.getUserPass());
         %>
+        
+        <form action="LogoutServlet">
+            <input type="submit" name="act" value="Logout" />
+        </form>
     </body>
 </html>
