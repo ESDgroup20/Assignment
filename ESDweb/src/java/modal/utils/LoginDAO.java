@@ -7,11 +7,15 @@ package modal.utils;
 
 import java.sql.SQLException;
 import database.ConnectDB;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modal.user.User;
 
 /**
@@ -25,15 +29,14 @@ public class LoginDAO {
     PreparedStatement pre = null;
     
   
-    public LoginDAO() throws SQLException {
-//        this.loginQuery = conn.doSelectQuery("SELECT * FROM ACCOUNT");
-        conn = ConnectDB.getConnection();
-        
-    }
+    public LoginDAO(){
+    }  
+    
     
     public String loginSelection() throws SQLException{
         
         String loginQuery = "SELECT * FROM USERS";
+        conn = ConnectDB.getConnection();
         pre = conn.prepareStatement(loginQuery);
         rs = pre.executeQuery();
         StringBuilder sb = new StringBuilder();
@@ -57,7 +60,7 @@ public class LoginDAO {
     public User loginAuth(String username, String password) throws SQLException{
         
         String loginQueryAuth = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
-                
+        conn = ConnectDB.getConnection();      
         pre = conn.prepareStatement(loginQueryAuth);
         pre.setString(1, username);
         pre.setString(2, password);
@@ -74,6 +77,7 @@ public class LoginDAO {
         
         return null;
     }
+    
     
     
 }

@@ -18,6 +18,10 @@
             out.println("Login Successfully");
             out.println("<br>USERNAME is: "+details.getUserName());
             out.println("<br>PASSWORD is: "+details.getUserPass());
+            
+            String sessionKey = (String) request.getSession().getAttribute("sessionKey");
+            out.println("<br>SESSION key: "+sessionKey);
+            
         %>
         
         <form action="LogoutServlet">

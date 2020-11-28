@@ -52,11 +52,13 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("data", user);
-//                request.setAttribute("data", user);
+                session.setAttribute("sessionKey", session.getId());
+                
                 path = "/view/SuccessJSP.jsp";
-                
-                System.out.println("is new: "+session.getId());
-                
+                System.out.println("is new: "+session.isNew());
+                if(session.isNew()) {
+                    path = "index.html";
+                }
             } else {
                 path = "/view/ErrorJSP.jsp";
             }

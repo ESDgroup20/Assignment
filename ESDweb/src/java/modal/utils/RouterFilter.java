@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -104,16 +105,23 @@ public class RouterFilter implements Filter {
             log("RouterFilter:doFilter()");
         }
         
+//----------------------------------CODE HERE----------------------------------- 
         doBeforeProcessing(request, response);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        HttpSession httpSession = httpServletRequest.getSession();
+        
+        
         String url = httpServletRequest.getServletPath();
         if(url.endsWith(".jsp") && !url.contains("ErrorJSP.jsp")){
             httpServletResponse.sendRedirect("index.html");
         } 
+        
+//------------------------------------END---------------------------------------       
         Throwable problem = null;
         try {
             chain.doFilter(request, response);
+            
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
