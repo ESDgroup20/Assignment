@@ -22,18 +22,18 @@ import modal.user.User;
  *
  * @author Marken Tuan Nguyen
  */
-public class LoginDAO {
+public class SignInDAO {
     
     Connection conn = null;
     ResultSet rs = null;
     PreparedStatement pre = null;
     
   
-    public LoginDAO(){
+    public SignInDAO(){
     }  
     
     
-    public String loginSelection() throws SQLException{
+    public String signInSelection() throws SQLException{
         
         String loginQuery = "SELECT * FROM USERS";
         conn = ConnectDB.getConnection();
@@ -57,7 +57,7 @@ public class LoginDAO {
         return sb.toString();
     }
     
-    public User loginAuth(String username, String password) throws SQLException{
+    public User signInAuth(String username, String password) throws SQLException{
         
         String loginQueryAuth = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
         conn = ConnectDB.getConnection();      
@@ -68,6 +68,7 @@ public class LoginDAO {
         
         while (rs.next()) { 
             User user = new User(rs.getString(1),rs.getString(2));
+            user.setUserRole(rs.getString(3));
             return user;
         }
         

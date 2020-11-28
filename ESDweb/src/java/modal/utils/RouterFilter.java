@@ -113,7 +113,7 @@ public class RouterFilter implements Filter {
         
         
         String url = httpServletRequest.getServletPath();
-        if(url.endsWith(".jsp") && !url.contains("ErrorJSP.jsp")){
+        if(url.endsWith(".jsp") && !url.contains("ErrorPage.jsp")){
             httpServletResponse.sendRedirect("index.html");
         } 
         

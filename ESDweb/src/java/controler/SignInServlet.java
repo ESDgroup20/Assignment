@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modal.user.User;
-import modal.utils.LoginDAO;
+import modal.utils.SignInDAO;
 
 /**
  *
  * @author Marken Tuan Nguyen
  */
-public class LoginServlet extends HttpServlet {
+public class SignInServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,33 +40,37 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         
         String path = null;
-        LoginDAO login = new LoginDAO();
+        SignInDAO login = new SignInDAO();
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
         String action   = request.getParameter("act");
         
        
         if(action.equals("Login")){
-            User user = login.loginAuth(username,password);
+            User user = login.signInAuth(username,password);
             
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("data", user);
                 session.setAttribute("sessionKey", session.getId());
                 
-                path = "/view/SuccessJSP.jsp";
+                path = "/view/SuccessPage.jsp";
                 System.out.println("is new: "+session.isNew());
                 if(session.isNew()) {
                     path = "index.html";
                 }
             } else {
-                path = "/view/ErrorJSP.jsp";
+                path = "/view/ErrorPage.jsp";
             }
-        } else if(action.equals("FastTrack")){
-            String s = login.loginSelection();
+        } else if(action.equals("Register")){
+        
+            path = "/view/RegisterPage.jsp";
+            
+        }else if(action.equals("FastTrack")){
+            String s = login.signInSelection();
 //            System.out.println("s= "+s);
             request.setAttribute("str", s);
-            path = "/view/TestJSP.jsp";
+            path = "/view/TestPage.jsp";
             
         }
         request.getRequestDispatcher(path).forward(request,response);
@@ -88,7 +92,7 @@ public class LoginServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignInServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -106,7 +110,7 @@ public class LoginServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignInServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
