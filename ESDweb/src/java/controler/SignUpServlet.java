@@ -5,8 +5,10 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,9 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modal.user.User;
-import modal.utils.SignInDAO;
-import modal.utils.SignUpDAO;
-
 /**
  *
  * @author Marken Tuan Nguyen
@@ -36,19 +35,34 @@ public class SignUpServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String path = null;
-        SignUpDAO register = new SignUpDAO();
+        
+//      get context from BaseListener
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String userTable = (String) getServletContext().getAttribute("userTable");
+        
+//      apply context into database
+        DBbean db =  new DBbean();
+        db.getConnection(conn);
+        
+//      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
         String role     = request.getParameter("role");
         String action   = request.getParameter("act");
         
+//      save path string
+        String path = null;
+        
         if(action.equals("Register")){
-            User user = register.createUser(username,password,role);
+//          create user from DBbean.createUser
+            User user = db.createUser(userTable, username, password, role);
+//          init path
             path = "/index.html";
         } else if (action.equals("GoBack")){
-            
+//          init path
+            path = "/index.html";
         }
+//      access path
         request.getRequestDispatcher(path).forward(request,response);
        
     }

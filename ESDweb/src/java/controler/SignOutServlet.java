@@ -29,8 +29,9 @@ public class SignOutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+//      clear current session, renewed
         request.getSession().invalidate();
+//      send back home page
         response.sendRedirect(request.getContextPath() + "/");
     }
 

@@ -7,13 +7,15 @@
 <%@page import="modal.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
     </head>
-    <body>
+    
+        
         <% 
+//          get attribute from SignInServlet 
             User details = (User) request.getSession().getAttribute("data");
             out.println("Login Successfully");
             out.println("<br>USERNAME is: "+details.getUserName());
@@ -26,8 +28,9 @@
             
         %>
         
+<!--      set new action Logout, called by SignOutServlet -->
         <form action="SignOutServlet">
             <input type="submit" name="act" value="Logout" />
         </form>
-    </body>
-</html>
+    
+

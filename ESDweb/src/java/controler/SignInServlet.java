@@ -5,8 +5,10 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modal.user.User;
-import modal.utils.SignInDAO;
 
 /**
  *
@@ -39,40 +40,59 @@ public class SignInServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         
-        String path = null;
-        SignInDAO login = new SignInDAO();
+//      get context from BaseListener
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String userTable = (String) getServletContext().getAttribute("userTable");
+
+//      apply context into database
+        DBbean db =  new DBbean();
+        db.getConnection(conn);
+        
+//      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
         String action   = request.getParameter("act");
         
-       
+//      save path string       
+        String path = null;
+//        if front-end click btn Login
         if(action.equals("Login")){
-            User user = login.signInAuth(username,password);
-            
+//          check Auth from DBbean.signInAuth
+            User user = db.signInAuth(userTable, username,password);
+//          check valid user            
             if (user != null) {
+//              Set session at beginning
                 HttpSession session = request.getSession();
+//              session for users
                 session.setAttribute("data", user);
+//              session key of users
                 session.setAttribute("sessionKey", session.getId());
-                
+//              init path
                 path = "/view/SuccessPage.jsp";
-                System.out.println("is new: "+session.isNew());
+//              after 1 mins will renew and auto logout by refresh page
                 if(session.isNew()) {
-                    path = "index.html";
+//                  init path
+                    path = "/index.html";
                 }
-            } else {
+            } else { // if invalid
+//              init path
                 path = "/view/ErrorPage.jsp";
             }
+            
+//        if front-end click btn Register
         } else if(action.equals("Register")){
-        
+//          init path
             path = "/view/RegisterPage.jsp";
             
+//       if front-end click btn FastTrack
         }else if(action.equals("FastTrack")){
-            String s = login.signInSelection();
-//            System.out.println("s= "+s);
+//          access user table
+            String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
             path = "/view/TestPage.jsp";
             
         }
+//      access path
         request.getRequestDispatcher(path).forward(request,response);
         
     }
