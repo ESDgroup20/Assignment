@@ -4,7 +4,7 @@
     Author     : Marken Tuan Nguyen
 --%>
 
-<%@page import="modal.user.User"%>
+<%@page import="modal.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 

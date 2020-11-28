@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modal.user;
+package modal;
 
 /**
  *
  * @author Marken Tuan Nguyen
  */
-public class Admin extends User{
-    
-    public Admin(){
-        
-    }
+public class Patient extends User{
     
 }
