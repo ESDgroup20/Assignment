@@ -8,15 +8,15 @@ PRIMARY KEY (USERNAME)
 
 -----------------------insert User DB-------------------------
 INSERT INTO ROOT.USERS (USERNAME, PASSWORD, "ROLE") 
-	VALUES ('meaydin', 'aydinme', 'doctor');
+	VALUES ('meaydin', 'aydinme', 'Doctor');
 INSERT INTO ROOT.USERS (USERNAME, PASSWORD, "ROLE") 
-	VALUES ('eaydin', '12345me', 'nurse');
+	VALUES ('eaydin', '12345me', 'Nurse');
 INSERT INTO ROOT.USERS (USERNAME, PASSWORD, "ROLE") 
-	VALUES ('caidan', '5432@10', 'client');
+	VALUES ('caidan', '5432@10', 'Patient');
 INSERT INTO ROOT.USERS (USERNAME, PASSWORD, "ROLE") 
-	VALUES ('admin', 'admin', 'admin');
+	VALUES ('admin', 'admin', 'Admin');
 INSERT INTO ROOT.USERS (USERNAME, PASSWORD, "ROLE") 
-	VALUES ('princehassan', 'prince_passwd', 'client');
+	VALUES ('princehassan', 'prince_passwd', 'Patient');
 
 
 -----------------------create Patient DB-------------------------
