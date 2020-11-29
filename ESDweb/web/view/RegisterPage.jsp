@@ -15,11 +15,14 @@
         <form action="SignUpServlet" method="post">
             Username: <input type="text" name="us" value="" /><br>
             Password: <input type="text" name="pw" value="" /><br>
+            Name: <input type="text" name="name" value="" /><br>
+            Address : <input type="text" name="addr" value="" /><br>
             Role:     <select name="role">
                         <option>Patient</option>
                         <option>Doctor</option>
                         <option>Nurse</option>
                       </select> <br>
+            
             <input type="submit" name="act" value="Register" />
             <input type="submit" name="act" value="GoBack" />
             

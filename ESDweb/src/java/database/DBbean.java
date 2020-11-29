@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modal.Patient;
 import modal.User;
 
 /**
@@ -89,7 +90,7 @@ public class DBbean {
     }
     
 //  register new user       ------------------SIGN-UP-PAGE----------------------
-    public User createUser(String table, String username, String password, String role) throws SQLException{
+    public void createUser(String table, String username, String password, String role) throws SQLException{
 //      query 
         String registerQuery = "INSERT INTO "+table+" VALUES (?, ?, ?)";
 //      prepare statement
@@ -102,7 +103,31 @@ public class DBbean {
 
         pre.close();
         
-        return null;
     }
     
+    public void createPatient(String table, String patientName, String patientAddress) throws SQLException{
+        //      query 
+        String registerQuery = "INSERT INTO "+table+"(PATIENTNAME, PATIENTADDRESS) VALUES (?, ?)";
+//      prepare statement
+        pre = conn.prepareStatement(registerQuery);
+//      set statement position
+        pre.setString(1, patientName);
+        pre.setString(2, patientAddress);
+        pre.executeUpdate();
+
+        pre.close();
+    }
+    
+        public void createStaff(String table, String staffName, String staffAddress) throws SQLException{
+        //      query 
+        String registerQuery = "INSERT INTO "+table+"(STAFFNAME, STAFFADDRESS) VALUES (?, ?)";
+//      prepare statement
+        pre = conn.prepareStatement(registerQuery);
+//      set statement position
+        pre.setString(1, staffName);
+        pre.setString(2, staffAddress);
+        pre.executeUpdate();
+
+        pre.close();
+    }
 }

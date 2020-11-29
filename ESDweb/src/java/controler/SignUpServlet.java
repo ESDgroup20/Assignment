@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modal.Patient;
+import modal.Staff;
 import modal.User;
 /**
  *
@@ -39,6 +41,8 @@ public class SignUpServlet extends HttpServlet {
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
+        String patientTable = null;
+        String staffTable = null;
         
 //      apply context into database
         DBbean db =  new DBbean();
@@ -48,14 +52,44 @@ public class SignUpServlet extends HttpServlet {
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
         String role     = request.getParameter("role");
+        String name     = request.getParameter("name");
+        String address  = request.getParameter("addr");
         String action   = request.getParameter("act");
+        
+//      declare role
+        User user = new User();
+        Staff staff = new Staff();
+        Patient patient = new Patient();
+        
+        switch(role){
+            case "Patient":
+                patientTable = (String) getServletContext().getAttribute("patientTable");
+                patient.setPatientName(name);
+                patient.setPatientAddress(address);
+                db.createPatient(patientTable, patient.getPatientName(), patient.getPatientAddress());
+//                request.setAttribute("patientData", patient);
+                break;
+            case "Doctor":
+            case "Nurse":
+                staffTable = (String) getServletContext().getAttribute("staffTable");
+                staff.setStaffName(name);
+                staff.setStaffAddress(address);
+                db.createStaff(staffTable, staff.getStaffName(), staff.getStaffAddress());
+//                request.setAttribute("staffData", staff);
+                break;
+        }
         
 //      save path string
         String path = null;
         
         if(action.equals("Register")){
 //          create user from DBbean.createUser
-            User user = db.createUser(userTable, username, password, role);
+            db.createUser(userTable, username, password, role);
+            
+            System.out.println("PATIENT NAME: "+ patient.getPatientName());
+            System.out.println("PATIENT ADDRESS: "+patient.getPatientAddress());
+            
+            
 //          init path
             path = "/index.html";
         } else if (action.equals("GoBack")){

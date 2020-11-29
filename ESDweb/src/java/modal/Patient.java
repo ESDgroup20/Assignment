@@ -10,5 +10,39 @@ package modal;
  * @author Marken Tuan Nguyen
  */
 public class Patient extends User{
+ 
+    private String patientName;
+    private String patientAddress;
+    private String patientType;
+
+    public Patient() {
+    }
+
+    public Patient(String patientName, String patientAddress) {
+        this.patientName = patientName;
+        this.patientAddress = patientAddress;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientAddress() {
+        return patientAddress;
+    }
+
+    public void setPatientAddress(String patientAddress) {
+        this.patientAddress = patientAddress;
+    }
+
+    public String getPatientType() {
+        return patientType;
+    }
+    
+    
     
 }
