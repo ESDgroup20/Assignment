@@ -9,6 +9,10 @@ package modal;
  *
  * @author Marken Tuan Nguyen
  */
-public class Login {
+public class Admin extends User{
+    
+    public Admin(){
+        
+    }
     
 }

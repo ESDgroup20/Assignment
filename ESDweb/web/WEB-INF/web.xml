@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- =============================== CONTEXT =============================== -->
+    <context-param>
+        <description>DATABASE NAME</description>
+        <param-name>DbContext</param-name>
+        <param-value>ESDweb</param-value>
+    </context-param>
+    <context-param>
+        <description>USERS TABLE</description>
+        <param-name>UserContext</param-name>
+        <param-value>USERS</param-value>
+    </context-param>
+    <context-param>
+        <description>PATIENTS TABLE</description>
+        <param-name>PatientContext</param-name>
+        <param-value>PATIENTS</param-value>
+    </context-param>
+    <context-param>
+        <description>STAFFS TABLE</description>
+        <param-name>StaffContext</param-name>
+        <param-value>STAFFS</param-value>
+    </context-param>
+    <!-- =============================== FILTER ================================ -->
+    <filter>
+        <filter-name>RouterFilter</filter-name>
+        <filter-class>controler.RouterFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RouterFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- ============================== LISTENER =============================== -->
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>controler.BaseListener</listener-class>
+    </listener>
+    <!-- =============================== SERVLET =============================== -->
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>controler.LoginServlet</servlet-class>
+        <servlet-name>SignInServlet</servlet-name>
+        <servlet-class>controler.SignInServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignOutServlet</servlet-name>
+        <servlet-class>controler.SignOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>controler.SignUpServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
+        <servlet-name>SignInServlet</servlet-name>
+        <url-pattern>/SignInServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignOutServlet</servlet-name>
+        <url-pattern>/SignOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUpServlet</url-pattern>
+    </servlet-mapping>
+    <!-- =============================== SESSION =============================== -->
     <session-config>
         <session-timeout>
-            30
+            1
         </session-timeout>
     </session-config>
 </web-app>

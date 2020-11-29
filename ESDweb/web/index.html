@@ -6,11 +6,44 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>INDEX here</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>INDEX PAGE</div>
+        <form action="SignInServlet" method="post">
+            
+            Fast Track button: <br>
+            <input type="submit" name="act" value="FastTrack">
+            
+            <br><br><br>
+            
+            Username: <input type="text" name="us" value="" /><br>
+            Password: <input type="text" name="pw" value="" /><br>
+            <input type="submit" name="act" value="Login" />
+            <input type="submit" name="act" value="Register" />
+            
+            <br><br><br>
+            Test Google Map API
+
+        </form>
+        
+        <form onsubmit="return validateForm()">
+            <input type="text" id="1" value="" />
+            <input type="submit" value="Find" />
+            <script>
+                function validateForm() {
+                  var mid = document.getElementById("1").value;
+                  // If manager id is empty 
+                  if(mid===""){
+                        alert("Please enter valid manager id.");
+                        return false;
+                  } else {
+                      alert("Enter: "+mid);
+                  }
+                }
+            </script>
+        </form>
+            
     </body>
 </html>
