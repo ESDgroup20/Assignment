@@ -7,7 +7,7 @@ package modal;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author Eli 123
  */
 public class User {
     private String userName;
