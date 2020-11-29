@@ -7,7 +7,7 @@ package modal;
 
 /**
  *
- * @author Eli 123
+ * @author Eli 123456
  */
 public class User {
     private String userName;
