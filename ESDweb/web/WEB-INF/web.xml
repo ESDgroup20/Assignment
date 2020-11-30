@@ -64,11 +64,13 @@
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/SignUpServlet</url-pattern>
     </servlet-mapping>
-    <!-- =============================== SESSION =============================== -->
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
+    
+<!-- =============================== SESSION =============================== -->
+    
     <session-config>
         <session-timeout>
             1
