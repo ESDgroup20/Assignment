@@ -68,7 +68,7 @@ public class SignInServlet extends HttpServlet {
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
-                path = "/view/SuccessPage.jsp";
+                path = "/view/jsp/SuccessPage.jsp";
 //              after 1 mins will renew and auto logout by refresh page
                 if(session.isNew()) {
 //                  init path
@@ -76,20 +76,20 @@ public class SignInServlet extends HttpServlet {
                 }
             } else { // if invalid
 //              init path
-                path = "/view/ErrorPage.jsp";
+                path = "/view/jsp/ErrorPage.jsp";
             }
             
 //        if front-end click btn Register
         } else if(action.equals("Register")){
 //          init path
-            path = "/view/RegisterPage.jsp";
+            path = "/view/jsp/RegisterPage.jsp";
             
 //       if front-end click btn FastTrack
         }else if(action.equals("FastTrack")){
 //          access user table
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
-            path = "/view/TestPage.jsp";
+            path = "/view/jsp/TestPage.jsp";
             
         }
 //      access path
