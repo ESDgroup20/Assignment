@@ -6,44 +6,145 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>INDEX here</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form action="SignInServlet" method="post">
-            
+        <!--AIzaSyCI0WUqUfXlgSUdbYk7Va1Bq8-CF4_0ODk-->
+        <title>Place Autocomplete Address Form</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALDabFHAnv2j865IAGR9HeNZ7sh3w7Bcc&libraries=places&callback=initAutocomplete"
+    async defer></script>
+    <script src="./view/js/address.js" ></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <style>
+      #locationField, #controls {
+        position: relative;
+        width: 480px;
+      }
+      #autocomplete {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 99%;
+      }
+      .label {
+        text-align: right;
+        font-weight: bold;
+        width: 100px;
+        color: #303030;
+      }
+      #address {
+        border: 1px solid #000090;
+        background-color: #f0f0ff;
+        width: 480px;
+        padding-right: 2px;
+      }
+      #address td {
+        font-size: 10pt;
+      }
+      .field {
+        width: 99%;
+      }
+      .slimField {
+        width: 80px;
+      }
+      .wideField {
+        width: 200px;
+      }
+      #locationField {
+        height: 20px;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  
+  <body>
+
+        <form action="SignInServlet" method="POST">
             Fast Track button: <br>
-            <input type="submit" name="act" value="FastTrack">
-            
+            <input type="submit" name="act" value="FastTrack">         
             <br><br><br>
-            
             Username: <input type="text" name="us" value="" /><br>
             Password: <input type="text" name="pw" value="" /><br>
             <input type="submit" name="act" value="Login" />
-            <input type="submit" name="act" value="Register" />
-            
-            <br><br><br>
-            Test Google Map API
-
         </form>
         
-        <form onsubmit="return validateForm()">
+        <form action="SignUpServlet" method="POST">
+            <input type="submit" name="act" value="SignUp" />  
+        </form>
+        
+<!--        <form onsubmit="return initAutocomplete()">
+            Test Google Map API
             <input type="text" id="1" value="" />
             <input type="submit" value="Find" />
-            <script>
-                function validateForm() {
-                  var mid = document.getElementById("1").value;
-                  // If manager id is empty 
-                  if(mid===""){
-                        alert("Please enter valid manager id.");
-                        return false;
-                  } else {
-                      alert("Enter: "+mid);
-                  }
-                }
-            </script>
-        </form>
             
+            
+            <script src="view/js/address.js"></script>
+        </form>-->
+
+        
+        
+    <div id="locationField">
+      <input id="autocomplete" placeholder="Enter your address"
+             onFocus="geolocate()" type="text"></input>
+    </div>
+
+    <table id="address">
+      <tr>
+        <td class="label">Street address</td>
+        <td class="slimField"><input class="field" id="street_number"
+              disabled="true"></input></td>
+        <td class="wideField" colspan="2"><input class="field" id="route"
+              disabled="true"></input></td>
+      </tr>
+      <tr>
+        <td class="label">City</td>
+        <!-- Note: Selection of address components in this example is typical.
+             You may need to adjust it for the locations relevant to your app. See
+             https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+        -->
+        <td class="wideField" colspan="3"><input class="field" id="locality"
+              disabled="true"></input></td>
+      </tr>
+
+      <tr>
+        <td class="label">State</td>
+        <td class="slimField">
+          <input
+            class="field"
+            id="administrative_area_level_1"
+            disabled="true"
+          />
+        </td>
+              
+              <td class="label">Zip code</td>
+        <td class="wideField"><input class="field" id="postal_code"
+              disabled="true"></input></td>
+              
+              </tr>
+      
+      <tr>
+        <td class="label">Country</td>
+        <td class="wideField" colspan="3"><input class="field"
+              id="country" disabled="true"></input></td>
+      </tr>
+    </table>
+
+    
+
+        
+        
+        
     </body>
 </html>
