@@ -11,18 +11,16 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
+        <title>Success Page</title>
     </head>
     
-        
+        <jsp:useBean id="user" class="modal.User" scope="request" />
+        USERNAME is: <jsp:getProperty name="data" property="userName" /><br>
+        PASSWORD is: <jsp:getProperty name="data" property="userPass" /><br>
+        ROLE     is: <jsp:getProperty name="data" property="userRole" /><br>
         <% 
-//          get attribute from SignInServlet 
-            User details = (User) request.getSession().getAttribute("data");
-            out.println("Login Successfully");
-            out.println("<br>USERNAME is: "+details.getUserName());
-            out.println("<br>PASSWORD is: "+details.getUserPass());
-            out.println("<br>ROLE is:     "+details.getUserRole());
-            
+
+//            
 //            switch(details.getUserRole()){
 //                case "Patient":
 ////                    Patient patient = 
@@ -44,9 +42,6 @@
             
         %>
         
-<!--      set new action Logout, called by SignOutServlet -->
-        <form action="SignOutServlet">
-            <input type="submit" name="act" value="Logout" />
-        </form>
+        <jsp:include page="Footer.jsp" />
     
 

@@ -61,6 +61,31 @@ public class SignUpServlet extends HttpServlet {
         Staff staff = new Staff();
         Patient patient = new Patient();
         
+//      save path string
+        String path = null;
+        
+        //      if front-end click btn Register
+        if(action.equals("SignUp")){
+//          init path
+            path = "view/jsp/RegisterPage.jsp";
+        } else if(action.equals("Register")){
+//          create user from DBbean.createUser
+            db.createUser(userTable, username, password, role);
+            
+            System.out.println("PATIENT NAME: "+ patient.getPatientName());
+            System.out.println("PATIENT ADDRESS: "+patient.getPatientAddress());
+            
+            
+//          init path
+            path = "/index.html";
+        } else if (action.equals("GoBack")){
+//          init path
+            path = "/index.html";
+        
+        }
+//      access path
+        request.getRequestDispatcher(path).forward(request,response);
+
         switch(role){
             case "Patient":
                 patientTable = (String) getServletContext().getAttribute("patientTable");
@@ -79,26 +104,9 @@ public class SignUpServlet extends HttpServlet {
                 break;
         }
         
-//      save path string
-        String path = null;
-        
-        if(action.equals("Register")){
-//          create user from DBbean.createUser
-            db.createUser(userTable, username, password, role);
-            
-            System.out.println("PATIENT NAME: "+ patient.getPatientName());
-            System.out.println("PATIENT ADDRESS: "+patient.getPatientAddress());
-            
-            
-//          init path
-            path = "/index.html";
-        } else if (action.equals("GoBack")){
-//          init path
-            path = "/index.html";
-        }
-//      access path
-        request.getRequestDispatcher(path).forward(request,response);
+
        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

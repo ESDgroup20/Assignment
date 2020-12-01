@@ -4,46 +4,31 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<!--  I WANT EDIT THIS LINE  -->
 <html>
-    <head>
-        <title>INDEX here</title>
+   <head>
+        <title>Login Page</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form action="SignInServlet" method="post">
-            
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    
+  </head>
+  
+  <body>
+
+        <form action="SignInServlet" method="POST">
+
             Fast Track button: <br>
-            <input type="submit" name="act" value="FastTrack">
-            
+            <input type="submit" name="act" value="FastTrack">         
             <br><br><br>
-            
             Username: <input type="text" name="us" value="" /><br>
             Password: <input type="text" name="pw" value="" /><br>
             <input type="submit" name="act" value="Login" />
-            <input type="submit" name="act" value="Register" />
-            
-            <br><br><br>
-            Test Google Map API
-
         </form>
         
-        <form onsubmit="return validateForm()">
-            <input type="text" id="1" value="" />
-            <input type="submit" value="Find" />
-            <script>
-                function validateForm() {
-                  var mid = document.getElementById("1").value;
-                  // If manager id is empty 
-                  if(mid===""){
-                        alert("Please enter valid manager id.");
-                        return false;
-                  } else {
-                      alert("Enter: "+mid);
-                  }
-                }
-            </script>
-        </form>
-            
+        <form action="SignUpServlet" method="POST">
+            <input type="submit" name="act" value="SignUp" />  
+        </form>      
+         
     </body>
 </html>

@@ -9,14 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Test Page</title>
     </head>
     <body>
         <%  
-            String tempStr = (String) request.getAttribute("str") ;
-            out.println(tempStr);
-            out.println("<br>--------------------------------------------------<br>");
+              String tempStr = (String) request.getAttribute("str") ;
+              out.println(tempStr);
             
         %>
+        
+        <%-- <jsp:useBean id="str" class="String" scope="request"/>
+        <jsp:getProperty name="str" property="" /> --%>
+        <jsp:include page="Footer.jsp" />
     </body>
 </html>
