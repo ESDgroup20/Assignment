@@ -76,7 +76,6 @@
                       
                       
             <input type="submit" name="act" value="Register" />
-            <input type="submit" name="act" value="GoBack" />
             
         </form>
         

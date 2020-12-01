@@ -7,5 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <a href="index.html">FOOTER</a>
+    <a href="index.html">
+        <br><input type="submit" value="GoHome" />
+    </a>
 </html>
