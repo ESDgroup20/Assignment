@@ -10,6 +10,8 @@ package modal;
  * @author Marken Tuan Nguyen
  */
 public class Staff extends User{
+    private String staffUsername;
+    private String staffPassword;
     private String staffName;
     private String staffAddress;
 
@@ -20,6 +22,16 @@ public class Staff extends User{
         this.staffName = staffName;
         this.staffAddress = staffAddress;
     }
+
+    public Staff(String staffName, String staffAddress, String userName, String userPass) {
+        super(userName, userPass);
+        this.staffUsername = userName;
+        this.staffPassword = userPass;
+        this.staffName = staffName;
+        this.staffAddress = staffAddress;
+    }
+    
+    
 
     public String getStaffName() {
         return staffName;
@@ -36,5 +48,16 @@ public class Staff extends User{
     public void setStaffAddress(String staffAddress) {
         this.staffAddress = staffAddress;
     }
+
+    public String getStaffUsername() {
+        return staffUsername;
+    }
+
+    public String getStaffPassword() {
+        return staffPassword;
+    }
+    
+    
+    
     
 }

@@ -105,27 +105,30 @@ public class DBbean {
         
     }
     
-    public void createPatient(String table, String patientName, String patientAddress) throws SQLException{
+    public void createPatient(String table, String patientName, String patientAddress, String uname) throws SQLException{
         //      query 
-        String registerQuery = "INSERT INTO "+table+"(PATIENTNAME, PATIENTADDRESS) VALUES (?, ?)";
+        String registerQuery = "INSERT INTO "+table+"(PATIENTNAME, PATIENTADDRESS, UNAME) VALUES (?, ?, ?)";
 //      prepare statement
         pre = conn.prepareStatement(registerQuery);
 //      set statement position
         pre.setString(1, patientName);
         pre.setString(2, patientAddress);
+        pre.setString(3, uname);
         pre.executeUpdate();
 
         pre.close();
     }
     
-        public void createStaff(String table, String staffName, String staffAddress) throws SQLException{
+        public void createStaff(String table, String staffName, String staffAddress, String uname) throws SQLException{
         //      query 
-        String registerQuery = "INSERT INTO "+table+"(STAFFNAME, STAFFADDRESS) VALUES (?, ?)";
+        String registerQuery = "INSERT INTO "+table+"(STAFFNAME, STAFFADDRESS, UNAME) VALUES (?, ?, ?)";
 //      prepare statement
         pre = conn.prepareStatement(registerQuery);
 //      set statement position
         pre.setString(1, staffName);
         pre.setString(2, staffAddress);
+        pre.setString(3, uname);
+        
         pre.executeUpdate();
 
         pre.close();

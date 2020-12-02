@@ -11,6 +11,8 @@ package modal;
  */
 public class Patient extends User{
  
+    private String patientUsername;
+    private String patientPassword;
     private String patientName;
     private String patientAddress;
     private String patientType;
@@ -22,6 +24,16 @@ public class Patient extends User{
         this.patientName = patientName;
         this.patientAddress = patientAddress;
     }
+
+    public Patient(String patientName, String patientAddress, String userName, String userPass) {
+        super(userName, userPass);
+        this.patientUsername = userName;
+        this.patientPassword = userPass;
+        this.patientName = patientName;
+        this.patientAddress = patientAddress;
+    }
+    
+    
 
     public String getPatientName() {
         return patientName;
@@ -41,6 +53,14 @@ public class Patient extends User{
 
     public String getPatientType() {
         return patientType;
+    }
+
+    public String getPatientUsername() {
+        return patientUsername;
+    }
+
+    public String getPatientPassword() {
+        return patientPassword;
     }
     
     

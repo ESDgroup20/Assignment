@@ -12,14 +12,14 @@
         <title>Test Page</title>
     </head>
     <body>
-        <%  
+        
+        <jsp:include page="DbView.jsp" />
+        
+        <%-- 
               String tempStr = (String) request.getAttribute("str") ;
               out.println(tempStr);
-            
-        %>
+        --%>
         
-        <%-- <jsp:useBean id="str" class="String" scope="request"/>
-        <jsp:getProperty name="str" property="" /> --%>
         <jsp:include page="Footer.jsp" />
     </body>
 </html>
