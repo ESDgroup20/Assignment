@@ -47,6 +47,10 @@ public class SignInServlet extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
 
+        
+//      Set session at beginning
+        HttpSession session = request.getSession();
+                
 //      apply context into database
         DBbean db =  new DBbean();
         db.getConnection(conn);
@@ -64,19 +68,12 @@ public class SignInServlet extends HttpServlet {
             User user = db.signInAuth(userTable, username,password);
 //          check valid user            
             if (user != null) {
-//              Set session at beginning
-                HttpSession session = request.getSession();
 //              session for users
-                session.setAttribute("data", user);
+                session.setAttribute("userData", user);
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
                 path = "view/jsp/SuccessPage.jsp";
-//              after 1 mins will renew and auto logout by refresh page
-                if(session.isNew()) {
-//                  init path
-                    path = "index.html";
-                }
             } else { // if invalid
 //              init path
                 path = "view/jsp/ErrorPage.jsp";

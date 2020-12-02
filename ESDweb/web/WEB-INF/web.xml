@@ -52,6 +52,10 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>controler.TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>controler.ProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -68,9 +72,11 @@
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
-    
-<!-- =============================== SESSION =============================== -->
-    
+    <!-- =============================== SESSION =============================== -->
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             1

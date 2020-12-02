@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modal.Patient;
 import modal.Staff;
 import modal.User;
@@ -41,8 +42,10 @@ public class SignUpServlet extends HttpServlet {
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
-        String patientTable = null;
-        String staffTable = null;
+
+        
+        HttpSession session = request.getSession(false);
+        
         
 //      apply context into database
         DBbean db =  new DBbean();
@@ -58,51 +61,43 @@ public class SignUpServlet extends HttpServlet {
         
 //      declare role
         User user = new User();
-        Staff staff = new Staff();
-        Patient patient = new Patient();
+//        Staff staff = new Staff();
+        
         
 //      save path string
         String path = null;
         
         //      if front-end click btn Register
-        if(action.equals("SignUp")){
+        if(action.equals("Register")){
+            
 //          init path
             path = "view/jsp/RegisterPage.jsp";
-        } else if(action.equals("Register")){
+        } else if(action.equals("SignUp")){
 //          create user from DBbean.createUser
-            db.createUser(userTable, username, password, role);
+            db.createUser(userTable, username, password, role);     
             
-            System.out.println("PATIENT NAME: "+ patient.getPatientName());
-            System.out.println("PATIENT ADDRESS: "+patient.getPatientAddress());
-            
-            
+            switch(role){
+                case "Patient":
+                    Patient patient = new Patient(name, address, username, password);
+                    String patientTable = (String) getServletContext().getAttribute("patientTable");
+                    db.createPatient(patientTable, name, address, username);
+                    session.setAttribute("patientdata", patient);
+                    break;
+                case "Doctor":
+                case "Nurse":
+                    Staff staff = new Staff(name, address, username, password);
+                    String staffTable = (String) getServletContext().getAttribute("staffTable");
+                    db.createStaff(staffTable, name, address, username);
+                    session.setAttribute("staffData", staff);
+                    break;
+            }
 //          init path
-            path = "/index.html";
-        } else if (action.equals("GoBack")){
-//          init path
-            path = "/index.html";
-        
+            path = "view/jsp/SuccessPage.jsp";
         }
 //      access path
         request.getRequestDispatcher(path).forward(request,response);
 
-        switch(role){
-            case "Patient":
-                patientTable = (String) getServletContext().getAttribute("patientTable");
-                patient.setPatientName(name);
-                patient.setPatientAddress(address);
-                db.createPatient(patientTable, patient.getPatientName(), patient.getPatientAddress());
-//                request.setAttribute("patientData", patient);
-                break;
-            case "Doctor":
-            case "Nurse":
-                staffTable = (String) getServletContext().getAttribute("staffTable");
-                staff.setStaffName(name);
-                staff.setStaffAddress(address);
-                db.createStaff(staffTable, staff.getStaffName(), staff.getStaffAddress());
-//                request.setAttribute("staffData", staff);
-                break;
-        }
+        
         
 
        

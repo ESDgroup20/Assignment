@@ -109,7 +109,7 @@ public class RouterFilter implements Filter {
         doBeforeProcessing(request, response);
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        HttpSession httpSession = httpServletRequest.getSession();
+        HttpSession httpSession = httpServletRequest.getSession(false);
         
         
         String url = httpServletRequest.getServletPath();

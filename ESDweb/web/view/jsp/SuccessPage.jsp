@@ -4,6 +4,7 @@
     Author     : Marken Tuan Nguyen
 --%>
 
+<%@page import="modal.Staff"%>
 <%@page import="modal.Patient"%>
 <%@page import="modal.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,35 +14,47 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Success Page</title>
     </head>
-    
-        <jsp:useBean id="user" class="modal.User" scope="request" />
-        USERNAME is: <jsp:getProperty name="data" property="userName" /><br>
-        PASSWORD is: <jsp:getProperty name="data" property="userPass" /><br>
-        ROLE     is: <jsp:getProperty name="data" property="userRole" /><br>
-        <% 
-
-//            
-//            switch(details.getUserRole()){
-//                case "Patient":
-////                    Patient patient = 
-////                    out.println("<br>PATIENT NAME is:     "+);
-////                    out.println("<br>PATIENT ADDRESS is:     "+);
-//                    break;
-//                case "Doctor":
-//                case "Nurse":
-////                    out.println("<br>STAFF NAME is:     "+);
-////                    out.println("<br>STAFF ADDRESS is:     "+);
-////                    break;
-//                    
-//                
-//            }
-            
-            
-            String sessionKey = (String) request.getSession().getAttribute("sessionKey");
-            out.println("<br>SESSION key: "+sessionKey);
-            
-        %>
+    <body>
         
+        <% 
+            String action   = request.getParameter("act");
+            if(action.equals("Login")){ 
+                String sessionKey = (String) request.getSession().getAttribute("sessionKey");
+                out.println("<br>SESSION key: "+sessionKey);
+        %>
+                <jsp:useBean id="user" class="modal.User" scope="request" >
+                    <h1>LOGIN SUCCESSFULLY</h1> 
+                    USERNAME is: <jsp:getProperty name="userData" property="userName" /><br>
+                    PASSWORD is: <jsp:getProperty name="userData" property="userPass" /><br>
+                    ROLE     is: <jsp:getProperty name="userData" property="userRole" /><br>
+                </jsp:useBean>
+                    
+        <%  } else if(action.equals("SignUp")) {
+                String role = request.getParameter("role");
+                if(role.equals("Patient")){
+        %>
+                    <jsp:useBean id="patient" class="modal.Patient" scope="request" >
+                        <h1>REGISTER SUCCESSFULLY</h1>
+                        USERNAME       is: <jsp:getProperty name="patientdata" property="patientUsername" /><br>
+                        PASSWORD       is: <jsp:getProperty name="patientdata" property="patientPassword" /><br>
+                        PATIENTNAME    is: <jsp:getProperty name="patientdata" property="patientName" /><br>
+                        PATIENTADDRESS is: <jsp:getProperty name="patientdata" property="patientAddress" /><br>
+                    </jsp:useBean>
+        <%      } else {
+        %>
+                    <jsp:useBean id="staff" class="modal.Staff" scope="request" >
+                        <h1>REGISTER SUCCESSFULLY</h1>
+                        USERNAME     is: <jsp:getProperty name="staffData" property="staffUsername" /><br>
+                        PASSWORD     is: <jsp:getProperty name="staffData" property="staffPassword" /><br>
+                        STAFFNAME    is: <jsp:getProperty name="staffData" property="staffName" /><br>
+                        STAFFADDRESS is: <jsp:getProperty name="staffData" property="staffAddress" /><br>
+                    </jsp:useBean>
+        <%      }
+                    
+            }
+        %>
+         
         <jsp:include page="Footer.jsp" />
+    </body>
     
 
