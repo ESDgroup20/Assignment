@@ -6,9 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-
+<footer>
     <form action="SignOutServlet" method="POST">
         <br><input type="submit" value="GoHome" />
     </form>
-</html>
+</footer>

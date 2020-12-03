@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,13 +13,14 @@
         <title>Test Page</title>
     </head>
     <body>
-        
+        <jsp:include page="Header.jsp" />
         <jsp:include page="DbView.jsp" />
         
         <%-- 
               String tempStr = (String) request.getAttribute("str") ;
               out.println(tempStr);
         --%>
+        
         
         <jsp:include page="Footer.jsp" />
     </body>
