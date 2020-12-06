@@ -54,7 +54,7 @@
             }
         %>
          
-        <jsp:include page="Footer.jsp" />
+        <jsp:include page="../components/Footer.jsp" />
     </body>
     
 

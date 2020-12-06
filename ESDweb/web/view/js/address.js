@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 var placeSearch, autocomplete;
 var componentForm = {
     street_number: 'short_name',

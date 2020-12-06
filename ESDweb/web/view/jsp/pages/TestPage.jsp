@@ -13,8 +13,8 @@
         <title>Test Page</title>
     </head>
     <body>
-        <jsp:include page="Header.jsp" />
-        <jsp:include page="DbView.jsp" />
+        <jsp:include page="../components/Header.jsp" />
+        <jsp:include page="../components/DbView.jsp" />
         
         <%-- 
               String tempStr = (String) request.getAttribute("str") ;
@@ -22,6 +22,6 @@
         --%>
         
         
-        <jsp:include page="Footer.jsp" />
+        <jsp:include page="../components/Footer.jsp" />
     </body>
 </html>
