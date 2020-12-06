@@ -71,7 +71,7 @@ public class SignUpServlet extends HttpServlet {
         if(action.equals("Register")){
             
 //          init path
-            path = "view/jsp/RegisterPage.jsp";
+            path = "view/jsp/pages/RegisterPage.jsp";
         } else if(action.equals("SignUp")){
 //          create user from DBbean.createUser
             db.createUser(userTable, username, password, role);     
@@ -92,7 +92,7 @@ public class SignUpServlet extends HttpServlet {
                     break;
             }
 //          init path
-            path = "view/jsp/SuccessPage.jsp";
+            path = "view/jsp/pages/SuccessPage.jsp";
         }
 //      access path
         request.getRequestDispatcher(path).forward(request,response);

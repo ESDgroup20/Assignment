@@ -23,13 +23,13 @@
                             <option>Nurse</option>
                       </select> 
             
-            <jsp:include page="Address.jsp" />
+            <jsp:include page="../components/Address.jsp" />
                       
                       
             <input type="submit" name="act" value="SignUp" />
             
         </form>
         
-        <jsp:include page="Footer.jsp"/>
+            <jsp:include page="../components/Footer.jsp"/>
     </body>
 </html>

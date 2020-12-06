@@ -73,10 +73,10 @@ public class SignInServlet extends HttpServlet {
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
-                path = "view/jsp/SuccessPage.jsp";
+                path = "view/jsp/pages/SuccessPage.jsp";
             } else { // if invalid
 //              init path
-                path = "view/jsp/ErrorPage.jsp";
+                path = "view/jsp/pages/ErrorPage.jsp";
             }
             
 //        if front-end click btn FastTrack
@@ -84,7 +84,7 @@ public class SignInServlet extends HttpServlet {
 //          access user table
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
-            path = "view/jsp/TestPage.jsp";
+            path = "view/jsp/pages/TestPage.jsp";
             
         }
 //      access path
