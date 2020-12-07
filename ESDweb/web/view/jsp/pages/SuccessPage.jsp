@@ -12,6 +12,8 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="./view/js/datetime.js" type="text/javascript"></script>
+       
         <title>Success Page</title>
     </head>
     <body>
@@ -52,7 +54,14 @@
         <%      }
                     
             }
+            String datetime = request.getParameter("date");
+            out.println("<br>Date: "+datetime);
+
         %>
+        
+        <button onclick="myFunction()">Try it</button>
+
+        <p id="demo"></p>
          
         <jsp:include page="../components/Footer.jsp" />
     </body>

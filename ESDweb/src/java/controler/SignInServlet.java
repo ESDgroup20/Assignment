@@ -58,6 +58,7 @@ public class SignInServlet extends HttpServlet {
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
+        String datetime = request.getParameter("date");
         String action   = request.getParameter("act");
         
 //      save path string       
