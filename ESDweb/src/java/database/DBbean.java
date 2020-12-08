@@ -119,7 +119,7 @@ public class DBbean {
         pre.close();
     }
     
-        public void createStaff(String table, String staffName, String staffAddress, String uname) throws SQLException{
+    public void createStaff(String table, String staffName, String staffAddress, String uname) throws SQLException{
         //      query 
         String registerQuery = "INSERT INTO "+table+"(STAFFNAME, STAFFADDRESS, UNAME) VALUES (?, ?, ?)";
 //      prepare statement
@@ -133,4 +133,18 @@ public class DBbean {
 
         pre.close();
     }
+
+    public void deleteStaff(String table, String key){
+        try {
+            String deleteQuery = "DELETE FROM "+ table +" WHERE STAFFID="+key;
+            System.out.println(deleteQuery);
+            pre = conn.prepareStatement(deleteQuery);
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+//            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
 }
