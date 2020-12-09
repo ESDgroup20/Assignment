@@ -8,8 +8,6 @@ package controler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -40,6 +38,7 @@ public class BaseListener implements ServletContextListener {
 //      mapping context of PatientContext to access table "PATIENTS"
         String patientTable = context.getInitParameter("PatientContext");
         
+        String appointmentTable = context.getInitParameter("AppointmentContext");
         
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -53,6 +52,7 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("userTable", userTable);
         context.setAttribute("staffTable", staffTable);
         context.setAttribute("patientTable", patientTable);
+        context.setAttribute("appointmentTable", appointmentTable);
         
     }
 
