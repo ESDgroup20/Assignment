@@ -7,7 +7,6 @@ package controler;
 
 import database.DBbean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +33,10 @@ public class ActionServlet extends HttpServlet {
         
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        
+        String userTable = (String) getServletContext().getAttribute("userTable");
         String staffTable = (String) getServletContext().getAttribute("staffTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
 
 //      apply context into database
         DBbean db =  new DBbean();
@@ -45,7 +47,13 @@ public class ActionServlet extends HttpServlet {
         System.out.println("SELECTED: "+keyStaff);
         db.deleteStaff(staffTable, keyStaff);
         
+        String keyUser = request.getParameter("deleteUser");
+        System.out.println("SELECTED: "+keyUser);
+        db.deleteUser(userTable, keyUser);
         
+        String keyPatient = request.getParameter("deletePatient");
+        System.out.println("SELECTED: "+keyPatient);
+        db.deletePatient(patientTable, keyPatient);
         
         String path = "view/jsp/pages/TestPage.jsp";
         request.getRequestDispatcher(path).forward(request,response);

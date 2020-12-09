@@ -43,7 +43,12 @@
                   <td><c:out value = "${row.USERNAME}"/></td>
                   <td><c:out value = "${row.PASSWORD}"/></td>
                   <td><c:out value = "${row.ROLE}"/></td>
-                  <td><button type="submit" name="deleteUser" value="${row}">DELETE</button>
+                  <td><button type="submit" 
+                              name="deleteUser" 
+                              value="${row.USERNAME}"
+                              onclick="return confirm('WARNING!!! Permanently Delete this [User : ${row.USERNAME}] ?')"
+                              
+                              >DELETE</button>
                       <button type="submit" name="updateUser" value="${row.USERNAME}">UPDATE</button>
                </tr>
             </c:forEach>
@@ -66,7 +71,7 @@
                   <td><button type="submit" 
                               name="deleteStaff" 
                               value="${row.STAFFID}" 
-                              onclick="return confirm('WARNING!!! Delete [staff : ${row.STAFFNAME}] ?')"
+                              onclick="return confirm('WARNING!!! Delete this [staff : ${row.STAFFNAME}] ?')"
                               >DELETE</button>
                       <button type="submit" name="updateStaff" value="${row.STAFFID}">UPDATE</button>
                </tr>
@@ -89,7 +94,11 @@
                   <td><c:out value = "${row.PATIENTADDRESS}"/></td>
                   <td><c:out value = "${row.PATIENTTYPE}"/></td>
                   <td><c:out value = "${row.UNAME}"/></td>
-                  <td><button type="submit" name="deletePatient" value="${row.PATIENTID}">DELETE</button>
+                  <td><button type="submit" 
+                              name="deletePatient" 
+                              value="${row.PATIENTID}"
+                              onclick="return confirm('WARNING!!! Delete this [staff : ${row.PATIENTNAME}] ?')"
+                              >DELETE</button>
                       <button type="submit" name="updatePatient" value="${row.PATIENTID}">UPDATE</button>
                </tr>
             </c:forEach>
