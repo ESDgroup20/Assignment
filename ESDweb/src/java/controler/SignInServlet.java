@@ -7,14 +7,7 @@ package controler;
 
 import database.DBbean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.jws.WebParam;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,26 +31,26 @@ public class SignInServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
 
-        
-//      Set session at beginning
-        HttpSession session = request.getSession();
-                
 //      apply context into database
         DBbean db =  new DBbean();
         db.getConnection(conn);
         
+//      Set session at beginning
+        HttpSession session = request.getSession();
+                
+        
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
+        String datetime = request.getParameter("date");
         String action   = request.getParameter("act");
         
 //      save path string       
@@ -104,11 +97,9 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SignInServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        processRequest(request, response);
+
     }
 
     /**
@@ -122,11 +113,9 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(SignInServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        processRequest(request, response);
+
     }
 
     /**

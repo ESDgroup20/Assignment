@@ -12,15 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import modal.Patient;
-import modal.Staff;
-import modal.User;
+
 /**
  *
  * @author Marken Tuan Nguyen
  */
-public class SignUpServlet extends HttpServlet {
+public class ActionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,67 +33,30 @@ public class SignUpServlet extends HttpServlet {
         
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        
         String userTable = (String) getServletContext().getAttribute("userTable");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
 
-        
-        HttpSession session = request.getSession(false);
-        
-        
 //      apply context into database
         DBbean db =  new DBbean();
         db.getConnection(conn);
         
-//      get parameter from front-end file
-        String username = request.getParameter("us");
-        String password = request.getParameter("pw");
-        String role     = request.getParameter("role");
-        String name     = request.getParameter("name");
-        String address  = request.getParameter("addr");
-        String action   = request.getParameter("act");
         
-//      declare role
-        User user = new User();
-//        Staff staff = new Staff();
+        String keyStaff = request.getParameter("deleteStaff");
+        System.out.println("SELECTED: "+keyStaff);
+        db.deleteStaff(staffTable, keyStaff);
         
+        String keyUser = request.getParameter("deleteUser");
+        System.out.println("SELECTED: "+keyUser);
+        db.deleteUser(userTable, keyUser);
         
-//      save path string
-        String path = null;
+        String keyPatient = request.getParameter("deletePatient");
+        System.out.println("SELECTED: "+keyPatient);
+        db.deletePatient(patientTable, keyPatient);
         
-        //      if front-end click btn Register
-        if(action.equals("Register")){
-            
-//          init path
-            path = "view/jsp/pages/RegisterPage.jsp";
-        } else if(action.equals("SignUp")){
-//          create user from DBbean.createUser
-            db.createUser(userTable, username, password, role);     
-            
-            switch(role){
-                case "Patient":
-                    Patient patient = new Patient(name, address, username, password);
-                    String patientTable = (String) getServletContext().getAttribute("patientTable");
-                    db.createPatient(patientTable, name, address, username);
-                    session.setAttribute("patientdata", patient);
-                    break;
-                case "Doctor":
-                case "Nurse":
-                    Staff staff = new Staff(name, address, username, password);
-                    String staffTable = (String) getServletContext().getAttribute("staffTable");
-                    db.createStaff(staffTable, name, address, username);
-                    session.setAttribute("staffData", staff);
-                    break;
-            }
-//          init path
-            path = "view/jsp/pages/SuccessPage.jsp";
-        }
-//      access path
+        String path = "view/jsp/pages/TestPage.jsp";
         request.getRequestDispatcher(path).forward(request,response);
-
-        
-        
-
-       
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -111,9 +71,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**
@@ -127,9 +85,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**

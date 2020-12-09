@@ -56,6 +56,10 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>controler.ProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActionServlet</servlet-name>
+        <servlet-class>controler.ActionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -76,6 +80,10 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActionServlet</servlet-name>
+        <url-pattern>/ActionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
