@@ -21,7 +21,15 @@
         <param-name>StaffContext</param-name>
         <param-value>STAFFS</param-value>
     </context-param>
+    <context-param>
+        <description>APPOINTMENTS TABLE</description>
+        <param-name>AppointmentContext</param-name>
+        <param-value>APPOINTMENTS</param-value>
+    </context-param>
+    
+    
     <!-- =============================== FILTER ================================ -->
+    
     <filter>
         <filter-name>RouterFilter</filter-name>
         <filter-class>controler.RouterFilter</filter-class>
@@ -30,11 +38,13 @@
         <filter-name>RouterFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
     <!-- ============================== LISTENER =============================== -->
     <listener>
         <description>ServletContextListener</description>
         <listener-class>controler.BaseListener</listener-class>
     </listener>
+    
     <!-- =============================== SERVLET =============================== -->
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
@@ -76,11 +86,13 @@
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
-    <!-- =============================== SESSION =============================== -->
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
     </servlet-mapping>
+    
+    <!-- =============================== SESSION =============================== -->
+    
     <servlet-mapping>
         <servlet-name>ActionServlet</servlet-name>
         <url-pattern>/ActionServlet</url-pattern>

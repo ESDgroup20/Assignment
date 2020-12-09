@@ -29,6 +29,10 @@
          SELECT * from PATIENTS
         </sql:query>
          
+        <sql:query dataSource = "${snapshot}" var = "resultAppointment">
+         SELECT * from APPOINTMENTS
+        </sql:query>
+         
         <form action="ActionServlet" method="post" >
             <table border="1" width = "60%"/>
             <tr>
@@ -76,7 +80,8 @@
                       <button type="submit" name="updateStaff" value="${row.STAFFID}">UPDATE</button>
                </tr>
             </c:forEach>
-            <br>           
+            <br>   
+            
             <table border = "1" width ="60%">
             <tr>
                <th>Patient ID</th>
@@ -102,7 +107,38 @@
                       <button type="submit" name="updatePatient" value="${row.PATIENTID}">UPDATE</button>
                </tr>
             </c:forEach>
-            <br>           
+            <br>  
+            
+            <table border = "1" width ="60%">
+            <tr>
+               <th>A_ID</th>
+               <th>S_ID</th>
+               <th>P_ID</th>
+               <th>DATE</th>
+               <th>TIME</th>
+               <th>SLOT</th>
+               <th>CHARGE</th>
+               <th>Action</th>
+            </tr>
+
+            <c:forEach var = "row" items = "${resultAppointment.rows}">
+               <tr>
+                  <td><c:out value = "${row.AID}"/></td>
+                  <td><c:out value = "${row.SID}"/></td>
+                  <td><c:out value = "${row.PID}"/></td>
+                  <td><c:out value = "${row.ADATE}"/></td>
+                  <td><c:out value = "${row.ATIME}"/></td>
+                  <td><c:out value = "${row.ASLOT}"/></td>
+                  <td><c:out value = "${row.ACHARGE}"/></td>
+                  <td><button type="submit" 
+                              name="" 
+                              value=""
+                              onclick="return confirm('WARNING!!! Delete this [Appointment : ${row}] ?')"
+                              >DELETE</button>
+                      <button type="submit" name="updatePatient" value="${row}">UPDATE</button>
+               </tr>
+            </c:forEach>
+            <br> 
 
             </table>
         </form>
