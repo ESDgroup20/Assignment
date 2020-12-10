@@ -69,7 +69,7 @@ public class SignInServlet extends HttpServlet {
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
-                path = "view/jsp/pages/SuccessPage.jsp";
+                path = "view/jsp/pages/DashboardPage.jsp";
             } else { // if invalid
 //              init path
                 path = "view/jsp/pages/ErrorPage.jsp";
