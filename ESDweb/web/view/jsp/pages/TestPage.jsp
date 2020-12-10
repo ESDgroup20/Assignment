@@ -10,18 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="../components/Header.jsp" />
         <title>Test Page</title>
     </head>
     <body>
-        <jsp:include page="../components/Header.jsp" />
-        <jsp:include page="../components/DbView.jsp" />
-        
-        <%-- 
-              String tempStr = (String) request.getAttribute("str") ;
-              out.println(tempStr);
-        --%>
-        
-        
-        <jsp:include page="../components/Footer.jsp" />
+        <jsp:include page="../components/DbView.jsp" />    
     </body>
+    <footer>  
+        <jsp:include page="../components/Footer.jsp" />
+    </footer>
 </html>

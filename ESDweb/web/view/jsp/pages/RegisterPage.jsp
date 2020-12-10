@@ -14,16 +14,26 @@
     </head>
     <body>
         <form action="SignUpServlet" method="post" class="px-4 py-3 ">
-            <div class="form-group " >
-            
-                <input type="text" name="us" placeholder="Username" class="form-control col-md-2 mb-2"/>
-                <input type="text" name="pw" placeholder="Password" class="form-control col-md-2 mb-2"/>
-                <input type="text" name="name" placeholder="Name" class="form-control col-md-2 mb-2"/>
-                <input type="text" name="addr" placeholder="Address" class="form-control col-md-2 mb-2"/>
+            <div class="d-flex flex-column col-md-3 mb-2">
+                <div class="form-floating mb-2">
+                    <input type="text" name="us" class="form-control is-valid" id="floatingInput" placeholder="Username"/>
+                    <label for="floatingInput">Username</label>
+                </div>
                 
-                <select class="form-control col-md-2" name="role">
-                    <option selected >Role...</option>
-                    <option>Patient</option>
+                <div class="form-floating mb-2">
+                    <input type="text" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password"/>
+                    <label for="floatingInput">Password</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" name="name" class="form-control is-valid" id="floatingInput" placeholder="Name"/>
+                    <label for="floatingInput">Name</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" name="addr" class="form-control is-invalid" id="floatingInput" placeholder="Address"/>
+                    <label for="floatingInput">Address</label>
+                </div>
+                <select class="form-select py-3" name="role">
+                    <option selected >Patient</option>
                     <option>Doctor</option>
                     <option>Nurse</option>
                 </select>

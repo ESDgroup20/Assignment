@@ -4,14 +4,33 @@
     Author     : Marken Tuan Nguyen
 --%>
 
+<%@page import="modal.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <jsp:include page="../components/Header.jsp" />
+        <title>Dashboard Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <%
+            User user = (User) request.getSession().getAttribute("userData");
+            String role = user.getUserRole();
+        %>
+            
+        <h1> Dashboard <% out.print(role); %> </h1>
+            
+        <%    
+            if(role.equals("Admin")){
+        %>      
+                <jsp:include page="../components/DbView.jsp" />
+        <%  }
+        %>
+        
     </body>
+    <footer>
+        <jsp:include page="../components/Footer.jsp" />
+    </footer>
 </html>
