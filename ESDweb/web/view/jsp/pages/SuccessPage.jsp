@@ -63,7 +63,7 @@
 
         <p id="demo"></p>
          
-        <jsp:include page="../components/Footer.jsp" />
+        <%@ include file="../components/Footer.jsp" %>
     </body>
     
 

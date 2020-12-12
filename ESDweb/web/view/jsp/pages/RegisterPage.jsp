@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="../components/Header.jsp" />
+        <%@ include file="../components/Header.jsp" %>
         <title>Register Page</title>
     </head>
     <body>
@@ -39,12 +39,12 @@
                 </select>
             </div>
             
-            <jsp:include page="../components/Address.jsp" />
+            <%@ include file="../components/Address.jsp" %>
                                
             <input type="submit" name="act" value="SignUp" />
             
         </form>
         
-        <jsp:include page="../components/Footer.jsp"/>
+        <%@ include file="../components/Footer.jsp"%>
     </body>
 </html>

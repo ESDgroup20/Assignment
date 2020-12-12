@@ -53,7 +53,7 @@ public class SignInServlet extends HttpServlet {
         String datetime = request.getParameter("date");
         String action   = request.getParameter("act");
         
-        System.out.println("GET DATE: " + datetime);
+//        System.out.println("GET DATE: " + datetime);
         
         
 //      save path string       

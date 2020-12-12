@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="../components/Header.jsp" />
+        <%@ include file="../components/Header.jsp" %>
         <title>Dashboard Page</title>
     </head>
     <body>
@@ -25,12 +25,15 @@
         <%    
             if(role.equals("Admin")){
         %>      
-                <jsp:include page="../components/DbView.jsp" />
+        
+                <!--admin view-->
+                <%--<%@ include page="../components/DbView.jsp" >--%>
+                <%@ include file="../components/DbView.jsp" %>
         <%  }
         %>
         
     </body>
     <footer>
-        <jsp:include page="../components/Footer.jsp" />
+        <%@ include file="../components/Footer.jsp" %>
     </footer>
 </html>
