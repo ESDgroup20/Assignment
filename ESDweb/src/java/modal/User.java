@@ -9,7 +9,7 @@ package modal;
  *
  * @author Eli 123456
  */
-public class User {
+public class User implements java.io.Serializable {
     private String userName;
     private String userPass;
     private String userRole;    //Admin, Patient, Staff

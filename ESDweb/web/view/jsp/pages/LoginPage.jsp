@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <script src="view/js/datetime.js" type="text/javascript"></script>
-        <jsp:include page="../components/Header.jsp" />
+        <%@ include file="../components/Header.jsp" %>
         
     </head>
   

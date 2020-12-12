@@ -10,13 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="../components/Header.jsp" />
+        <%@ include file="../components/Header.jsp" %>
         <title>Test Page</title>
     </head>
     <body>
-        <jsp:include page="../components/DbView.jsp" />    
+        <%@ include file="../components/DbView.jsp" %>    
     </body>
     <footer>  
-        <jsp:include page="../components/Footer.jsp" />
+        <%@ include file="../components/Footer.jsp" %>
     </footer>
 </html>
