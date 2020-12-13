@@ -1,12 +1,12 @@
 <%-- 
     Document   : LoginJSP
     Created on : 22-Nov-2020, 13:59:03
-    Author     : Marken Tuan Nguyen
+    Author     : ESD20
 --%>
 
-<%@page import="modal.Staff"%>
-<%@page import="modal.Patient"%>
-<%@page import="modal.User"%>
+<%@page import="model.Staff"%>
+<%@page import="model.Patient"%>
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -24,7 +24,7 @@
                 String sessionKey = (String) request.getSession().getAttribute("sessionKey");
                 out.println("<br>SESSION key: "+sessionKey);
         %>
-                <jsp:useBean id="user" class="modal.User" scope="request" >
+                <jsp:useBean id="user" class="model.User" scope="request" >
                     <h1>LOGIN SUCCESSFULLY</h1> 
                     USERNAME is: <jsp:getProperty name="userData" property="userName" /><br>
                     PASSWORD is: <jsp:getProperty name="userData" property="userPass" /><br>
@@ -35,7 +35,7 @@
                 String role = request.getParameter("role");
                 if(role.equals("Patient")){
         %>
-                    <jsp:useBean id="patient" class="modal.Patient" scope="request" >
+                    <jsp:useBean id="patient" class="model.Patient" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
                         USERNAME       is: <jsp:getProperty name="patientdata" property="patientUsername" /><br>
                         PASSWORD       is: <jsp:getProperty name="patientdata" property="patientPassword" /><br>
@@ -44,7 +44,7 @@
                     </jsp:useBean>
         <%      } else {
         %>
-                    <jsp:useBean id="staff" class="modal.Staff" scope="request" >
+                    <jsp:useBean id="staff" class="model.Staff" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
                         USERNAME     is: <jsp:getProperty name="staffData" property="staffUsername" /><br>
                         PASSWORD     is: <jsp:getProperty name="staffData" property="staffPassword" /><br>

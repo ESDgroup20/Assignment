@@ -1,10 +1,10 @@
 <%-- 
     Document   : Dashboard
     Created on : 06-Dec-2020, 01:46:22
-    Author     : Marken Tuan Nguyen
+    Author     : ESD20
 --%>
 
-<%@page import="modal.User"%>
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

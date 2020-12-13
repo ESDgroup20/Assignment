@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modal.Patient;
-import modal.Staff;
-import modal.User;
+import model.Patient;
+import model.Staff;
+import model.User;
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author ESD20
  */
 public class SignUpServlet extends HttpServlet {
 

@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modal.User;
+import model.User;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author ESD20
  */
 
 
