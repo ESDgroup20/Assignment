@@ -1,7 +1,7 @@
 <%-- 
     Document   : ErrorJSP
     Created on : 24-Nov-2020, 12:32:00
-    Author     : Marken Tuan Nguyen
+    Author     : ESD20
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

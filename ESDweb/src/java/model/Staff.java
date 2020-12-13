@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modal;
+package model;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author ESD20
  */
 public class Staff extends User{
     private String staffUsername;

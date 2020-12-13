@@ -1,7 +1,7 @@
 <%-- 
     Document   : RegisterPage
     Created on : 28-Nov-2020, 12:07:33
-    Author     : Marken Tuan Nguyen
+    Author     : ESD20
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

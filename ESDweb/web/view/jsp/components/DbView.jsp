@@ -1,7 +1,7 @@
 <%-- 
     Document   : DbView
     Created on : 02-Dec-2020, 12:55:37
-    Author     : Marken Tuan Nguyen
+    Author     : ESD20
 --%>
 <%@ page import = "java.io.*,java.util.*,java.sql.*"%>
 <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>

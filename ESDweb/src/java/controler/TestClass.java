@@ -7,7 +7,7 @@ package controler;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author ESD20
  */
 public class TestClass {
 //    https://maps.googleapis.com/maps/api/geocode/json?latlng=51.5065756,-2.5652809&key=AIzaSyCI0WUqUfXlgSUdbYk7Va1Bq8-CF4_0ODk
