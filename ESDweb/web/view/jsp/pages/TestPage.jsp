@@ -13,7 +13,7 @@
         <title>Test Page</title>
     </head>
     <body>
-        <%@ include file="../components/AdminView.jsp" %>    
+        <%@ include file="../components/AdminView.jsp" %>  
     </body>
     <footer>  
         <%@ include file="../components/Footer.jsp" %>

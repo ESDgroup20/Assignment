@@ -34,8 +34,6 @@
                         <label for="floatingInput">Password</label> 
                     </div>
 
-                    <input type="date" id="dateTimeInput" name="date" class="form-control is-invalid" id="validationServer01"/>
-                    <div class="invalid-feedback mb-2">Test!</div>
                     
                     <input type="submit" name="act" value="Login" class="btn btn-primary col-12 mb-2"/>
                 </form>
