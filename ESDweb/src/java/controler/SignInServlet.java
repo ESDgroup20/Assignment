@@ -9,6 +9,7 @@ import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +20,7 @@ import model.User;
  *
  * @author ESD20
  */
-
-
+@WebServlet("/LoginPage")
 public class SignInServlet extends HttpServlet {
 
     /**
@@ -69,10 +69,10 @@ public class SignInServlet extends HttpServlet {
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
-                path = "view/jsp/pages/DashboardPage.jsp";
+                path = "/view/jsp/pages/DashboardPage.jsp";
             } else { // if invalid
 //              init path
-                path = "view/jsp/pages/ErrorPage.jsp";
+                path = "/view/jsp/pages/ErrorPage.jsp";
             }
             
 //        if front-end click btn FastTrack
@@ -80,11 +80,11 @@ public class SignInServlet extends HttpServlet {
 //          access user table
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
-            path = "view/jsp/pages/TestPage.jsp";
+            path = "/view/jsp/pages/TestPage.jsp";
             
         }
 //      access path
-        request.getRequestDispatcher(path).forward(request,response);
+        request.getServletContext().getRequestDispatcher(path).forward(request,response);
         
     }
 

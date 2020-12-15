@@ -9,6 +9,7 @@ import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import model.User;
  *
  * @author ESD20
  */
+@WebServlet("/RegisterPage")
 public class SignUpServlet extends HttpServlet {
 
     /**
@@ -66,7 +68,7 @@ public class SignUpServlet extends HttpServlet {
         if(action.equals("Register")){
             
 //          init path
-            path = "view/jsp/pages/RegisterPage.jsp";
+            path = "/view/jsp/pages/RegisterPage.jsp";
         } else if(action.equals("SignUp")){
 //          create user from DBbean.createUser
             db.createUser(userTable, username, password, role);     
@@ -87,10 +89,10 @@ public class SignUpServlet extends HttpServlet {
                     break;
             }
 //          init path
-            path = "view/jsp/pages/SuccessPage.jsp";
+            path = "/view/jsp/pages/SuccessPage.jsp";
         }
 //      access path
-        request.getRequestDispatcher(path).forward(request,response);
+        request.getServletContext().getRequestDispatcher(path).forward(request,response);
 
         
         
