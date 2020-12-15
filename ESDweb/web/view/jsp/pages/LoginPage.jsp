@@ -12,16 +12,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <script src="view/js/datetime.js" type="text/javascript"></script>
-        <%@ include file="../components/Header.jsp" %>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+              rel="stylesheet" 
+              integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" 
+                crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         
     </head>
   
     <body>
-        <div class="d-flex justify-content-center">
+        <div class="position-absolute top-50 start-50 translate-middle">
             <div class="flex-column "> 
                 <form action="SignInServlet" method="POST" class="d-flex flex-column align-items-center ">
                     Fast Track button:
-                    <input type="submit" name="act" value="FastTrack" class="btn btn-success col-12 mb-5">         
+                    <input type="submit" name="act" value="FastTrack" class="btn btn-success col-12 mb-3">         
           
                     
                     

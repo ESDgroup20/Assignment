@@ -6,8 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div>
+<div  class="fixed-bottom">
     <form action="SignOutServlet" method="POST">
-        <br><input type="submit" value="GoHome" />
+        <br>
+        <button type="submit" class="btn btn-outline-primary" value="GoHome">
+            <i data-feather="chevron-left"></i><script>feather.replace();</script>
+            Go Home
+        </button>
     </form>
 </div>

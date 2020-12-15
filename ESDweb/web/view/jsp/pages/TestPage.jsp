@@ -14,7 +14,7 @@
         <title>Test Page</title>
     </head>
     <body>
-        <%@ include file="../components/DbView.jsp" %>    
+        <%@ include file="../components/AdminView.jsp" %>    
     </body>
     <footer>  
         <%@ include file="../components/Footer.jsp" %>
