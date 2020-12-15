@@ -9,6 +9,7 @@ import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESD20
  */
+
 public class ActionServlet extends HttpServlet {
 
     /**
@@ -42,6 +44,7 @@ public class ActionServlet extends HttpServlet {
         DBbean db =  new DBbean();
         db.getConnection(conn);
         
+              
         
         String keyStaff = request.getParameter("deleteStaff");
         System.out.println("SELECTED: "+keyStaff);
@@ -55,8 +58,10 @@ public class ActionServlet extends HttpServlet {
         System.out.println("SELECTED: "+keyPatient);
         db.deletePatient(patientTable, keyPatient);
         
-        String path = "view/jsp/pages/TestPage.jsp";
-        request.getRequestDispatcher(path).forward(request,response);
+        
+        
+        String path = "/view/jsp/pages/DashboardPage.jsp";
+        request.getServletContext().getRequestDispatcher(path).forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,11 +5,14 @@
  */
 package database;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
@@ -42,7 +45,7 @@ public class DBbean {
             //      array of each elements
             StringBuilder sb = new StringBuilder();
             //      get column size
-            ResultSetMetaData metaData =  rs.getMetaData();
+            ResultSetMetaData metaData = rs.getMetaData();
             int size = metaData.getColumnCount();
             //      loop each column
             while (rs.next()) {
@@ -181,5 +184,25 @@ public class DBbean {
         }
     }
     
-    
+    public ArrayList<String> selectNameByRole(String table, String role, String name){
+        try {
+            String selectQuery ="SELECT "+name+" FROM users,"+table+" WHERE  users.username = "+table+".UNAME AND users.role = '"+role+"'";
+//            System.out.println(selectQuery);
+            pre = conn.prepareStatement(selectQuery);
+            rs = pre.executeQuery();
+            
+            ArrayList<String> patternList=new ArrayList<>();
+  
+            while (rs.next()) {
+
+                patternList.add(rs.getString(name));
+
+            }
+            return patternList;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

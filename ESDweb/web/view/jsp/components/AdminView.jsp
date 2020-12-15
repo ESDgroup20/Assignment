@@ -11,20 +11,22 @@
 <!DOCTYPE html>
 <html>
 
-    <sql:setDataSource var = "snapshot" driver = "org.apache.derby.jdbc.ClientDriver"
-     url = "jdbc:derby://localhost:1527/ESDweb"
-     user = "root" password = "123456"/>
+    <sql:setDataSource 
+        var = "snapshot" 
+        driver = "org.apache.derby.jdbc.ClientDriver"
+        url = "jdbc:derby://localhost:1527/ESDweb"
+        user = "root" password = "123456"/>
     <sql:query dataSource = "${snapshot}" var = "resultUser">
-     SELECT * from USERS
+        SELECT * from USERS
     </sql:query>
     <sql:query dataSource = "${snapshot}" var = "resultStaff">
-     SELECT * from STAFFS
+        SELECT * from STAFFS
     </sql:query>
     <sql:query dataSource = "${snapshot}" var = "resultPatient">
-     SELECT * from PATIENTS
+        SELECT * from PATIENTS
     </sql:query>
     <sql:query dataSource = "${snapshot}" var = "resultAppointment">
-     SELECT * from APPOINTMENTS
+        SELECT * from APPOINTMENTS
     </sql:query>
 
     <form action="ActionServlet" method="post">    

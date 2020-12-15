@@ -25,12 +25,17 @@
         <%    
             if(role.equals("Admin")){
         %>      
-        
-                <!--admin view-->
-                <%--<%@ include page="../components/DbView.jsp" >--%>
                 <%@ include file="../components/AdminView.jsp" %>
-        <%  }
+        <%  } 
+            else if(role.equals("Patient")){
         %>
+                <%@ include file="../components/Booking.jsp" %>
+        <%  }
+            else{
+        %>
+        
+        <%  }
+        %>        
         
     </body>
     <footer>
