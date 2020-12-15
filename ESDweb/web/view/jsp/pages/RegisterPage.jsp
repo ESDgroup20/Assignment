@@ -13,8 +13,8 @@
         <title>Register Page</title>
     </head>
     <body>
-        <form action="SignUpServlet" method="post" class="px-4 py-3 ">
-            <div class="d-flex flex-column col-md-3 mb-2">
+        <form action="SignUpServlet" method="post" class="position-absolute top-50 start-50 translate-middle">
+            <div class="d-flex flex-column mb-2">
                 <div class="form-floating mb-2">
                     <input type="text" name="us" class="form-control is-valid" id="floatingInput" placeholder="Username"/>
                     <label for="floatingInput">Username</label>
