@@ -49,18 +49,21 @@ public class SignUpServlet extends HttpServlet {
         db.getConnection(conn);
         
 //      get parameter from front-end file
+        String action   = request.getParameter("act");
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
         String role     = request.getParameter("role");
         String name     = request.getParameter("name");
-        String address  = request.getParameter("addr");
-        String action   = request.getParameter("act");
         
-//      declare role
-        User user = new User();
-//        Staff staff = new Staff();
+        String number   = request.getParameter("number");
+        String route    = request.getParameter("route");
+        String postcode = request.getParameter("postcode");
+        String city     = request.getParameter("city");
+        String area     = request.getParameter("area");
+        String country  = request.getParameter("country");
+        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
         
-        
+
 //      save path string
         String path = null;
         
@@ -88,6 +91,8 @@ public class SignUpServlet extends HttpServlet {
                     session.setAttribute("staffData", staff);
                     break;
             }
+
+            
 //          init path
             path = "/view/jsp/pages/SuccessPage.jsp";
         }
