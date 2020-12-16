@@ -39,11 +39,9 @@
                     </select>
                     <label class="fw-lighter" for="floatingInput">Role</label>
                 </div>
+            <button class="btn btn-primary col-12" type="submit" name="act" value="SignUp">Sign Up</button>
             </div>
-            <button class="btn btn-primary col-12" type="submit" name="act" value="SignUp">Register</button>
-            
-                               
-            
+
         </form>
         
         <%@ include file="../components/Footer.jsp"%>
