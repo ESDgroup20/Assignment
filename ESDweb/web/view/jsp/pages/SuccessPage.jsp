@@ -37,10 +37,10 @@
         %>
                     <jsp:useBean id="patient" class="model.Patient" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
-                        USERNAME       is: <jsp:getProperty name="patientdata" property="patientUsername" /><br>
-                        PASSWORD       is: <jsp:getProperty name="patientdata" property="patientPassword" /><br>
-                        PATIENTNAME    is: <jsp:getProperty name="patientdata" property="patientName" /><br>
-                        PATIENTADDRESS is: <jsp:getProperty name="patientdata" property="patientAddress" /><br>
+                        USERNAME       is: <jsp:getProperty name="patientData" property="patientUsername" /><br>
+                        PASSWORD       is: <jsp:getProperty name="patientData" property="patientPassword" /><br>
+                        PATIENTNAME    is: <jsp:getProperty name="patientData" property="patientName" /><br>
+                        PATIENTADDRESS is: <jsp:getProperty name="patientData" property="patientAddress" /><br>
                     </jsp:useBean>
         <%      } else {
         %>

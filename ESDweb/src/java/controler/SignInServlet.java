@@ -38,6 +38,7 @@ public class SignInServlet extends HttpServlet {
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
 
 //      apply context into database
         DBbean db =  new DBbean();
@@ -62,10 +63,14 @@ public class SignInServlet extends HttpServlet {
         if(action.equals("Login")){
 //          check Auth from DBbean.signInAuth
             User user = db.signInAuth(userTable, username,password);
+            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
+            
 //          check valid user            
             if (user != null) {
 //              session for users
                 session.setAttribute("userData", user);
+                session.setAttribute("patientName", patientName);
+                
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path

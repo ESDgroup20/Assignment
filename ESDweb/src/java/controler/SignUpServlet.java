@@ -81,7 +81,7 @@ public class SignUpServlet extends HttpServlet {
                     Patient patient = new Patient(name, address, username, password);
                     String patientTable = (String) getServletContext().getAttribute("patientTable");
                     db.createPatient(patientTable, name, address, username);
-                    session.setAttribute("patientdata", patient);
+                    session.setAttribute("patientData", patient);
                     break;
                 case "Doctor":
                 case "Nurse":
