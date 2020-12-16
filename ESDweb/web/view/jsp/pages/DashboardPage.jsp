@@ -4,6 +4,7 @@
     Author     : ESD20
 --%>
 
+<%@page import="model.Patient"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,22 +19,21 @@
         <%
             User user = (User) request.getSession().getAttribute("userData");
             String role = user.getUserRole();
-        %>
             
-        <h1> Dashboard <% out.print(role); %> </h1>
-            
-        <%    
             if(role.equals("Admin")){
         %>      
+                <h1> Dashboard <% out.print(role); %> </h1>
                 <%@ include file="../components/AdminView.jsp" %>
         <%  } 
             else if(role.equals("Patient")){
+                String patientName = (String) request.getSession().getAttribute("patientName");
         %>
+                <h1> Dashboard <% out.print(role + " " + patientName); %> </h1>
                 <%@ include file="../components/Booking.jsp" %>
         <%  }
             else{
         %>
-        
+                <h1> Dashboard <% out.print(role); %> </h1>
         <%  }
         %>        
         

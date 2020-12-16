@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
 import model.User;
 
 /**
@@ -38,7 +39,7 @@ public class BookingServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         
         Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String staffTable = (String) getServletContext().getAttribute("staffTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
 
 //      apply context into database
         DBbean db =  new DBbean();
@@ -48,19 +49,19 @@ public class BookingServlet extends HttpServlet {
         String action   = request.getParameter("act");
         if(action.equals("Book")){
             User user = (User) session.getAttribute("userData");
-           
+            
             String date = request.getParameter("date");
             String time = request.getParameter("time");
             String doctor = request.getParameter("doctorName");
             
             System.out.println("Booking: ");
             System.out.println(date+ " at " +time);
-            System.out.println("user: "+ user.getUserName());
             System.out.println("doctor:" + doctor);
+            System.out.println("username: "+user.getUserName());
+            System.out.println("password: "+user.getUserPass());
             
-//            ArrayList<String> doctorList = db.selectNameByRole(staffTable, "Doctor", "staffname");
-//            session.setAttribute("DoctorList", doctorList);
-//            System.out.println(doctorList);
+            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
+            System.out.println("Patient name: "+patientName);
         }
 
     }

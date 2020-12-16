@@ -184,25 +184,25 @@ public class DBbean {
         }
     }
     
-    public ArrayList<String> selectNameByRole(String table, String role, String name){
+    public String selectNameByRole(String table, String role, String name, String usAuth, String pwAuth){
+        String value = null;
         try {
-            String selectQuery ="SELECT "+name+" FROM users,"+table+" WHERE  users.username = "+table+".UNAME AND users.role = '"+role+"'";
+            String selectQuery ="SELECT "+name+" "
+                    + "FROM users,"+table+" "
+                    + "WHERE  users.username = "+table+".UNAME "
+                    + "AND users.role = '"+role+"' "
+                    + "AND users.USERNAME = '"+usAuth+"' "
+                    + "AND users.PASSWORD = '"+pwAuth+"' ";
 //            System.out.println(selectQuery);
             pre = conn.prepareStatement(selectQuery);
             rs = pre.executeQuery();
-            
-            ArrayList<String> patternList=new ArrayList<>();
   
-            while (rs.next()) {
-
-                patternList.add(rs.getString(name));
-
-            }
-            return patternList;
+            while (rs.next())
+                value = rs.getString(1);
             
         } catch (SQLException ex) {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return value;
     }
 }
