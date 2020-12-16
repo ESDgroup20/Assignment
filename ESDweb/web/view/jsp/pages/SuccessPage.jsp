@@ -32,39 +32,32 @@
     </jsp:useBean>
 
     <%  } else if (action.equals("SignUp")) {
-//                String role = request.getParameter("role");
-//                if(role.equals("Patient")){
-//       //Close bracked was here
-//                    <jsp:useBean id="patient" class="model.Patient" scope="request" >
-//                        <h1>REGISTER SUCCESSFULLY</h1>
-//                        USERNAME       is: <jsp:getProperty name="patientdata" property="patientUsername" /><br>
-//                        PASSWORD       is: <jsp:getProperty name="patientdata" property="patientPassword" /><br>
-//                        PATIENTNAME    is: <jsp:getProperty name="patientdata" property="patientName" /><br>
-//                        PATIENTADDRESS is: <jsp:getProperty name="patientdata" property="patientAddress" /><br>
-//                    </jsp:useBean>
-//        <%      } else {
-//        //Close bracked was here
-//                    <jsp:useBean id="staff" class="model.Staff" scope="request" >
-//                        <h1>REGISTER SUCCESSFULLY</h1>
-//                        USERNAME     is: <jsp:getProperty name="staffData" property="staffUsername" /><br>
-//                        PASSWORD     is: <jsp:getProperty name="staffData" property="staffPassword" /><br>
-//                        STAFFNAME    is: <jsp:getProperty name="staffData" property="staffName" /><br>
-//                        STAFFADDRESS is: <jsp:getProperty name="staffData" property="staffAddress" /><br>
-//                    </jsp:useBean>
-//        <%      }
-//                    
-        }
+        String role = request.getParameter("role");
+        if (role.equals("Patient")) {
     %>
     <jsp:useBean id="patient" class="model.Patient" scope="request" >
         <h1>REGISTER SUCCESSFULLY</h1>
-    
-        Thank you <jsp:getProperty name="patientdata" property="patientName" />,  for creating an account with SmartCare GP. <br>
-        Your username is <jsp:getProperty name="patientdata" property="patientUsername" />, return to home to log in once approved!
-    </jsp:useBean>
-   
 
-   
-   
+        Thank you <jsp:getProperty name="patientdata" property="patientName" />,  for creating an account with SmartCare GP. <br>
+        Your username is <jsp:getProperty name="patientdata" property="patientUsername" />, return to home to log in!
+    </jsp:useBean>
+    <%      } else {
+    %>
+    <jsp:useBean id="staff" class="model.Staff" scope="request" >
+        <h1>REGISTER SUCCESSFULLY</h1>
+
+        Thank you <jsp:getProperty name="staffData" property="staffName" />,  for creating an account with SmartCare GP. <br>
+        Your username is <jsp:getProperty name="staffData" property="staffUsername" />, return to home to log in once approved!
+    </jsp:useBean>
+    <%      }
+//                    
+        }
+    %>
+
+
+
+
+
 
     <%@ include file="../components/Footer.jsp" %>
 </body>

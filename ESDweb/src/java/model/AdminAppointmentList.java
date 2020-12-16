@@ -12,25 +12,25 @@ import java.sql.Connection;
  *
  * @author Eli
  */
-public class AdminPrescriptionList {
+public class AdminAppointmentList {
 
     private Connection conn;
-    private String prescriptionTable;
+    private String appointmentTable;
 
-    public AdminPrescriptionList(Connection conn, String prescriptionTable) {
+    public AdminAppointmentList(Connection conn, String appointmentTable) {
         this.conn = conn;
-        this.prescriptionTable = prescriptionTable;
+        this.appointmentTable = appointmentTable;
     }
 
-    public String getPrescription() {
+    public String getAppointment() {
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
 
-        String returnString = "Prescriptions: <br>";
+        String returnString = "Appointment: <br>";
         returnString = returnString + "Prescription ID, PatientName, MedicationName <br>";
 
-        returnString = returnString + dao.selectAll(prescriptionTable);
+        returnString = returnString + dao.selectAll(appointmentTable);
 
         return returnString;
     }

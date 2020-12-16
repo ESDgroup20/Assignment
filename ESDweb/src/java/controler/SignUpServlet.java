@@ -48,10 +48,17 @@ public class SignUpServlet extends HttpServlet {
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
-//        String role     = request.getParameter("role");
+        String role     = request.getParameter("role");
         String name = request.getParameter("name");
         String address = request.getParameter("addr");
         String action = request.getParameter("act");
+        
+      
+        
+        if (role != "Patient" ){
+            String roleType = role;
+            role = "Staff";
+        }
 
 //      declare role
         User user = new User();
@@ -67,27 +74,23 @@ public class SignUpServlet extends HttpServlet {
             path = "view/jsp/pages/RegisterPage.jsp";
         } else if (action.equals("SignUp")) {
 //          create user from DBbean.createUser
-            db.createUser(userTable, username, password, "Patient");
-            String patientTable = (String) getServletContext().getAttribute("patientTable");
-            db.createPatient(patientTable, name, address, username);
-            Patient patient = new Patient(name, address, username, password);
-            session.setAttribute("patientdata", patient);
+        
 
-//            switch (role) {
-//                case "Patient":
-//                    Patient patient = new Patient(name, address, username, password);
-//                    String patientTable = (String) getServletContext().getAttribute("patientTable");
-//                    db.createPatient(patientTable, name, address, username);
-//                    session.setAttribute("patientdata", patient);
-//                    break;
-//                case "Doctor":
-//                case "Nurse":
-//                    Staff staff = new Staff(name, address, username, password);
-//                    String staffTable = (String) getServletContext().getAttribute("staffTable");
-//                    db.createStaff(staffTable, name, address, username);
-//                    session.setAttribute("staffData", staff);
-//                    break;
-//            }
+            switch (role) {
+                case "Patient":
+                    Patient patient = new Patient(name, address, username, password);
+                    String patientTable = (String) getServletContext().getAttribute("patientTable");
+                    db.createPatient(patientTable, name, address, username);
+                    session.setAttribute("patientdata", patient);
+                    break;
+    
+                case "Staff":
+                    Staff staff = new Staff(name, address, username, password);
+                    String staffTable = (String) getServletContext().getAttribute("staffTable");
+                    db.createStaff(staffTable, name, address, username);
+                    session.setAttribute("staffData", staff);
+                    break;
+            }
 //          init path
             path = "view/jsp/pages/SuccessPage.jsp";
         }

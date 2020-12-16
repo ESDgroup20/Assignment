@@ -19,7 +19,6 @@ public class AdminUserList {
     private String staffTable;
     private String patientTable;
 
-
     public AdminUserList(Connection conn, String staffTable, String patientTable) {
         this.conn = conn;
         this.staffTable = staffTable;
@@ -31,18 +30,18 @@ public class AdminUserList {
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
-        
+
         String returnString = "Staff: <br>";
-        
-        returnString = returnString + dao.signInSelection(staffTable);
-        
-        
+
+         returnString = returnString + "Staff ID, Staff Name, Staff Address, Staff UserName <br>";
+        returnString = returnString + dao.selectAll(staffTable);
+       
+
         returnString = returnString + "<br> Patient: <br>";
-        returnString = returnString + dao.signInSelection(patientTable);
-        
-        
+        returnString = returnString + "Patient ID, Patient Name, Patient Address, Patient UserName <br>";
+        returnString = returnString + dao.selectAll(patientTable);
+
         return returnString;
-        
 
     }
 }

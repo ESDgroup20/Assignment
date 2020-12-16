@@ -82,6 +82,10 @@
         <servlet-name>AdminSelectPrescriptionController</servlet-name>
         <servlet-class>controler.AdminSelectPrescriptionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminSelectAppointmentController</servlet-name>
+        <servlet-class>controler.AdminSelectAppointmentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -118,8 +122,11 @@
         <servlet-name>AdminSelectPrescriptionController</servlet-name>
         <url-pattern>/AdminSelectPrescriptionController</url-pattern>
     </servlet-mapping>
-    
     <!-- =============================== SESSION =============================== -->
+    <servlet-mapping>
+        <servlet-name>AdminSelectAppointmentController</servlet-name>
+        <url-pattern>/AdminSelectAppointmentController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             1

@@ -1,10 +1,9 @@
-package controler;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,13 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AdminPrescriptionList;
+import model.AdminAppointmentList;
+import model.AdminUserList;
 
 /**
  *
  * @author Eli
  */
-public class AdminSelectPrescriptionController extends HttpServlet {
+public class AdminSelectAppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +35,14 @@ public class AdminSelectPrescriptionController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
+
         Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
-        
-        AdminPrescriptionList prescriptionList = new AdminPrescriptionList(conn,prescriptionTable);
-        
-        String listOfPrescriptions = prescriptionList.getPrescription();
-       
-        request.setAttribute("listOfPrescriptions", listOfPrescriptions);
+        String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
+
+        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
+
+        String listOfAppointments = appointmentList.getAppointment();
+        request.setAttribute("test", listOfAppointments);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

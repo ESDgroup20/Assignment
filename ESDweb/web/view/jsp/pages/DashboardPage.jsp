@@ -28,7 +28,7 @@
         
                 <!--admin view-->
                 <%--<%@ include page="../components/DbView.jsp" >--%>
-                <%@ include file="../components/DbView.jsp" %>
+                <%@ include file="../components/AdminView.jsp" %>
         <%  }
         %>
         

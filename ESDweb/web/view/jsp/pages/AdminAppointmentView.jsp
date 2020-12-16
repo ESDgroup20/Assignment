@@ -1,11 +1,11 @@
 <%-- 
-    Document   : AdminPrescriptionView
-    Created on : 16-Dec-2020, 16:51:53
+    Document   : AdminAppointmentView
+    Created on : 16-Dec-2020, 19:20:46
     Author     : Eli
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/AdminSelectPrescriptionController" ></jsp:include>
+<jsp:include page="/AdminSelectAppointmentController" ></jsp:include>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +13,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-   
-      <h1><%=request.getAttribute("listOfPrescriptions") %></h1>
+        <h1><%=request.getAttribute("test") %></h1>
     </body>
 </html>
