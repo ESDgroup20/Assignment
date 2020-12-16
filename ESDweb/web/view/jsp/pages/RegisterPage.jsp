@@ -28,20 +28,21 @@
                     <input type="text" name="name" class="form-control is-valid" id="floatingInput" placeholder="Name"/>
                     <label for="floatingInput">Name</label>
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="text" name="addr" class="form-control is-invalid" id="floatingInput" placeholder="Address"/>
-                    <label for="floatingInput">Address</label>
+                
+                <%@ include file="../components/Address.jsp" %>
+                
+                <div class="form-floating mb-2">     
+                    <select class="form-select mb-2" name="role" id="floatingInput">
+                        <option selected >Patient</option>
+                        <option>Doctor</option>
+                        <option>Nurse</option>
+                    </select>
+                    <label class="fw-lighter" for="floatingInput">Role</label>
                 </div>
-                <select class="form-select py-3" name="role">
-                    <option selected >Patient</option>
-                    <option>Doctor</option>
-                    <option>Nurse</option>
-                </select>
             </div>
+            <button class="btn btn-primary col-12" type="submit" name="act" value="SignUp">Register</button>
             
-            <%@ include file="../components/Address.jsp" %>
                                
-            <input type="submit" name="act" value="SignUp" />
             
         </form>
         
