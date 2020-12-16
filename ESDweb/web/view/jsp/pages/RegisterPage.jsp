@@ -32,11 +32,11 @@
                     <input type="text" name="addr" class="form-control is-invalid" id="floatingInput" placeholder="Address"/>
                     <label for="floatingInput">Address</label>
                 </div>
-                <select class="form-select py-3" name="role">
+<!--                <select class="form-select py-3" name="role">
                     <option selected >Patient</option>
                     <option>Doctor</option>
                     <option>Nurse</option>
-                </select>
+                </select>-->
             </div>
             
             <%@ include file="../components/Address.jsp" %>

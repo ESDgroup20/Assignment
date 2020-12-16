@@ -7,19 +7,20 @@ package controler;
 
 import database.DBbean;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.AdminUserList;
 
 /**
  *
- * @author ESD20
+ * @author Eli
  */
-public class SignInServlet extends HttpServlet {
+public class AdminViewController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,53 +33,35 @@ public class SignInServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter out = response.getWriter();
 
-//      get context from BaseListener
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String userTable = (String) getServletContext().getAttribute("userTable");
+        String action = request.getParameter("action");
+        String path = "";
 
-//      apply context into database
-        DBbean db = new DBbean();
-        db.getConnection(conn);
+        HttpSession session = request.getSession(false);
 
-//      Set session at beginning
-        HttpSession session = request.getSession();
+        switch (action) {
+            case "Accsess Users":
 
-//      get parameter from front-end file
-        String username = request.getParameter("us");
-        String password = request.getParameter("pw");
-        String datetime = request.getParameter("date");
-        String action = request.getParameter("act");
+                path = "view/jsp/pages/AdminUserView.jsp";
+                break;
 
-//        System.out.println("GET DATE: " + datetime);
-//      save path string       
-        String path = null;
-//        if front-end click btn Login
-        if (action.equals("Login")) {
-//          check Auth from DBbean.signInAuth
-            User user = db.signInAuth(userTable, username, password);
-//          check valid user            
-            if (user != null) {
-//              session for users
-                session.setAttribute("userData", user);
-//              session key of users
-                session.setAttribute("sessionKey", session.getId());
-//              init path
-                path = "view/jsp/pages/DashboardPage.jsp";
-            } else { // if invalid
-//              init path
-                path = "view/jsp/pages/ErrorPage.jsp";
-            }
+            case "Accsess Prescriptions":
 
-//        if front-end click btn FastTrack
-        } else if (action.equals("FastTrack")) {
-//          access user table
-            String s = db.signInSelection(userTable);
-            request.setAttribute("str", s);
-            path = "view/jsp/pages/TestPage.jsp";
+                path = "view/jsp/pages/AdminPrescriptionView.jsp";
+                break;
+
+            case "Accsess Appointments":
+
+            case "Acssess Invoices":
+
+            case "Handle Turnover":
+
+            case "Approve Staff":
 
         }
-//      access path
+
         request.getRequestDispatcher(path).forward(request, response);
 
     }
@@ -95,9 +78,7 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**
@@ -111,9 +92,7 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**
