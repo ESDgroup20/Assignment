@@ -23,7 +23,7 @@
             if(role.equals("Admin")){
         %>      
                 <h1> Dashboard <% out.print(role); %> </h1>
-                <%@ include file="../components/AdminView.jsp" %>
+                <%@ include file="../components/AdminDashboard.jsp" %>
         <%  } 
             else if(role.equals("Patient")){
                 String patientName = (String) request.getSession().getAttribute("patientName");

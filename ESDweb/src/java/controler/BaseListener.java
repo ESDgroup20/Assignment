@@ -40,6 +40,10 @@ public class BaseListener implements ServletContextListener {
         
         String appointmentTable = context.getInitParameter("AppointmentContext");
         
+        String medicationTable = context.getInitParameter("MedicationContext");
+        
+        String perscriptionTable = context.getInitParameter("PerscriptionContext");
+        
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+database.trim(), dbAccName, dbAccPass);
@@ -53,6 +57,8 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("staffTable", staffTable);
         context.setAttribute("patientTable", patientTable);
         context.setAttribute("appointmentTable", appointmentTable);
+        context.setAttribute("medicationTable", medicationTable);
+        context.setAttribute("perscriptionTable", perscriptionTable);
         
     }
 
