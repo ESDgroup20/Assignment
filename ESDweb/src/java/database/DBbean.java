@@ -33,6 +33,50 @@ public class DBbean {
         this.conn = c;
     }
     
+    
+    
+    //  Show all data in this table     --------------SIGN-IN-PAGE------------------
+    public String selectAll(String table){
+        try {
+            //      query string
+            String loginQuery = "SELECT * FROM "+table;
+            //      prepare statement
+            pre = conn.prepareStatement(loginQuery);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+            StringBuilder sb = new StringBuilder();
+            //      get column size
+            ResultSetMetaData metaData =  rs.getMetaData();
+            int size = metaData.getColumnCount();
+      
+          
+        
+//                  loop each column
+            while (rs.next()) {
+                for(int i=0; i<size; i++){  // check how many column
+                    String temp = rs.getString(i+1);
+                    sb.append(" ");
+                    sb.append(temp);
+                    
+                   
+                }
+                 sb.append("<br>");
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return sb.toString();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 //  Show all data in this table     --------------SIGN-IN-PAGE------------------
     public String signInSelection(String table){
         try {
