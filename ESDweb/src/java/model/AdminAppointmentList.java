@@ -28,7 +28,7 @@ public class AdminAppointmentList {
         dao.getConnection(conn);
 
         String returnString = "Appointment: <br>";
-        returnString = returnString + "Prescription ID, PatientName, MedicationName <br>";
+        returnString = returnString + "Apointment ID, Apointment ID, Staff ID,Patient ID, <br>";
 
         returnString = returnString + dao.selectAll(appointmentTable);
 
