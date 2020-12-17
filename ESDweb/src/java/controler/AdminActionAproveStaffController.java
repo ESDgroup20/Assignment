@@ -40,8 +40,8 @@ public class AdminActionAproveStaffController extends HttpServlet {
         
         AdminListOfStaff listOfStaff =  (AdminListOfStaff) session.getAttribute("listOfStaff");
         
-        //Invoking this method updates logic and db        
-        boolean sucsess = listOfStaff.updateApproved(action);
+        //Invoking this method updates db        
+        boolean sucsess = listOfStaff.dbUpdate(action);
       
         String path = "view/jsp/pages/AdminApproveStaffView.jsp";
         

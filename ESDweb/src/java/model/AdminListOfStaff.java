@@ -39,8 +39,8 @@ public class AdminListOfStaff {
 
     }
 
-    //This method updates model arrayList and Db   
-    public boolean updateApproved(String action) {
+    //This method updates model Db   
+    public boolean dbUpdate(String action) {
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
@@ -51,19 +51,7 @@ public class AdminListOfStaff {
 
         Boolean dbSucsses = dao.update(sqlQuery);
 
-//        for (int i = 0; i < unapprovedStaff.size(); i++) {
-//            if (unapprovedStaff.get(i).get(0)== action){
-//                unapprovedStaff.remove(i);
-//            }
-//        }
 
-//        for (ArrayList i : unapprovedStaff) {
-//
-//            ArrayList<String> list = (ArrayList) i;
-//            if(list.get(0)==action){
-//            
-//            }
-//        }
         return dbSucsses;
 
     }
