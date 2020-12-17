@@ -19,7 +19,7 @@
             url = "jdbc:derby://localhost:1527/ESDweb"
             user = "root" password = "123456"/>-->
         <sql:query dataSource = "${snapshot}" var = "selectDoctor">
-            SELECT staffname FROM users,staffs WHERE  users.username = staffs.UNAME AND users.role = 'Doctor'
+            SELECT staffname FROM users,staffs WHERE  users.username = staffs.USERNAME AND users.role = 'Doctor'
         </sql:query>
             
         <form action="BookingServlet" method="post">

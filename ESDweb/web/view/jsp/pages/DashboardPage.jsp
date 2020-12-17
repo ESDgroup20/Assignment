@@ -23,15 +23,11 @@
             if(role.equals("Admin")){
         %>      
                 <h1> Dashboard <% out.print(role); %> </h1>
-                <%@ include file="../components/AdminDashboard.jsp" %>
+                <%--<%@ include file="../components/AdminDashboard.jsp" %>--%>
+                <%@ include file="../components/AdminView.jsp" %>
         <%  } 
             else if(role.equals("Patient")){
                 String patientName = (String) request.getSession().getAttribute("patientName");
-        
-                <!--admin view-->
-                <%--<%@ include page="../components/DbView.jsp" >--%>
-                <%@ include file="../components/AdminView.jsp" %>
-        <%  }
         %>
                 <h1> Dashboard <% out.print(role + " " + patientName); %> </h1>
                 <%@ include file="../components/Booking.jsp" %>

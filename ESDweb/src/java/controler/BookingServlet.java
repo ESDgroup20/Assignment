@@ -54,14 +54,15 @@ public class BookingServlet extends HttpServlet {
             String time = request.getParameter("time");
             String doctor = request.getParameter("doctorName");
             
-            System.out.println("Booking: ");
+            System.out.println("--------Booking:-----------");
             System.out.println(date+ " at " +time);
             System.out.println("doctor:" + doctor);
-            System.out.println("username: "+user.getUserName());
-            System.out.println("password: "+user.getUserPass());
+//            System.out.println("username: "+user.getUserName());
+//            System.out.println("password: "+user.getUserPass());
             
             String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
             System.out.println("Patient name: "+patientName);
+            System.out.println("----------------------------");
         }
 
     }

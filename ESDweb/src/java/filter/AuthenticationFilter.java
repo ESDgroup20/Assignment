@@ -41,7 +41,7 @@ public class AuthenticationFilter implements Filter {
 		
 		HttpSession session = req.getSession(false);
 		          
-		if(session != null && !(uri.endsWith("Servlet") || uri.matches("^.*(css|jpg|jpeg|png|gif|js)$"))){
+		if(session != null && !(uri.endsWith("Controller") || uri.endsWith("Servlet") || uri.matches("^.*(css|jpg|jpeg|png|gif|js)$"))){
                     this.context.log("Unauthorized access request");
                     String path="/view/jsp/pages/LoginPage.jsp";
                     req.getServletContext().getRequestDispatcher(path).forward(req,res);

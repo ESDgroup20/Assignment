@@ -73,7 +73,8 @@ public class SignUpServlet extends HttpServlet {
             path = "/view/jsp/pages/RegisterPage.jsp";
         } else if(action.equals("SignUp")){
 //          create user from DBbean.createUser
-        
+            db.createUser(userTable, username, password, role);     
+            
 
             switch (role) {
                 case "Patient":
@@ -83,7 +84,8 @@ public class SignUpServlet extends HttpServlet {
                     session.setAttribute("patientData", patient);
                     break;
     
-                case "Staff":
+                case "Doctor":
+                case "Nurse":
                     Staff staff = new Staff(name, address, username, password);
                     String staffTable = (String) getServletContext().getAttribute("staffTable");
                     db.createStaff(staffTable, name, address, username);
