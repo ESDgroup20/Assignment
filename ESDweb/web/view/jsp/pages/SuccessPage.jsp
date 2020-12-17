@@ -37,33 +37,26 @@
         %>
                     <jsp:useBean id="patient" class="model.Patient" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
-                        USERNAME       is: <jsp:getProperty name="patientData" property="patientUsername" /><br>
-                        PASSWORD       is: <jsp:getProperty name="patientData" property="patientPassword" /><br>
-                        PATIENTNAME    is: <jsp:getProperty name="patientData" property="patientName" /><br>
-                        PATIENTADDRESS is: <jsp:getProperty name="patientData" property="patientAddress" /><br>
+                        Thank you <jsp:getProperty name="patientData" property="patientName" />,  for creating an account with SmartCare GP. <br>
+                        Your username is <jsp:getProperty name="patientData" property="patientUsername" />, return to home to log in!
+                        
                     </jsp:useBean>
         <%      } else {
         %>
                     <jsp:useBean id="staff" class="model.Staff" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
-                        USERNAME     is: <jsp:getProperty name="staffData" property="staffUsername" /><br>
-                        PASSWORD     is: <jsp:getProperty name="staffData" property="staffPassword" /><br>
-                        STAFFNAME    is: <jsp:getProperty name="staffData" property="staffName" /><br>
-                        STAFFADDRESS is: <jsp:getProperty name="staffData" property="staffAddress" /><br>
+                        Thank you <jsp:getProperty name="staffData" property="staffName" />,  for creating an account with SmartCare GP. <br>
+                        Your username is <jsp:getProperty name="staffData" property="staffUsername" />, return to home to log in once approved!
+
                     </jsp:useBean>
         <%      }
                     
             }
-            String datetime = request.getParameter("date");
-            out.println("<br>Date: "+datetime);
+//            String datetime = request.getParameter("date");
+//            out.println("<br>Date: "+datetime);
 
         %>
-        
-        <button onclick="myFunction()">Try it</button>
-
-        <p id="demo"></p>
-         
         <%@ include file="../components/Footer.jsp" %>
     </body>
-    
+
 

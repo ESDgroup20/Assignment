@@ -23,6 +23,7 @@
             if(role.equals("Admin")){
         %>      
                 <h1> Dashboard <% out.print(role); %> </h1>
+                <%--<%@ include file="../components/AdminDashboard.jsp" %>--%>
                 <%@ include file="../components/AdminView.jsp" %>
         <%  } 
             else if(role.equals("Patient")){

@@ -18,10 +18,10 @@ import javax.servlet.ServletContextListener;
  * @author ESD20
  */
 public class BaseListener implements ServletContextListener {
-    
+
 //  declare connection
     Connection conn = null;
-    
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 //      create context 
@@ -37,22 +37,29 @@ public class BaseListener implements ServletContextListener {
         String staffTable = context.getInitParameter("StaffContext");
 //      mapping context of PatientContext to access table "PATIENTS"
         String patientTable = context.getInitParameter("PatientContext");
-        
+
+        //mapping context of PrescriptionContext to access table "PRESCRIPTION"
+        String prescriptionTable = context.getInitParameter("PrescriptionContext");
+
         String appointmentTable = context.getInitParameter("AppointmentContext");
+        
+        String medicationTable = context.getInitParameter("MedicationContext");
         
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+database.trim(), dbAccName, dbAccPass);
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/" + database.trim(), dbAccName, dbAccPass);
         } catch (SQLException | ClassNotFoundException e) {
 //            System.out.println(e.getMessage());
         }
-        
+
 //      set shortcut to callback
         context.setAttribute("conn", conn);
         context.setAttribute("userTable", userTable);
         context.setAttribute("staffTable", staffTable);
         context.setAttribute("patientTable", patientTable);
         context.setAttribute("appointmentTable", appointmentTable);
+        context.setAttribute("medicationTable", medicationTable);
+        context.setAttribute("prescriptionTable", prescriptionTable);
         
     }
 

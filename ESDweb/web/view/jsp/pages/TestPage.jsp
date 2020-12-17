@@ -13,7 +13,8 @@
         <title>Test Page</title>
     </head>
     <body>
-        <%@ include file="../components/AdminView.jsp" %>  
+        <%--<%@ include file="../pages/FastTrack.jsp" %>--%>    
+        <%@ include file="../components/AdminDashboard.jsp" %>  
     </body>
     <footer>  
         <%@ include file="../components/Footer.jsp" %>

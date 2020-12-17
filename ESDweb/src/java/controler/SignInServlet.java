@@ -34,20 +34,19 @@ public class SignInServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
         String patientTable = (String) getServletContext().getAttribute("patientTable");
 
 //      apply context into database
-        DBbean db =  new DBbean();
+        DBbean db = new DBbean();
         db.getConnection(conn);
-        
+
 //      Set session at beginning
         HttpSession session = request.getSession();
-                
-        
+
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
@@ -55,12 +54,10 @@ public class SignInServlet extends HttpServlet {
         String action   = request.getParameter("act");
         
 //        System.out.println("GET DATE: " + datetime);
-        
-        
 //      save path string       
         String path = null;
 //        if front-end click btn Login
-        if(action.equals("Login")){
+        if (action.equals("Login")) {
 //          check Auth from DBbean.signInAuth
             User user = db.signInAuth(userTable, username,password);
             String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
@@ -79,9 +76,9 @@ public class SignInServlet extends HttpServlet {
 //              init path
                 path = "/view/jsp/pages/ErrorPage.jsp";
             }
-            
+
 //        if front-end click btn FastTrack
-        }else if(action.equals("FastTrack")){
+        } else if (action.equals("FastTrack")) {
 //          access user table
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);

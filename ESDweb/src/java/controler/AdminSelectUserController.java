@@ -5,24 +5,21 @@
  */
 package controler;
 
-import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Patient;
-import model.User;
+import model.AdminUserList;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author Eli
  */
-public class BookingServlet extends HttpServlet {
+public class AdminSelectUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,35 +32,19 @@ public class BookingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession(false);
-        
+
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
         String patientTable = (String) getServletContext().getAttribute("patientTable");
 
-//      apply context into database
-        DBbean db =  new DBbean();
-        db.getConnection(conn);        
-        
-        
-        String action   = request.getParameter("act");
-        if(action.equals("Book")){
-            User user = (User) session.getAttribute("userData");
-            
-            String date = request.getParameter("date");
-            String time = request.getParameter("time");
-            String doctor = request.getParameter("doctorName");
-            
-            System.out.println("--------Booking:-----------");
-            System.out.println(date+ " at " +time);
-            System.out.println("doctor:" + doctor);
-//            System.out.println("username: "+user.getUserName());
-//            System.out.println("password: "+user.getUserPass());
-            
-            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
-            System.out.println("Patient name: "+patientName);
-            System.out.println("----------------------------");
-        }
+        AdminUserList userList = new AdminUserList(conn, staffTable, patientTable);
+
+        String listOfUsers = userList.getUsers();
+
+        request.setAttribute("listOfUsers", listOfUsers);
 
     }
 

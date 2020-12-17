@@ -26,6 +26,17 @@
         <param-name>AppointmentContext</param-name>
         <param-value>APPOINTMENTS</param-value>
     </context-param>
+    <context-param>
+        <description>MEDICATIONS TABLE</description>
+        <param-name>MedicationContext</param-name>
+        <param-value>MEDICATIONS</param-value>
+    </context-param>
+    <context-param>
+        <description>PRESCRIPTIONS TABLE</description>
+        <param-name>PrescriptionContext</param-name>
+        <param-value>PRESCRIPTIONS</param-value>
+    </context-param>
+    
     <!-- =============================== FILTER ================================ -->
     <filter>
         <filter-name>RF</filter-name>
@@ -44,11 +55,13 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
     <!-- ============================== LISTENER =============================== -->
     <listener>
         <description>ServletContextListener</description>
         <listener-class>controler.BaseListener</listener-class>
     </listener>
+    
     <!-- =============================== SERVLET =============================== -->
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
@@ -67,16 +80,28 @@
         <servlet-class>controler.TestServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>controler.ProfileServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ActionServlet</servlet-name>
         <servlet-class>controler.ActionServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BookingServlet</servlet-name>
         <servlet-class>controler.BookingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewController</servlet-name>
+        <servlet-class>controler.AdminViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectUserController</servlet-name>
+        <servlet-class>controler.AdminSelectUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectPrescriptionController</servlet-name>
+        <servlet-class>controler.AdminSelectPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectAppointmentController</servlet-name>
+        <servlet-class>controler.AdminSelectAppointmentController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
@@ -95,11 +120,6 @@
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProfileServlet</servlet-name>
-        <url-pattern>/ProfileServlet</url-pattern>
-    </servlet-mapping>
-    <!-- =============================== SESSION =============================== -->
-    <servlet-mapping>
         <servlet-name>ActionServlet</servlet-name>
         <url-pattern>/ActionServlet</url-pattern>
     </servlet-mapping>
@@ -107,11 +127,30 @@
         <servlet-name>BookingServlet</servlet-name>
         <url-pattern>/BookingServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewController</servlet-name>
+        <url-pattern>/AdminViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectUserController</servlet-name>
+        <url-pattern>/AdminSelectUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectPrescriptionController</servlet-name>
+        <url-pattern>/AdminSelectPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectAppointmentController</servlet-name>
+        <url-pattern>/AdminSelectAppointmentController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- ============================= SESSION ============================= -->
     <session-config>
         <session-timeout>
             1
         </session-timeout>
     </session-config>
+    
     <!-- =============================== WELCOME =============================== -->
     <welcome-file-list>
         <welcome-file>view/jsp/pages/LoginPage.jsp</welcome-file>

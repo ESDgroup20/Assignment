@@ -33,6 +33,48 @@ public class DBbean {
         this.conn = c;
     }
     
+    
+    
+    //  Show all data in this table     --------------SIGN-IN-PAGE------------------
+    public String selectAll(String table){
+        try {
+            //      query string
+            String loginQuery = "SELECT * FROM "+table;
+            //      prepare statement
+            pre = conn.prepareStatement(loginQuery);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+            StringBuilder sb = new StringBuilder();
+            //      get column size
+            ResultSetMetaData metaData =  rs.getMetaData();
+            int size = metaData.getColumnCount();
+   
+//                  loop each column
+            while (rs.next()) {
+                for(int i=0; i<size; i++){  // check how many column
+                    String temp = rs.getString(i+1);
+                    sb.append(" ");
+                    sb.append(temp);
+                    
+                   
+                }
+                 sb.append("<br>");
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return sb.toString();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 //  Show all data in this table     --------------SIGN-IN-PAGE------------------
     public String signInSelection(String table){
         try {
@@ -116,16 +158,16 @@ public class DBbean {
         
     }
     
-    public void createPatient(String table, String patientName, String patientAddress, String uname){
+    public void createPatient(String table, String patientName, String patientAddress, String username){
         try {
             //      query
-            String registerQuery = "INSERT INTO "+table+"(PATIENTNAME, PATIENTADDRESS, UNAME) VALUES (?, ?, ?)";
+            String registerQuery = "INSERT INTO "+table+" (PATIENTNAME, PATIENTADDRESS, USERNAME) VALUES (?, ?, ?)";
             //      prepare statement
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
             pre.setString(1, patientName);
             pre.setString(2, patientAddress);
-            pre.setString(3, uname);
+            pre.setString(3, username);
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -133,16 +175,17 @@ public class DBbean {
         }
     }
     
-    public void createStaff(String table, String staffName, String staffAddress, String uname){
+    public void createStaff(String table, String staffName, String staffAddress, String username){
         try {
-            //      query
-            String registerQuery = "INSERT INTO "+table+"(STAFFNAME, STAFFADDRESS, UNAME) VALUES (?, ?, ?)";
+            //      query 
+            String registerQuery = "INSERT INTO "+table+" (STAFFNAME, STAFFADDRESS, USERNAME) VALUES (?, ?, ?)";
             //      prepare statement
+//            System.out.println("query: "+registerQuery);
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
             pre.setString(1, staffName);
             pre.setString(2, staffAddress);
-            pre.setString(3, uname);
+            pre.setString(3, username);
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -189,7 +232,7 @@ public class DBbean {
         try {
             String selectQuery ="SELECT "+name+" "
                     + "FROM users,"+table+" "
-                    + "WHERE  users.username = "+table+".UNAME "
+                    + "WHERE  users.username = "+table+".USERNAME "
                     + "AND users.role = '"+role+"' "
                     + "AND users.USERNAME = '"+usAuth+"' "
                     + "AND users.PASSWORD = '"+pwAuth+"' ";
