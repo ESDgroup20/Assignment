@@ -8,19 +8,19 @@ package controler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AdminAppointmentList;
-import model.AdminUserList;
+import model.AdminListOfStaff;
 
 /**
  *
  * @author Eli
  */
-public class AdminSelectAppointmentController extends HttpServlet {
+public class AdminSelectAproveStaffController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +34,24 @@ public class AdminSelectAppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession(false);
 
         Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
 
-        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
+        //Create List of staff object        
+        AdminListOfStaff listOfStaff = new AdminListOfStaff(conn, staffTable);
+        
+        session.setAttribute("listOfStaff", listOfStaff);
+        //Retrive unapproved staff members in object        
+        listOfStaff.dbSelectUnapproved();
+        //Retrive data from database into nested list for pasing to view
+        ArrayList<ArrayList> unapprovedStaff = listOfStaff.getUnapprovedStaff();
 
-        String listOfAppointments = appointmentList.getAppointment();
-        request.setAttribute("listOfAppointments", listOfAppointments);
+        request.setAttribute("unapprovedStaff", unapprovedStaff);
+      
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

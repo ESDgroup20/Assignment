@@ -62,6 +62,10 @@ public class AdminViewController extends HttpServlet {
             case "Handle Turnover":
 
             case "Approve Staff":
+                
+                
+                path = "view/jsp/pages/AdminApproveStaffView.jsp";
+                break;
 
         }
 

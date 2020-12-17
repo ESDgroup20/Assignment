@@ -31,6 +31,11 @@
         <param-name>PrescriptionContext</param-name>
         <param-value>PRESCRIPTION</param-value>
     </context-param>
+    <context-param>
+        <description>MEDICATION TABLE</description>
+        <param-name>MedicationContext</param-name>
+        <param-value>Medication</param-value>
+    </context-param>
     <!-- =============================== FILTER ================================ -->
     <filter>
         <filter-name>RouterFilter</filter-name>
@@ -86,6 +91,22 @@
         <servlet-name>AdminSelectAppointmentController</servlet-name>
         <servlet-class>controler.AdminSelectAppointmentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminSelectAproveStaffController</servlet-name>
+        <servlet-class>controler.AdminSelectAproveStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminActionAproveStaffController</servlet-name>
+        <servlet-class>controler.AdminActionAproveStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewController</servlet-name>
+        <servlet-class>controler.StaffViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSelectRefilController</servlet-name>
+        <servlet-class>controler.StaffSelectRefilController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -126,6 +147,22 @@
     <servlet-mapping>
         <servlet-name>AdminSelectAppointmentController</servlet-name>
         <url-pattern>/AdminSelectAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectAproveStaffController</servlet-name>
+        <url-pattern>/AdminSelectAproveStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminActionAproveStaffController</servlet-name>
+        <url-pattern>/AdminActionAproveStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewController</servlet-name>
+        <url-pattern>/StaffViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectRefilController</servlet-name>
+        <url-pattern>/StaffSelectRefilController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
