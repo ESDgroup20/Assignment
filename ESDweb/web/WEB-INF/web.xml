@@ -34,7 +34,7 @@
     <context-param>
         <description>MEDICATION TABLE</description>
         <param-name>MedicationContext</param-name>
-        <param-value>Medication</param-value>
+        <param-value>MEDICATION</param-value>
     </context-param>
     <!-- =============================== FILTER ================================ -->
     <filter>
@@ -107,6 +107,14 @@
         <servlet-name>StaffSelectRefilController</servlet-name>
         <servlet-class>controler.StaffSelectRefilController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffSelectPrescriptionController</servlet-name>
+        <servlet-class>controler.StaffSelectPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffActionPrescriptionController</servlet-name>
+        <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -163,6 +171,14 @@
     <servlet-mapping>
         <servlet-name>StaffSelectRefilController</servlet-name>
         <url-pattern>/StaffSelectRefilController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectPrescriptionController</servlet-name>
+        <url-pattern>/StaffSelectPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionPrescriptionController</servlet-name>
+        <url-pattern>/StaffActionPrescriptionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

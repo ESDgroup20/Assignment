@@ -40,6 +40,8 @@ public class BaseListener implements ServletContextListener {
 
         //mapping context of PrescriptionContext to access table "PRESCRIPTION"
         String prescriptionTable = context.getInitParameter("PrescriptionContext");
+        
+        String medicationTable = context.getInitParameter("MedicationContext");
 
         String appointmentTable = context.getInitParameter("AppointmentContext");
 
@@ -57,6 +59,7 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("patientTable", patientTable);
         context.setAttribute("appointmentTable", appointmentTable);
         context.setAttribute("prescriptionTable", prescriptionTable);
+         context.setAttribute("medicationTable", medicationTable);
 
     }
 
