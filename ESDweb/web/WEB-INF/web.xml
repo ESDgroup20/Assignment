@@ -103,6 +103,22 @@
         <servlet-name>AdminSelectAppointmentController</servlet-name>
         <servlet-class>controler.AdminSelectAppointmentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminSelectAproveStaffController</servlet-name>
+        <servlet-class>controler.AdminSelectAproveStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminActionAproveStaffController</servlet-name>
+        <servlet-class>controler.AdminActionAproveStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffViewController</servlet-name>
+        <servlet-class>controler.StaffViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSelectRefilController</servlet-name>
+        <servlet-class>controler.StaffSelectRefilController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>

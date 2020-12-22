@@ -7,20 +7,16 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.AdminAppointmentList;
-import model.AdminUserList;
 
 /**
  *
  * @author Eli
  */
-public class AdminSelectAppointmentController extends HttpServlet {
+public class StaffViewController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +30,18 @@ public class AdminSelectAppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
-
-        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
-
-        String listOfAppointments = appointmentList.getAppointment();
-        request.setAttribute("listOfAppointments", listOfAppointments);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet StaffViewController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet StaffViewController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
