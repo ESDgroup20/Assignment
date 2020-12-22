@@ -5,16 +5,14 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AdminAppointmentList;
-import model.AdminUserList;
 
 /**
  *
@@ -33,15 +31,18 @@ public class AdminSelectAppointmentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession session = request.getSession(false);
 
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
 
-        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
+        DBbean db =  new DBbean();
+        db.getConnection(conn);  
+        
+//        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
 
-        String listOfAppointments = appointmentList.getAppointment();
+        String listOfAppointments = db.getAppointment(appointmentTable);
         request.setAttribute("listOfAppointments", listOfAppointments);
     }
 

@@ -43,7 +43,8 @@ public class AdminActionAproveStaffController extends HttpServlet {
         //Invoking this method updates db        
         boolean sucsess = listOfStaff.dbUpdate(action);
       
-        String path = "view/jsp/pages/AdminApproveStaffView.jsp";
+        System.out.println("here");
+        String path = "/view/jsp/pages/AdminApproveStaffView.jsp";
         
         request.getRequestDispatcher(path).forward(request, response);
         

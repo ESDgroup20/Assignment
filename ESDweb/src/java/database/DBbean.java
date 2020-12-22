@@ -121,6 +121,41 @@ public class DBbean {
         }
         return null;
     }
+    
+    public String getUsers(String Stable, String Ptable) {
+
+        String returnString = "Staff: <br>";
+        returnString = returnString + "Staff ID, Staff Name, Staff Address, Staff UserName <br>";
+        returnString = returnString + selectAll(Stable);
+       
+
+        returnString = returnString + "<br> Patient: <br>";
+        returnString = returnString + "Patient ID, Patient Name, Patient Address, Patient UserName <br>";
+        returnString = returnString + selectAll(Ptable);
+
+        return returnString;
+
+    }
+    
+    public String getPrescription(String table) {
+
+        String returnString = "Prescriptions: <br>";
+        returnString = returnString + "Prescription ID, PatientName, MedicationName <br>";
+        returnString = returnString + selectAll(table);
+
+        return returnString;
+    }
+    
+    public String getAppointment(String table) {
+
+        String returnString = "Appointment: <br>";
+        returnString = returnString + "Apointment ID, Apointment ID, Staff ID,Patient ID, <br>";
+        returnString = returnString + selectAll(table);
+
+        return returnString;
+    }
+    
+    
 
 //  Show all data in this table     --------------SIGN-IN-PAGE------------------
     public String signInSelection(String table) {
@@ -185,6 +220,8 @@ public class DBbean {
         }
         return null;
     }
+    
+    
 
 //  register new user       ------------------SIGN-UP-PAGE----------------------
     public void createUser(String table, String username, String password, String role) {

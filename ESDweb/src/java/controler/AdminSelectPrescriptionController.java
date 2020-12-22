@@ -6,15 +6,14 @@ package controler;
  * and open the template in the editor.
  */
 
+import database.DBbean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AdminPrescriptionList;
 
 /**
  *
@@ -33,14 +32,20 @@ public class AdminSelectPrescriptionController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        
         HttpSession session = request.getSession(false);
+        
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
         
-        AdminPrescriptionList prescriptionList = new AdminPrescriptionList(conn,prescriptionTable);
+//        AdminPrescriptionList prescriptionList = new AdminPrescriptionList(conn,prescriptionTable);
         
-        String listOfPrescriptions = prescriptionList.getPrescription();
+        
+        DBbean db =  new DBbean();
+        db.getConnection(conn);  
+        
+        String listOfPrescriptions = db.getPrescription(prescriptionTable);
        
         request.setAttribute("listOfPrescriptions", listOfPrescriptions);
     }
