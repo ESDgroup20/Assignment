@@ -1,23 +1,25 @@
+package controler;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controler;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.StaffListOfPrescriptions;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class StaffSelectPrescriptionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,35 +33,27 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
         
-        path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
+        HttpSession session = request.getSession(false);
 
-//        switch (action) {
-//            case "Refer To Specalist":
-//
-//              
-//
-//            case "Set Patient Prescription":
-//
-//                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-//                break;
-//
-//            case "Approve Prescription Refill":
-//
-//                
-//
-//            case "View Daily Appointments":
-//
-//          
-//
-//        }
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
+        String medicationTable = (String) getServletContext().getAttribute("medicationTable");
+        String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
 
-        request.getRequestDispatcher(path).forward(request, response);
+        StaffListOfPrescriptions listOfPrescriptions = new StaffListOfPrescriptions(conn, patientTable, medicationTable, prescriptionTable);
+        listOfPrescriptions.dbSelect();
+        listOfPrescriptions.createHTML();
 
+        String patientHTML = listOfPrescriptions.getPatientHTML();
+        String medicationHTML = listOfPrescriptions.getMedicationHTML();
+        
+        System.out.println("listOfPrescriptions");
+        System.out.println(listOfPrescriptions);
+        
+        session.setAttribute("listOfPrescriptions",listOfPrescriptions);
+        request.setAttribute("patientHTML", patientHTML);
+        request.setAttribute("medicationHTML", medicationHTML);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

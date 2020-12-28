@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.StaffListOfPrescriptions;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class StaffActionPrescriptionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,34 +32,20 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
 
         HttpSession session = request.getSession(false);
+
+        String patient = request.getParameter("patient");
+        String medication = request.getParameter("medication");
+
+        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
+
+        String sucsess = listOfPrescriptions.dbInsert(patient, medication);
         
-        path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-
-//        switch (action) {
-//            case "Refer To Specalist":
-//
-//              
-//
-//            case "Set Patient Prescription":
-//
-//                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-//                break;
-//
-//            case "Approve Prescription Refill":
-//
-//                
-//
-//            case "View Daily Appointments":
-//
-//          
-//
-//        }
-
-        request.getRequestDispatcher(path).forward(request, response);
+    
+        System.out.println(sucsess);
+        
+        
 
     }
 

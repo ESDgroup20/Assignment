@@ -34,7 +34,7 @@ public class DBbean {
     }
 
     public boolean update(String updateQuery) {
-        
+
         try {
             pre = conn.prepareStatement(updateQuery);
             pre.executeUpdate();
@@ -70,6 +70,113 @@ public class DBbean {
 
                 }
                 returnList.add(temp);
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList selectAllPatientNameID() {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT PATIENTID,PATIENTNAME FROM PATIENTS";
+
+            pre = conn.prepareStatement(query);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList selectAllMedName() {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM MEDICATION";
+
+            pre = conn.prepareStatement(query);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(1));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList selectAllPrescriptions() {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM Prescription";
+
+            pre = conn.prepareStatement(query);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(2));
+                returnList.add(rs.getString(3));
+
             }
 
             rs.close();
@@ -190,6 +297,26 @@ public class DBbean {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public boolean insertPrescription(String patient, String medication) {
+        try {
+
+            String updateQuery = "INSERT INTO PRESCRIPTION (PATIENTID, MED_NAME) VALUES (?, ?)";
+
+            pre = conn.prepareStatement(updateQuery);
+            pre.setString(1, patient);
+            pre.setString(2, medication);
+
+            pre.executeUpdate();
+            pre.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
     }
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------

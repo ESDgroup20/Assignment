@@ -119,6 +119,14 @@
         <servlet-name>StaffSelectRefilController</servlet-name>
         <servlet-class>controler.StaffSelectRefilController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffSelectPrescriptionController</servlet-name>
+        <servlet-class>controler.StaffSelectPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffActionPrescriptionController</servlet-name>
+        <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -159,8 +167,30 @@
         <servlet-name>AdminSelectAppointmentController</servlet-name>
         <url-pattern>/AdminSelectAppointmentController</url-pattern>
     </servlet-mapping>
-    
-    <!-- ============================= SESSION ============================= -->
+    <servlet-mapping>
+        <servlet-name>AdminSelectAproveStaffController</servlet-name>
+        <url-pattern>/AdminSelectAproveStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminActionAproveStaffController</servlet-name>
+        <url-pattern>/AdminActionAproveStaffController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffViewController</servlet-name>
+        <url-pattern>/StaffViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectRefilController</servlet-name>
+        <url-pattern>/StaffSelectRefilController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectPrescriptionController</servlet-name>
+        <url-pattern>/StaffSelectPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionPrescriptionController</servlet-name>
+        <url-pattern>/StaffActionPrescriptionController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             1
