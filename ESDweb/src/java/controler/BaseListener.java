@@ -61,6 +61,7 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("appointmentTable", appointmentTable);
         context.setAttribute("medicationTable", medicationTable);
         context.setAttribute("prescriptionTable", prescriptionTable);
+         context.setAttribute("medicationTable", medicationTable);
 
     }
 
