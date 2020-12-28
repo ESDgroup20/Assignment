@@ -26,6 +26,7 @@ public class StaffListOfPrescriptions {
 
     private String patientHTML;
     private String medicationHTML;
+    private String refillsHTML;
 
     public StaffListOfPrescriptions(Connection conn, String patientTable, String medicationTable, String prescriptionTable) {
         this.conn = conn;
@@ -62,15 +63,22 @@ public class StaffListOfPrescriptions {
             patientHTML = patientHTML + patientData.get(i);
         }
         patientHTML = patientHTML + "</select>";
+        
 
         medicationHTML = "<select name='medication'>";
-        for (int i = 0; i < medicationData.size(); i++) {
+        refillsHTML = "<select name='reffils'>";
+        
+        for (int i = 0; i < medicationData.size(); i += 2) {
             medicationHTML = medicationHTML + "<option value='";
             medicationHTML = medicationHTML + medicationData.get(i);
             medicationHTML = medicationHTML + "'>";
             medicationHTML = medicationHTML + medicationData.get(i);
+            
+            
 
         }
+        
+        
         medicationHTML = medicationHTML + "</select>";
         System.out.println(medicationData);
         System.out.println(medicationHTML);

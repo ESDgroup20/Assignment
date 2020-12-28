@@ -138,6 +138,7 @@ public class DBbean {
             while (rs.next()) {
 
                 returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
 
             }
 

@@ -16,6 +16,7 @@
         <form method="post" action ="StaffActionPrescriptionController"  >
             <%=request.getAttribute("patientHTML") %>
             <%=request.getAttribute("medicationHTML") %>
+            
              <input type="submit">
         </form>
     </body>
