@@ -248,7 +248,7 @@ public class DBbean {
     public String getPrescription(String table) {
 
         String returnString = "Prescriptions: <br>";
-        returnString = returnString + "Prescription ID, PatientName, MedicationName <br>";
+        returnString = returnString + "PatientID, MedicationName, Refills <br>";
         returnString = returnString + selectAll(table);
 
         return returnString;
