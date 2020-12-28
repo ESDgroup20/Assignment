@@ -1,24 +1,25 @@
+package controler;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controler;
-
-import database.DBbean;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.StaffListOfPrescriptions;
 
 /**
  *
  * @author Eli
  */
-public class AdminSelectAppointmentController extends HttpServlet {
+public class StaffSelectPrescriptionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +32,28 @@ public class AdminSelectAppointmentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(false);
 
         Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
+        String medicationTable = (String) getServletContext().getAttribute("medicationTable");
+        String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
 
-        DBbean db =  new DBbean();
-        db.getConnection(conn);  
+        StaffListOfPrescriptions listOfPrescriptions = new StaffListOfPrescriptions(conn, patientTable, medicationTable, prescriptionTable);
+        listOfPrescriptions.dbSelect();
+        listOfPrescriptions.createHTML();
+
+        String patientHTML = listOfPrescriptions.getPatientHTML();
+        String medicationHTML = listOfPrescriptions.getMedicationHTML();
         
-//        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
-
-        String listOfAppointments = db.getAppointment(appointmentTable);
-        request.setAttribute("listOfAppointments", listOfAppointments);
+        System.out.println("listOfPrescriptions");
+        System.out.println(listOfPrescriptions);
+        
+        session.setAttribute("listOfPrescriptions",listOfPrescriptions);
+        request.setAttribute("patientHTML", patientHTML);
+        request.setAttribute("medicationHTML", medicationHTML);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,20 +5,21 @@
  */
 package controler;
 
-import database.DBbean;
 import java.io.IOException;
-import java.sql.Connection;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.AdminListOfStaff;
 
 /**
  *
  * @author Eli
  */
-public class AdminSelectAppointmentController extends HttpServlet {
+public class AdminActionAproveStaffController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +32,23 @@ public class AdminSelectAppointmentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
+        String action = request.getParameter("action");
         
         HttpSession session = request.getSession(false);
-
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String appointmentTable = (String) getServletContext().getAttribute("appointmentTable");
-
-        DBbean db =  new DBbean();
-        db.getConnection(conn);  
         
-//        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
+        AdminListOfStaff listOfStaff =  (AdminListOfStaff) session.getAttribute("listOfStaff");
+        
+        //Invoking this method updates db        
+        boolean sucsess = listOfStaff.dbUpdate(action);
+      
+        System.out.println("here");
+        String path = "/view/jsp/pages/AdminApproveStaffView.jsp";
+        
+        request.getRequestDispatcher(path).forward(request, response);
+        
 
-        String listOfAppointments = db.getAppointment(appointmentTable);
-        request.setAttribute("listOfAppointments", listOfAppointments);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
