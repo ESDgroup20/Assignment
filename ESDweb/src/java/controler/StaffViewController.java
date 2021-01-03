@@ -36,7 +36,12 @@ public class StaffViewController extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         
+        String sucsess = "";
+        
+        session.setAttribute("sucsessHTML", sucsess);
+        
         path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
+        
 
 //        switch (action) {
 //            case "Refer To Specalist":

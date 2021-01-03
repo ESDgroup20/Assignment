@@ -7,6 +7,7 @@ package database;
 
 import java.sql.Array;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -126,7 +127,7 @@ public class DBbean {
             //      query string
 
             //      prepare statement
-            String query = "SELECT * FROM MEDICATION";
+            String query = "SELECT * FROM MEDICATIONS";
 
             pre = conn.prepareStatement(query);
             //      execute query
@@ -300,14 +301,16 @@ public class DBbean {
         return null;
     }
 
-    public boolean insertPrescription(String patient, String medication) {
+    public boolean insertPrescription(String patient, String medication, int refills, Date date) {
         try {
 
-            String updateQuery = "INSERT INTO PRESCRIPTION (PATIENTID, MED_NAME) VALUES (?, ?)";
+            String updateQuery = "INSERT INTO PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS,DATECREATED) VALUES (?, ?, ?, ?)";
 
             pre = conn.prepareStatement(updateQuery);
             pre.setString(1, patient);
             pre.setString(2, medication);
+            pre.setInt(3, refills);
+            pre.setDate(4, date);
 
             pre.executeUpdate();
             pre.close();

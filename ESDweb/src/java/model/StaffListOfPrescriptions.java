@@ -8,6 +8,7 @@ package model;
 import database.DBbean;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.sql.Date;  
 
 /**
  *
@@ -27,6 +28,7 @@ public class StaffListOfPrescriptions {
     private String patientHTML;
     private String medicationHTML;
     private String refillsHTML;
+    private String successHTML;
 
     public StaffListOfPrescriptions(Connection conn, String patientTable, String medicationTable, String prescriptionTable) {
         this.conn = conn;
@@ -43,14 +45,18 @@ public class StaffListOfPrescriptions {
         patientData = dao.selectAllPatientNameID();
 
         medicationData = dao.selectAllMedName();
-
-        prescriptionData = dao.selectAllPrescriptions();
+        
+//        remove associated infomation
+//        prescriptionData = dao.selectAllPrescriptions();
 
     }
 
     public void createHTML() {
 
-        patientHTML = "<select name='patient'>";
+        patientHTML = "<label for='patientName'>Patient Name:</label><br>";
+
+        patientHTML = patientHTML + "<select name='patient'>";
+
         for (int i = 0; i < patientData.size(); i += 2) {
             System.out.println("test");
             System.out.println(patientData.get(i));
@@ -63,41 +69,50 @@ public class StaffListOfPrescriptions {
             patientHTML = patientHTML + patientData.get(i);
         }
         patientHTML = patientHTML + "</select>";
-        
 
-        medicationHTML = "<select name='medication'>";
-        refillsHTML = "<select name='reffils'>";
-        
+        medicationHTML = "<br><label for='medicationName'>Medication Name:</label><br>";
+
+        medicationHTML = medicationHTML + "<select name='medication'>";
+
         for (int i = 0; i < medicationData.size(); i += 2) {
+
             medicationHTML = medicationHTML + "<option value='";
             medicationHTML = medicationHTML + medicationData.get(i);
             medicationHTML = medicationHTML + "'>";
             medicationHTML = medicationHTML + medicationData.get(i);
-            
-            
 
         }
-        
-        
+
         medicationHTML = medicationHTML + "</select>";
+
+//        allowed number of refills is currently limited to just 5 for all types of medication
+        refillsHTML = "<br><label for='numberOfRefills'>Number of Refills:</label><br>";
+        refillsHTML = refillsHTML + "<input type='number' name='refills' min='1' max='5' value = '1' >";
+
+        System.out.println("reffils" + refillsHTML);
         System.out.println(medicationData);
         System.out.println(medicationHTML);
     }
 
-    public String dbInsert(String patient,String medication) {
+    public String dbInsert(String patient, String medication, String refillsString) {
+
+//        refills is converted to integer for db
+        int refills = Integer.parseInt(refillsString);
+
+        long systemDate=System.currentTimeMillis();  
+        Date date = new Date(systemDate);  
+
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
-        
-        boolean sucsses =  dao.insertPrescription(patient,medication);
-        
-        if(sucsses){
-            return "Patient ID:" + patient + "prescription for " + medication +"was sucsessful";
+
+        boolean sucsses = dao.insertPrescription(patient, medication, refills,date);
+
+        if (sucsses) {
+            return "<p>Patient ID:" + patient + "prescription for " + medication + " was sucsessful<p>";
+        } else {
+            return "<p>Patient ID:" + patient + "prescription for " + medication + " FAILED as it already exists</p>";
         }
-        else{
-            return "Patient ID:" + patient + "prescription for " + medication +"FAILED as it already exists";
-        }
-       
 
     }
 
@@ -107,6 +122,10 @@ public class StaffListOfPrescriptions {
 
     public String getMedicationHTML() {
         return medicationHTML;
+    }
+
+    public String getRefillsHTML() {
+        return refillsHTML;
     }
 
 }
