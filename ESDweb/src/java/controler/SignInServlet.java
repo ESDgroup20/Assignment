@@ -8,13 +8,17 @@ package controler;
 import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.AdminBean;
+import model.UserBean;
+import model.CreateUserBean;
+import model.StaffBean;
 
 /**
  *
@@ -50,24 +54,28 @@ public class SignInServlet extends HttpServlet {
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
-        
-        String action   = request.getParameter("act");
-        
+
+        String action = request.getParameter("act");
+
 //        System.out.println("GET DATE: " + datetime);
 //      save path string       
         String path = null;
 //        if front-end click btn Login
         if (action.equals("Login")) {
 //          check Auth from DBbean.signInAuth
-            User user = db.signInAuth(userTable, username,password);
-            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
-            
+            ArrayList<String> userData = db.signInAuth(userTable, username, password);
+
 //          check valid user            
-            if (user != null) {
+            if (userData != null) {
+
+                CreateUserBean userLoggingIn = new CreateUserBean(userData);
+                UserBean user = userLoggingIn.create();
+                System.out.println("UserBean" + user);
+
 //              session for users
                 session.setAttribute("userData", user);
-                session.setAttribute("patientName", patientName);
-                
+//                session.setAttribute("patientName", patientName);
+
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
 //              init path
@@ -83,11 +91,11 @@ public class SignInServlet extends HttpServlet {
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
             path = "/view/jsp/pages/TestPage.jsp";
-            
+
         }
 //      access path
-        request.getServletContext().getRequestDispatcher(path).forward(request,response);
-        
+        request.getServletContext().getRequestDispatcher(path).forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -8,15 +8,16 @@ package controler;
 import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.HashSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Patient;
-import model.Staff;
-import model.User;
+import model.PatientBean;
+import model.StaffBean;
+import model.UserBean;
 
 /**
  *
@@ -78,7 +79,9 @@ public class SignUpServlet extends HttpServlet {
 
             switch (role) {
                 case "Patient":
-                    Patient patient = new Patient(name, address, username, password);
+                    PatientBean patient = new PatientBean();
+                    patient.setName(name);
+                    patient.setUserName(username);
                     String patientTable = (String) getServletContext().getAttribute("patientTable");
                     db.createPatient(patientTable, name, address, username);
                     session.setAttribute("patientData", patient);
@@ -86,7 +89,9 @@ public class SignUpServlet extends HttpServlet {
     
                 case "Doctor":
                 case "Nurse":
-                    Staff staff = new Staff(name, address, username, password);
+                    StaffBean staff = new StaffBean();
+                    staff.setName(name);
+                    staff.setUserName(username);
                     String staffTable = (String) getServletContext().getAttribute("staffTable");
                     db.createStaff(staffTable, name, address, username);
                     session.setAttribute("staffData", staff);

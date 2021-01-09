@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.User;
+import model.UserBean;
 
 /**
  *
@@ -207,7 +207,7 @@ public class DBbean {
             //      get column size
             ResultSetMetaData metaData = rs.getMetaData();
             int size = metaData.getColumnCount();
-   
+
 //                  loop each column
             while (rs.next()) {
                 for (int i = 0; i < size; i++) {  // check how many column
@@ -230,13 +230,12 @@ public class DBbean {
         }
         return null;
     }
-    
+
     public String getUsers(String Stable, String Ptable) {
 
         String returnString = "Staff: <br>";
         returnString = returnString + "Staff ID, Staff Name, Staff Address, Staff UserName <br>";
         returnString = returnString + selectAll(Stable);
-       
 
         returnString = returnString + "<br> Patient: <br>";
         returnString = returnString + "Patient ID, Patient Name, Patient Address, Patient UserName <br>";
@@ -245,7 +244,7 @@ public class DBbean {
         return returnString;
 
     }
-    
+
     public String getPrescription(String table) {
 
         String returnString = "Prescriptions: <br>";
@@ -254,7 +253,7 @@ public class DBbean {
 
         return returnString;
     }
-    
+
     public String getAppointment(String table) {
 
         String returnString = "Appointment: <br>";
@@ -263,8 +262,6 @@ public class DBbean {
 
         return returnString;
     }
-    
-    
 
 //  Show all data in this table     --------------SIGN-IN-PAGE------------------
     public String signInSelection(String table) {
@@ -324,7 +321,7 @@ public class DBbean {
     }
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------
-    public User signInAuth(String table, String username, String password) {
+    public ArrayList<String> signInAuth(String table, String username, String password) {
 
         try {
             //      String query
@@ -338,21 +335,21 @@ public class DBbean {
             rs = pre.executeQuery();
 
             //      loop until get valid user to return
+            ArrayList<String> returnList = new ArrayList<String>();
             while (rs.next()) {
-                User user = new User(rs.getString(1), rs.getString(2));
-                //          also save its role
-                user.setUserRole(rs.getString(3));
-                return user;
+                returnList.add(rs.getString(1).trim());
+                returnList.add(rs.getString(2).trim());
+                returnList.add(rs.getString(3).trim());
+                returnList.add(rs.getString(4).trim());
             }
             rs.close();
             pre.close();
+            return returnList;
         } catch (SQLException ex) {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    
 
 //  register new user       ------------------SIGN-UP-PAGE----------------------
     public void createUser(String table, String username, String password, String role) {
@@ -372,11 +369,11 @@ public class DBbean {
         }
 
     }
-    
-    public void createPatient(String table, String patientName, String patientAddress, String username){
+
+    public void createPatient(String table, String patientName, String patientAddress, String username) {
         try {
             //      query
-            String registerQuery = "INSERT INTO "+table+" (PATIENTNAME, PATIENTADDRESS, USERNAME) VALUES (?, ?, ?)";
+            String registerQuery = "INSERT INTO " + table + " (PATIENTNAME, PATIENTADDRESS, USERNAME) VALUES (?, ?, ?)";
             //      prepare statement
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
@@ -389,11 +386,11 @@ public class DBbean {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void createStaff(String table, String staffName, String staffAddress, String username){
+
+    public void createStaff(String table, String staffName, String staffAddress, String username) {
         try {
             //      query 
-            String registerQuery = "INSERT INTO "+table+" (STAFFNAME, STAFFADDRESS, USERNAME) VALUES (?, ?, ?)";
+            String registerQuery = "INSERT INTO " + table + " (STAFFNAME, STAFFADDRESS, USERNAME) VALUES (?, ?, ?)";
             //      prepare statement
 //            System.out.println("query: "+registerQuery);
             pre = conn.prepareStatement(registerQuery);
@@ -441,23 +438,24 @@ public class DBbean {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public String selectNameByRole(String table, String role, String name, String usAuth, String pwAuth){
+
+    public String selectNameByRole(String table, String role, String name, String usAuth, String pwAuth) {
         String value = null;
         try {
-            String selectQuery ="SELECT "+name+" "
-                    + "FROM users,"+table+" "
-                    + "WHERE  users.username = "+table+".USERNAME "
-                    + "AND users.role = '"+role+"' "
-                    + "AND users.USERNAME = '"+usAuth+"' "
-                    + "AND users.PASSWORD = '"+pwAuth+"' ";
+            String selectQuery = "SELECT " + name + " "
+                    + "FROM users," + table + " "
+                    + "WHERE  users.username = " + table + ".USERNAME "
+                    + "AND users.role = '" + role + "' "
+                    + "AND users.USERNAME = '" + usAuth + "' "
+                    + "AND users.PASSWORD = '" + pwAuth + "' ";
 //            System.out.println(selectQuery);
             pre = conn.prepareStatement(selectQuery);
             rs = pre.executeQuery();
-  
-            while (rs.next())
+
+            while (rs.next()) {
                 value = rs.getString(1);
-            
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }

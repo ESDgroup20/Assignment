@@ -9,9 +9,9 @@ package model;
  *
  * @author ESD20
  */
-public class Admin extends User{
+public class AdminBean extends UserBean{
     
-    public Admin(){
+    public AdminBean(){
         
     }
     

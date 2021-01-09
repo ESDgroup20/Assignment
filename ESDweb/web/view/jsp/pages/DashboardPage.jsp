@@ -4,8 +4,8 @@
     Author     : ESD20
 --%>
 
-<%@page import="model.Patient"%>
-<%@page import="model.User"%>
+
+<%@page import="model.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,17 +17,20 @@
     <body>
         
         <%
-            User user = (User) request.getSession().getAttribute("userData");
-            String role = user.getUserRole();
+            System.out.println("Dashboard page opened");
+            UserBean user = (UserBean) request.getSession().getAttribute("userData");
+            String role = user.getRole();
+            System.out.println("role="+role);
             
             if(role.equals("Admin")){
+                System.out.println("adminView Opened");
         %>      
                 <h1> Dashboard <% out.print(role); %> </h1>
                 <%--<%@ include file="../components/AdminDashboard.jsp" %>--%>
                 <%@ include file="../components/AdminView.jsp" %>
         <%  } 
             else if(role.equals("Patient")){
-                String patientName = (String) request.getSession().getAttribute("patientName");
+                String patientName = user.getName();
         %>
                 <h1> Dashboard <% out.print(role + " " + patientName); %> </h1>
                 <%@ include file="../components/Booking.jsp" %>

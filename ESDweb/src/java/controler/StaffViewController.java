@@ -31,37 +31,29 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
+//        String action = request.getParameter("action");
         String path = "";
 
         HttpSession session = request.getSession(false);
         
-        String sucsess = "";
-        
-        session.setAttribute("sucsessHTML", sucsess);
-        
-        path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-        
+        String action = "Set Patient Prescription";
 
-//        switch (action) {
-//            case "Refer To Specalist":
-//
-//              
-//
-//            case "Set Patient Prescription":
-//
-//                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-//                break;
-//
-//            case "Approve Prescription Refill":
-//
-//                
-//
-//            case "View Daily Appointments":
-//
-//          
-//
-//        }
+        switch (action) {
+            case "Refer To Specalist":
+
+            case "Set Patient Prescription":
+                String sucsess = "";
+
+                session.setAttribute("sucsessHTML", sucsess);
+
+                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
+                break;
+
+            case "Approve Prescription Refill":
+
+            case "View Daily Appointments":
+
+        }
 
         request.getRequestDispatcher(path).forward(request, response);
 

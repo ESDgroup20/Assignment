@@ -4,9 +4,9 @@
     Author     : ESD20
 --%>
 
-<%@page import="model.Staff"%>
-<%@page import="model.Patient"%>
-<%@page import="model.User"%>
+<%@page import="model.StaffBean"%>
+<%@page import="model.PatientBean"%>
+<%@page import="model.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -24,7 +24,7 @@
                 String sessionKey = (String) request.getSession().getAttribute("sessionKey");
                 out.println("<br>SESSION key: "+sessionKey);
         %>
-                <jsp:useBean id="user" class="model.User" scope="request" >
+                <jsp:useBean id="user" class="model.UserBean" scope="request" >
                     <h1>LOGIN SUCCESSFULLY</h1> 
                     USERNAME is: <jsp:getProperty name="userData" property="userName" /><br>
                     PASSWORD is: <jsp:getProperty name="userData" property="userPass" /><br>
@@ -35,7 +35,7 @@
                 String role = request.getParameter("role");
                 if(role.equals("Patient")){
         %>
-                    <jsp:useBean id="patient" class="model.Patient" scope="request" >
+                    <jsp:useBean id="patient" class="model.PatientBean" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
                         Thank you <jsp:getProperty name="patientData" property="patientName" />,  for creating an account with SmartCare GP. <br>
                         Your username is <jsp:getProperty name="patientData" property="patientUsername" />, return to home to log in!
@@ -43,7 +43,7 @@
                     </jsp:useBean>
         <%      } else {
         %>
-                    <jsp:useBean id="staff" class="model.Staff" scope="request" >
+                    <jsp:useBean id="staff" class="model.StaffBean" scope="request" >
                         <h1>REGISTER SUCCESSFULLY</h1>
                         Thank you <jsp:getProperty name="staffData" property="staffName" />,  for creating an account with SmartCare GP. <br>
                         Your username is <jsp:getProperty name="staffData" property="staffUsername" />, return to home to log in once approved!
