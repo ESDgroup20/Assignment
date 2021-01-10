@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Patient;
+import model.Staff;
 import model.User;
 
 /**
@@ -24,15 +26,17 @@ import model.User;
 public class DBbean {
 
 //  Declare connection...
-    Connection conn = null;
-    ResultSet rs = null;
-    PreparedStatement pre = null;
+    static Connection conn = null;
+    static ResultSet rs = null;
+    static PreparedStatement pre = null;
 
 //  Make connection to access DB    --------------NEEDED-EVERYTIME--------------
     public void getConnection(Connection c) {
         this.conn = c;
     }
 
+    
+    
     public boolean update(String updateQuery) {
 
         try {
@@ -47,42 +51,7 @@ public class DBbean {
         }
     }
 
-    public ArrayList select(String query) {
-        try {
-            //      query string
-
-            //      prepare statement
-            pre = conn.prepareStatement(query);
-            //      execute query
-            rs = pre.executeQuery();
-            //      array of each elements
-            String returnString = "";
-            //      get column size
-            ResultSetMetaData metaData = rs.getMetaData();
-            int size = metaData.getColumnCount();
-            ArrayList<ArrayList> returnList = new ArrayList<ArrayList>();
-
-//                  loop each column
-            while (rs.next()) {
-                ArrayList<String> temp = new ArrayList<String>();
-                for (int i = 0; i < size; i++) {  // check how many column
-                    temp.add(rs.getString(i + 1));
-
-                }
-                returnList.add(temp);
-            }
-
-            rs.close();
-            pre.close();
-
-            //      return each elements each lines
-            return returnList;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
 
     public ArrayList selectAllPatientNameID() {
 
@@ -192,43 +161,7 @@ public class DBbean {
         return null;
     }
 
-    //  Show all data in this table     
-    public String selectAll(String table) {
-        try {
-            //      query string
-            String loginQuery = "SELECT * FROM " + table;
-            //      prepare statement
-            pre = conn.prepareStatement(loginQuery);
-            //      execute query
-            rs = pre.executeQuery();
-            //      array of each elements
-            StringBuilder sb = new StringBuilder();
-            //      get column size
-            ResultSetMetaData metaData = rs.getMetaData();
-            int size = metaData.getColumnCount();
-   
-//                  loop each column
-            while (rs.next()) {
-                for (int i = 0; i < size; i++) {  // check how many column
-                    String temp = rs.getString(i + 1);
-                    sb.append(" ");
-                    sb.append(temp);
-
-                }
-                sb.append("<br>");
-            }
-
-            rs.close();
-            pre.close();
-
-            //      return each elements each lines
-            return sb.toString();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
     
     public String getUsers(String Stable, String Ptable) {
 
@@ -265,7 +198,7 @@ public class DBbean {
     
     
 
-//  Show all data in this table     --------------SIGN-IN-PAGE------------------
+//  Show all data in this table     --------------FAST TRACK-PAGE------------------
     public String signInSelection(String table) {
         try {
             //      query string
@@ -299,29 +232,11 @@ public class DBbean {
         }
         return null;
     }
+//  -----------------------------------------------------------------------------
 
-    public boolean insertPrescription(String patient, String medication) {
-        try {
-
-            String updateQuery = "INSERT INTO PRESCRIPTION (PATIENTID, MED_NAME) VALUES (?, ?)";
-
-            pre = conn.prepareStatement(updateQuery);
-            pre.setString(1, patient);
-            pre.setString(2, medication);
-
-            pre.executeUpdate();
-            pre.close();
-
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-
-    }
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------
-    public User signInAuth(String table, String username, String password) {
+    public User signInAuth(String table, User user) {
 
         try {
             //      String query
@@ -329,17 +244,21 @@ public class DBbean {
             //      prepare statement
             pre = conn.prepareStatement(loginQueryAuth);
             //      access statement position by "?"
-            pre.setString(1, username);
-            pre.setString(2, password);
+            pre.setString(1, user.getUserName());
+            pre.setString(2, user.getUserPass());
             //      execute query
             rs = pre.executeQuery();
 
-            //      loop until get valid user to return
             while (rs.next()) {
-                User user = new User(rs.getString(1), rs.getString(2));
-                //          also save its role
-                user.setUserRole(rs.getString(3));
-                return user;
+                User getUser = new User(rs.getString(1), rs.getString(2), rs.getString(3));
+                if(getUser.getUserRole().equals("Doctor") || getUser.getUserRole().equals("Nurse")){  
+                    if(isStaffUnapproved(getUser.getUserName())){
+//                        System.out.println("again: "+isStaffUnapproved(getUser.getUserName()));
+                        return null;
+                    } 
+                } 
+                return getUser;
+                
             }
             rs.close();
             pre.close();
@@ -350,18 +269,19 @@ public class DBbean {
     }
     
     
+    
 
-//  register new user       ------------------SIGN-UP-PAGE----------------------
-    public void createUser(String table, String username, String password, String role) {
+//  create -----------------------------------SIGN-UP-PAGE----------------------
+    public void createUser(String table, User user) {
         try {
             //      query
             String registerQuery = "INSERT INTO " + table + " VALUES (?, ?, ?)";
             //      prepare statement
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
-            pre.setString(1, username);
-            pre.setString(2, password);
-            pre.setString(3, role);
+            pre.setString(1, user.getUserName());
+            pre.setString(2, user.getUserPass());
+            pre.setString(3, user.getUserRole());
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -370,16 +290,16 @@ public class DBbean {
 
     }
     
-    public void createPatient(String table, String patientName, String patientAddress, String username){
+    public void createPatient(String table, Patient patient){
         try {
             //      query
             String registerQuery = "INSERT INTO "+table+" (PATIENTNAME, PATIENTADDRESS, USERNAME) VALUES (?, ?, ?)";
             //      prepare statement
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
-            pre.setString(1, patientName);
-            pre.setString(2, patientAddress);
-            pre.setString(3, username);
+            pre.setString(1, patient.getPatientName());
+            pre.setString(2, patient.getPatientAddress());
+            pre.setString(3, patient.getPatientUsername());
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -387,7 +307,7 @@ public class DBbean {
         }
     }
     
-    public void createStaff(String table, String staffName, String staffAddress, String username){
+    public void createStaff(String table, Staff staff){
         try {
             //      query 
             String registerQuery = "INSERT INTO "+table+" (STAFFNAME, STAFFADDRESS, USERNAME) VALUES (?, ?, ?)";
@@ -395,9 +315,9 @@ public class DBbean {
 //            System.out.println("query: "+registerQuery);
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
-            pre.setString(1, staffName);
-            pre.setString(2, staffAddress);
-            pre.setString(3, username);
+            pre.setString(1, staff.getStaffName());
+            pre.setString(2, staff.getStaffAddress());
+            pre.setString(3, staff.getStaffUsername());
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -405,6 +325,7 @@ public class DBbean {
         }
     }
 
+//  delete ---------------------------------------------------------------------
     public void deleteUser(String table, String key) {
         try {
             String deleteQuery = "DELETE FROM " + table + " WHERE USERNAME='" + key + "'";
@@ -439,19 +360,108 @@ public class DBbean {
         }
     }
     
-    public String selectNameByRole(String table, String role, String name, String usAuth, String pwAuth){
+//  insert ---------------------------------------------------------------------
+    public boolean insertPrescription(String patient, String medication) {
+        try {
+
+            String updateQuery = "INSERT INTO PRESCRIPTION (PATIENTID, MED_NAME) VALUES (?, ?)";
+
+            pre = conn.prepareStatement(updateQuery);
+            pre.setString(1, patient);
+            pre.setString(2, medication);
+
+            pre.executeUpdate();
+            pre.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
+//  select----------------------------------------------------------------------
+    
+    //  Show all data in this table     
+    public String selectAll(String table) {
+        try {
+            //      query string
+            String loginQuery = "SELECT * FROM " + table;
+            //      prepare statement
+            pre = conn.prepareStatement(loginQuery);
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+            StringBuilder sb = new StringBuilder();
+            //      get column size
+            ResultSetMetaData metaData = rs.getMetaData();
+            int size = metaData.getColumnCount();
+   
+//                  loop each column
+            while (rs.next()) {
+                for (int i = 0; i < size; i++) {  // check how many column
+                    String temp = rs.getString(i + 1);
+                    sb.append(" ");
+                    sb.append(temp);
+
+                }
+                sb.append("<br>");
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return sb.toString();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    } 
+    
+    public ArrayList select(String query) {
+        try {
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int size = metaData.getColumnCount();
+            ArrayList<ArrayList> returnList = new ArrayList<>();
+
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<>();
+                for (int i = 0; i < size; i++) {  // check how many column
+                    temp.add(rs.getString(i + 1));
+
+                }
+                returnList.add(temp);
+            }
+
+            rs.close();
+            pre.close();
+
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public String selectNameByRole(String table, String name, User user){
         String value = null;
         try {
             String selectQuery ="SELECT "+name+" "
                     + "FROM users,"+table+" "
                     + "WHERE  users.username = "+table+".USERNAME "
-                    + "AND users.role = '"+role+"' "
-                    + "AND users.USERNAME = '"+usAuth+"' "
-                    + "AND users.PASSWORD = '"+pwAuth+"' ";
+                    + "AND users.USERNAME = '"+user.getUserName()+"' "
+                    + "AND users.PASSWORD = '"+user.getUserPass()+"' ";
 //            System.out.println(selectQuery);
             pre = conn.prepareStatement(selectQuery);
             rs = pre.executeQuery();
   
+            System.out.println(selectQuery);
             while (rs.next())
                 value = rs.getString(1);
             
@@ -459,5 +469,24 @@ public class DBbean {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return value;
+    }
+
+    public static boolean isStaffUnapproved(String uname) {
+
+        try {
+            String sqlQuery = "SELECT * FROM Staffs WHERE USERNAME = '"+uname+"' AND APPROVED = FALSE";//        return null;
+            pre = conn.prepareStatement(sqlQuery);
+            rs = pre.executeQuery();
+
+            while(rs.next()){
+                if(uname.equals(rs.getString("USERNAME"))){
+                    System.out.println(sqlQuery);
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

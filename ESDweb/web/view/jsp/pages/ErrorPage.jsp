@@ -12,6 +12,7 @@
         <title>Error Page</title>
     </head>
     <body>
-        <h1>ERROR !!!</h1>
+        <h1>NO USER OR UNAPPROVED USER</h1>
+        
     </body>
 </html>

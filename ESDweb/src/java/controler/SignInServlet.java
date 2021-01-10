@@ -39,6 +39,7 @@ public class SignInServlet extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String userTable = (String) getServletContext().getAttribute("userTable");
         String patientTable = (String) getServletContext().getAttribute("patientTable");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
 
 //      apply context into database
         DBbean db = new DBbean();
@@ -59,22 +60,34 @@ public class SignInServlet extends HttpServlet {
 //        if front-end click btn Login
         if (action.equals("Login")) {
 //          check Auth from DBbean.signInAuth
-            User user = db.signInAuth(userTable, username,password);
-            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
+            User user = db.signInAuth(userTable, new User(username,password));
             
 //          check valid user            
-            if (user != null) {
-//              session for users
-                session.setAttribute("userData", user);
-                session.setAttribute("patientName", patientName);
+            if (user == null) {
+                path = "/view/jsp/pages/ErrorPage.jsp";
+
+            } else {
                 
-//              session key of users
+                session.setAttribute("userData", user);
                 session.setAttribute("sessionKey", session.getId());
+                
+//                System.out.println("test: "+user.getUserRole());
+                
+                switch(user.getUserRole()){
+                    case "Doctor":
+                    case "Nurse":
+                        String staffName = db.selectNameByRole(staffTable, "staffname", user);
+                        session.setAttribute("staffName", staffName);
+                        break;
+                    case "Patient":
+                        String patientName = db.selectNameByRole(patientTable, "patientname", user);
+                        session.setAttribute("patientName", patientName);
+                        break;
+                }
+                
+                
 //              init path
                 path = "/view/jsp/pages/DashboardPage.jsp";
-            } else { // if invalid
-//              init path
-                path = "/view/jsp/pages/ErrorPage.jsp";
             }
 
 //        if front-end click btn FastTrack

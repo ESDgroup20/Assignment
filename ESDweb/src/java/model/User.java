@@ -13,8 +13,6 @@ public class User implements java.io.Serializable {
     private String userName;
     private String userPass;
     private String userRole;    //Admin, Patient, Staff
-    private String userAddress;
-    private boolean userValid;
     
     public User() {
     }
@@ -24,6 +22,13 @@ public class User implements java.io.Serializable {
         this.userPass = userPass;
     }
 
+    public User(String userName, String userPass, String userRole) {
+        this.userName = userName;
+        this.userPass = userPass;
+        this.userRole = userRole;
+    }
+
+    
     public String getUserName() {
         return userName;
     }
@@ -47,21 +52,6 @@ public class User implements java.io.Serializable {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-
-    public String getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public boolean isUserValid() {
-        return userValid;
-    }
-
-    public void setUserValid(boolean userValid) {
-        this.userValid = userValid;
-    }
+    
     
 }
