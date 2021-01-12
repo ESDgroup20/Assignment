@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/StaffSelectPrescriptionController" ></jsp:include>
+<%--<jsp:include page="/StaffSelectPrescriptionController" ></jsp:include>--%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="post" action ="StaffActionPrescriptionController"  >
+        <form method="post" action ="StaffSelectPrescriptionController"  >
             <%=request.getAttribute("patientHTML") %>
             <%=request.getAttribute("medicationHTML") %>
              <input type="submit">

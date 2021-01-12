@@ -60,7 +60,7 @@ public class BookingServlet extends HttpServlet {
 //            System.out.println("username: "+user.getUserName());
 //            System.out.println("password: "+user.getUserPass());
             
-            String patientName = db.selectNameByRole(patientTable, "Patient", "patientname", user.getUserName(), user.getUserPass());
+            String patientName = db.selectNameByRole(patientTable, "patientname", user);
             System.out.println("Patient name: "+patientName);
             System.out.println("----------------------------");
         }

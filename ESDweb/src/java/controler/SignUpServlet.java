@@ -73,23 +73,24 @@ public class SignUpServlet extends HttpServlet {
             path = "/view/jsp/pages/RegisterPage.jsp";
         } else if(action.equals("SignUp")){
 //          create user from DBbean.createUser
-            db.createUser(userTable, username, password, role);     
+            User newUser = new User(username, password, role);
+            db.createUser(userTable, newUser);     
             
 
             switch (role) {
                 case "Patient":
-                    Patient patient = new Patient(name, address, username, password);
+                    Patient newPatient = new Patient(name, address, username, password);
                     String patientTable = (String) getServletContext().getAttribute("patientTable");
-                    db.createPatient(patientTable, name, address, username);
-                    session.setAttribute("patientData", patient);
+                    db.createPatient(patientTable, newPatient);
+                    session.setAttribute("patientData", newPatient);
                     break;
     
                 case "Doctor":
                 case "Nurse":
-                    Staff staff = new Staff(name, address, username, password);
+                    Staff newStaff = new Staff(name, address, username, password);
                     String staffTable = (String) getServletContext().getAttribute("staffTable");
-                    db.createStaff(staffTable, name, address, username);
-                    session.setAttribute("staffData", staff);
+                    db.createStaff(staffTable, newStaff);
+                    session.setAttribute("staffData", newStaff);
                     break;
             }
 

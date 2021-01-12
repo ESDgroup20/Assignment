@@ -38,15 +38,7 @@
     </context-param>
     
     <!-- =============================== FILTER ================================ -->
-    <filter>
-        <filter-name>RF</filter-name>
-        <filter-class>filter.RequestLoggingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>RF</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>filter.AuthenticationFilter</filter-class>

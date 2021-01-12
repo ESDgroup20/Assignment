@@ -35,28 +35,26 @@ public class StaffViewController extends HttpServlet {
         String path = "";
 
         HttpSession session = request.getSession(false);
-        
-        path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
 
-//        switch (action) {
-//            case "Refer To Specalist":
-//
-//              
-//
-//            case "Set Patient Prescription":
-//
-//                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-//                break;
-//
-//            case "Approve Prescription Refill":
-//
-//                
-//
-//            case "View Daily Appointments":
-//
-//          
-//
-//        }
+        switch (action) {
+            case "Refer To Specalist":
+                break;
+              
+
+            case "Set Patient Prescription":
+
+                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
+                break;
+
+            case "Approve Prescription Refill":
+
+                break;
+
+            case "View Appointments":
+
+                break;
+
+        }
 
         request.getRequestDispatcher(path).forward(request, response);
 

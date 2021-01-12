@@ -29,9 +29,7 @@ public class Staff extends User{
         this.staffPassword = userPass;
         this.staffName = staffName;
         this.staffAddress = staffAddress;
-    }
-    
-    
+    }  
 
     public String getStaffName() {
         return staffName;
@@ -56,8 +54,5 @@ public class Staff extends User{
     public String getStaffPassword() {
         return staffPassword;
     }
-    
-    
-    
     
 }

@@ -6,6 +6,8 @@
 package filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,12 +43,30 @@ public class AuthenticationFilter implements Filter {
 		this.context.log("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
-		          
+		   
+                
+                    
 		if(session != null && !(uri.endsWith("Controller") || uri.endsWith("Servlet") || uri.matches("^.*(css|jpg|jpeg|png|gif|js)$"))){
                     this.context.log("Unauthorized access request");
                     String path="/view/jsp/pages/LoginPage.jsp";
                     req.getServletContext().getRequestDispatcher(path).forward(req,res);
 		}else{
+                    Enumeration<String> params = req.getParameterNames();
+                    while(params.hasMoreElements()){
+                        String name = params.nextElement();
+                        String value = request.getParameter(name);
+                        this.context.log(req.getRemoteAddr() + "::Autho Params::{"+name+"="+value+"}");
+    
+
+                    }
+                    
+                    Cookie[] cookies = req.getCookies();
+                    if(cookies != null){
+                        for(Cookie cookie : cookies){
+                            this.context.log(req.getRemoteAddr() + "::Cookie::{"+cookie.getName()+","+cookie.getValue()+"}");
+                        }
+                    }
+        
                     chain.doFilter(req, res);
 		}
 	}

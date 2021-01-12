@@ -24,17 +24,19 @@
         %>      
                 <h1> Dashboard <% out.print(role); %> </h1>
                 <%--<%@ include file="../components/AdminDashboard.jsp" %>--%>
-                <%@ include file="../components/AdminView.jsp" %>
+                <%@ include file="../pages/admin/AdminDashboard.jsp" %>
         <%  } 
             else if(role.equals("Patient")){
                 String patientName = (String) request.getSession().getAttribute("patientName");
         %>
-                <h1> Dashboard <% out.print(role + " " + patientName); %> </h1>
+                <h1> Welcome, <% out.print(role + " " + patientName); %> </h1>
                 <%@ include file="../components/Booking.jsp" %>
         <%  }
             else{
-        %>
-                <h1> Dashboard <% out.print(role); %> </h1>
+                String staffName = (String) request.getSession().getAttribute("staffName");
+        %>      
+                <h1> Welcome, <% out.print(role + " " + staffName); %> </h1>
+                <%@ include file="../pages/staff/StaffDashboard.jsp" %>
         <%  }
         %>        
         
