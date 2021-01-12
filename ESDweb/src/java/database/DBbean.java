@@ -167,12 +167,12 @@ public class DBbean {
 
         String returnString = "Staff: <br>";
         returnString = returnString + "Staff ID, Staff Name, Staff Address, Staff UserName <br>";
-        returnString = returnString + selectAll(Stable);
+        returnString = returnString + selectByTable(Stable);
        
 
         returnString = returnString + "<br> Patient: <br>";
         returnString = returnString + "Patient ID, Patient Name, Patient Address, Patient UserName <br>";
-        returnString = returnString + selectAll(Ptable);
+        returnString = returnString + selectByTable(Ptable);
 
         return returnString;
 
@@ -182,7 +182,7 @@ public class DBbean {
 
         String returnString = "Prescriptions: <br>";
         returnString = returnString + "PatientID, MedicationName, Refills <br>";
-        returnString = returnString + selectAll(table);
+        returnString = returnString + selectByTable(table);
 
         return returnString;
     }
@@ -191,7 +191,7 @@ public class DBbean {
 
         String returnString = "Appointment: <br>";
         returnString = returnString + "Apointment ID, Apointment ID, Staff ID,Patient ID, <br>";
-        returnString = returnString + selectAll(table);
+        returnString = returnString + selectByTable(table);
 
         return returnString;
     }
@@ -384,7 +384,7 @@ public class DBbean {
 //  select----------------------------------------------------------------------
     
     //  Show all data in this table     
-    public String selectAll(String table) {
+    public String selectByTable(String table) {
         try {
             //      query string
             String loginQuery = "SELECT * FROM " + table;
@@ -421,7 +421,7 @@ public class DBbean {
         return null;
     } 
     
-    public ArrayList select(String query) {
+    public ArrayList selectByQuery(String query) {
         try {
             pre = conn.prepareStatement(query);
             rs = pre.executeQuery();

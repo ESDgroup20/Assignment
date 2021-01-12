@@ -14,7 +14,7 @@
     </head>
     <body>
         <%--<%@ include file="../pages/FastTrack.jsp" %>--%>    
-        <%@ include file="../components/AdminDashboard.jsp" %>  
+        <%@ include file="../components/FastTrackView.jsp" %>  
     </body>
     <footer>  
         <%@ include file="../components/Footer.jsp" %>

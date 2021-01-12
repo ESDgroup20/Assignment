@@ -40,25 +40,25 @@ public class AdminViewController extends HttpServlet {
         switch (action) {
             case "Accsess Users":
 
-                path = "view/jsp/pages/AdminUserView.jsp";
+                path = "view/jsp/pages/admin/AdminUserView.jsp";
                 break;
 
             case "Accsess Prescriptions":
 
-                path = "view/jsp/pages/AdminPrescriptionView.jsp";
+                path = "view/jsp/pages/admin/AdminPrescriptionView.jsp";
                 break;
 
             case "Accsess Appointments":
 
-                path = "view/jsp/pages/AdminAppointmentView.jsp";
+                path = "view/jsp/pages/admin/AdminAppointmentView.jsp";
                 break;
 
             case "Acssess Invoices":
-
+                break;
             case "Handle Turnover":
-
+                break;
             case "Approve Staff":
-                path = "view/jsp/pages/AdminApproveStaffView.jsp";
+                path = "view/jsp/pages/admin/AdminApproveStaffView.jsp";
                 break;
 
         }

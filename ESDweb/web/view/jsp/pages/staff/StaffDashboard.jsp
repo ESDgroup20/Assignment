@@ -17,7 +17,7 @@
             <input type="submit" name="action" value="Refer To Specalist">
             <input type="submit" name="action" value="Set Patient Prescription">
             <input type="submit" name="action" value="Approve Prescription Refill">
-            <input type="submit" name="action" value="View Daily Appointments">
+            <input type="submit" name="action" value="View Appointments">
 
 
 

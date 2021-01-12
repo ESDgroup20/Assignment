@@ -33,7 +33,7 @@ public class AdminListOfStaff {
 
         String sqlQuery = "SELECT * FROM Staffs WHERE APPROVED = FALSE";
 
-        unapprovedStaff = dao.select(sqlQuery);
+        unapprovedStaff = dao.selectByQuery(sqlQuery);
 
     }
 

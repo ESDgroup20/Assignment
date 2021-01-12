@@ -55,13 +55,27 @@ public class Patient extends User{
         return patientType;
     }
 
+    public void setPatientType(String patientType) {
+        this.patientType = patientType;
+    }
+    
     public String getPatientUsername() {
         return patientUsername;
+    }
+    
+    public void setPatientUsername(String patientUsername) {
+        this.patientUsername = patientUsername;
     }
 
     public String getPatientPassword() {
         return patientPassword;
     }
+
+
+    public void setPatientPassword(String patientPassword) {
+        this.patientPassword = patientPassword;
+    }
+
     
     
     
