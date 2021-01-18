@@ -40,12 +40,38 @@ public class AuthenticationFilter implements Filter {
 		this.context.log("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
+<<<<<<< Updated upstream
 		          
 		if(session != null && !(uri.endsWith("Controller") || uri.endsWith("Servlet") || uri.matches("^.*(css|jpg|jpeg|png|gif|js)$"))){
+=======
+		   
+                 Cookie[] cookies = req.getCookies();
+                    
+		if(session != null && (uri.endsWith("Controller") || uri.endsWith("Servlet") || uri.matches("^.*(css|jpg|jpeg|png|gif|js)$")) ){
+>>>>>>> Stashed changes
                     this.context.log("Unauthorized access request");
                     String path="/view/jsp/pages/LoginPage.jsp";
                     req.getServletContext().getRequestDispatcher(path).forward(req,res);
 		}else{
+<<<<<<< Updated upstream
+=======
+                    Enumeration<String> params = req.getParameterNames();
+                    while(params.hasMoreElements()){
+                        String name = params.nextElement();
+                        String value = request.getParameter(name);
+                        this.context.log(req.getRemoteAddr() + "::Autho Params::{"+name+"="+value+"}");
+    
+
+                    }
+                    
+                   
+                    if(cookies != null){
+                        for(Cookie cookie : cookies){
+                            this.context.log(req.getRemoteAddr() + "::Cookie::{"+cookie.getName()+","+cookie.getValue()+"}");
+                        }
+                    }
+        
+>>>>>>> Stashed changes
                     chain.doFilter(req, res);
 		}
 	}

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/SignOutServlet" ></jsp:include>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,16 +15,17 @@
         <script src="view/js/datetime.js" type="text/javascript"></script>
         <%@ include file="../components/Header.jsp" %>
     </head>
-  
+
     <body>
         <div class="position-absolute top-50 start-50 translate-middle">
             <div class="flex-column "> 
+                
+                <h1> Welcome to GP Smartcare surgery </h1>
                 <form action="SignInServlet" method="POST" class="d-flex flex-column align-items-center ">
-                    Fast Track button:
-                    <input type="submit" name="act" value="FastTrack" class="btn btn-success col-12 mb-3">         
-          
-                    
-                    
+
+
+
+
                     <div class="form-floating mb-3">
                         <input type="text" name="us" class="form-control is-valid" id="floatingInput" placeholder="Username" >
                         <label for="floatingInput">Username</label>
@@ -34,7 +36,7 @@
                         <label for="floatingInput">Password</label> 
                     </div>
 
-                    
+
                     <input type="submit" name="act" value="Login" class="btn btn-primary col-12 mb-2"/>
                 </form>
 
@@ -43,7 +45,7 @@
                 </form>  
             </div>
         </div>
-            
-         
+
+
     </body>
 </html>

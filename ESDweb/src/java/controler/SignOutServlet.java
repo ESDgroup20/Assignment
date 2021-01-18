@@ -19,10 +19,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author ESD20
  */
-
 public class SignOutServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,23 +34,25 @@ public class SignOutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        Cookie[] cookies = request.getCookies();
-    	if(cookies != null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("JSESSIONID")){
-                        System.out.println("JSESSIONID="+cookie.getValue());
-                        break;
-                }
+
+       
+        Cookie[] cookies = null;
+
+        cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
             }
-    	}
-    	//invalidate the session if exists
-    	HttpSession session = request.getSession(false);
-        
-    	if(session != null){
+        }
+        //invalidate the session if exists
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
             session.invalidate();
-    	}
-        
+            System.out.println("session invalued");
+        }
+
 //      send back home page
         response.sendRedirect(request.getContextPath() + "/");
 //        request.getServletContext().getRequestDispatcher(request.getContextPath()).forward(request,response);

@@ -30,7 +30,7 @@ public class StaffListOfPrescriptions {
     private String refillsHTML;
     private String successHTML;
 
-    public StaffListOfPrescriptions(Connection conn, String patientTable, String medicationTable, String prescriptionTable) {
+    public StaffListOfPrescriptions(Connection conn, String patientTable , String medicationTable, String prescriptionTable) {
         this.conn = conn;
         this.patientTable = patientTable;
         this.medicationTable = medicationTable;
@@ -97,7 +97,11 @@ public class StaffListOfPrescriptions {
     public String dbInsert(String patient, String medication, String refillsString) {
 
 //        refills is converted to integer for db
+<<<<<<< Updated upstream
         int refills = Integer.parseInt(refillsString);
+=======
+        
+>>>>>>> Stashed changes
 
         long systemDate=System.currentTimeMillis();  
         Date date = new Date(systemDate);  
@@ -105,8 +109,19 @@ public class StaffListOfPrescriptions {
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
+<<<<<<< Updated upstream
 
         boolean sucsses = dao.insertPrescription(patient, medication, refills,date);
+=======
+        
+        
+        System.out.println("patient"+patient);
+        System.out.println("medication"+medication);
+        System.out.println("date"+date);
+        System.out.println("refillsString"+refillsString);
+        
+        boolean sucsses = dao.insertPrescription(patient, medication,date,refillsString);
+>>>>>>> Stashed changes
 
         if (sucsses) {
             return "<p>Patient ID:" + patient + "prescription for " + medication + " was sucsessful<p>";

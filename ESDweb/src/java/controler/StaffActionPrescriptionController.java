@@ -38,7 +38,11 @@ public class StaffActionPrescriptionController extends HttpServlet {
         String patient = request.getParameter("patient");
         String medication = request.getParameter("medication");
         String refills = request.getParameter("refills");
+<<<<<<< Updated upstream
         System.out.println("refills " + refills);
+=======
+       
+>>>>>>> Stashed changes
 
         StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
 

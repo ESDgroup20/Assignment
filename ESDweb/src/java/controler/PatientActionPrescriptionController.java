@@ -7,17 +7,20 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
+import model.PatientListOfPrescriptions;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class PatientActionPrescriptionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,48 +34,28 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        String action = request.getParameter("action");
-        String path = "";
-
         HttpSession session = request.getSession(false);
-        
-        String action = "Set Patient Prescription";
 
-      
+        PatientListOfPrescriptions ListOfPrescriptions = (PatientListOfPrescriptions) session.getAttribute("ListOfPrescriptions");
 
-      
+//        String patient = request.getParameter("patient");
+        String medication;
+        String sucssesHTML = "";
 
-        switch (action) {
-            case "Refer To Specalist":
-<<<<<<< Updated upstream
+        for (int i = 0; i < ListOfPrescriptions.getRefillsAllowed().size(); i++) {
 
-            case "Set Patient Prescription":
-                String sucsess = "";
+            medication = request.getParameter("Med" + i);
+            if (medication != null) {
+                sucssesHTML = sucssesHTML + ListOfPrescriptions.updateDB(medication);
 
-                session.setAttribute("sucsessHTML", sucsess);
-
-                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-=======
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
->>>>>>> Stashed changes
-                break;
-
-            case "Approve Prescription Refill":
-
-            case "View Daily Appointments":
-
+            }
         }
 
-        request.getRequestDispatcher(path).forward(request, response);
+        request.setAttribute("sucssesHTML", sucssesHTML);
+        
+        request.getRequestDispatcher("view/jsp/pages/patient/PatientPrescriptionView.jsp").forward(request, response);
+        
+     
 
     }
 

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.User"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-            <form method="post" action="StaffViewController">
+
+        <%
+
+        
+        %>
+        <form method="post" action="StaffViewController">
+
+
 
             <input type="submit" name="action" value="Refer To Specalist">
             <input type="submit" name="action" value="Set Patient Prescription">

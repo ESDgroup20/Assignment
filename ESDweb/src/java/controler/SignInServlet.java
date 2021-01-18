@@ -61,9 +61,19 @@ public class SignInServlet extends HttpServlet {
 //      save path string       
         String path = null;
 //        if front-end click btn Login
+
+        System.out.println("SIGN IN SERVLET");
+        System.out.println("action" + action);
         if (action.equals("Login")) {
+            System.out.println("IF");
 //          check Auth from DBbean.signInAuth
+<<<<<<< Updated upstream
             ArrayList<String> userData = db.signInAuth(userTable, username, password);
+=======
+            User user = db.signInAuth(userTable, new User(username, password));
+            System.out.println("user" + user);
+            System.out.println("user.getusername" + user.getUserName());
+>>>>>>> Stashed changes
 
 //          check valid user            
             if (userData != null) {
@@ -72,12 +82,36 @@ public class SignInServlet extends HttpServlet {
                 UserBean user = userLoggingIn.create();
                 System.out.println("UserBean" + user);
 
+<<<<<<< Updated upstream
 //              session for users
+=======
+            } else {
+
+>>>>>>> Stashed changes
                 session.setAttribute("userData", user);
 //                session.setAttribute("patientName", patientName);
 
 //              session key of users
                 session.setAttribute("sessionKey", session.getId());
+<<<<<<< Updated upstream
+=======
+
+//                System.out.println("test: "+user.getUserRole());
+                switch (user.getUserRole()) {
+                    case "Doctor":
+                    case "Nurse":
+                        String staffName = db.selectNameByRole(staffTable, "staffname", user);
+                        session.setAttribute("staffName", staffName);
+                        break;
+                    case "Patient":
+                        String patientName = db.selectNameByRole(patientTable, "patientname", user);
+                        session.setAttribute("patientName", patientName);
+                        break;
+
+                   
+                }
+
+>>>>>>> Stashed changes
 //              init path
                 path = "/view/jsp/pages/DashboardPage.jsp";
             } else { // if invalid
@@ -86,12 +120,15 @@ public class SignInServlet extends HttpServlet {
             }
 
 //        if front-end click btn FastTrack
+<<<<<<< Updated upstream
         } else if (action.equals("FastTrack")) {
 //          access user table
             String s = db.signInSelection(userTable);
             request.setAttribute("str", s);
             path = "/view/jsp/pages/TestPage.jsp";
 
+=======
+>>>>>>> Stashed changes
         }
 //      access path
         request.getServletContext().getRequestDispatcher(path).forward(request, response);

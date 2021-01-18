@@ -7,17 +7,21 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
+import model.PatientListOfPrescriptions;
+
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class PatientSelectPrescriptionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,49 +35,34 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
         
-        String action = "Set Patient Prescription";
+        HttpSession session = request.getSession(false);
+       
+       
 
-      
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        
+        String medicationTable = (String) getServletContext().getAttribute("medicationTable");
+        String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
+        
+        Patient patient = (Patient) session.getAttribute("patient");
+        
+        
+        PatientListOfPrescriptions ListOfPrescriptions = new PatientListOfPrescriptions(conn,medicationTable,prescriptionTable,patient);
+        ListOfPrescriptions.dbSelect();
+        ListOfPrescriptions.determinRefill();
+        ListOfPrescriptions.createHTML();
+        String patientHTML = ListOfPrescriptions.getpatientHTML();
+        
+ 
+        
+        
+        
+        session.setAttribute("ListOfPrescriptions", ListOfPrescriptions);
+        
+        request.setAttribute("patientHTML",patientHTML);
 
-      
-
-        switch (action) {
-            case "Refer To Specalist":
-<<<<<<< Updated upstream
-
-            case "Set Patient Prescription":
-                String sucsess = "";
-
-                session.setAttribute("sucsessHTML", sucsess);
-
-                path = "view/jsp/pages/StaffSetPrescriptionView.jsp";
-=======
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
->>>>>>> Stashed changes
-                break;
-
-            case "Approve Prescription Refill":
-
-            case "View Daily Appointments":
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

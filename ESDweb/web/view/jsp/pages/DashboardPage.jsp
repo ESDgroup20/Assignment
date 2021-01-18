@@ -11,12 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@ include file="../components/Navigator.jsp" %>
-        <title>Dashboard Page</title>
+
+
     </head>
     <body>
-        
+
         <%
+<<<<<<< Updated upstream
             System.out.println("Dashboard page opened");
             UserBean user = (UserBean) request.getSession().getAttribute("userData");
             String role = user.getRole();
@@ -38,9 +39,30 @@
             else{
         %>
                 <h1> Dashboard <% out.print(role); %> </h1>
+=======
+            User user = (User) request.getSession().getAttribute("userData");
+            String role = user.getUserRole();
+            System.out.println("adddaffrequest.getSession()" + request.getSession());
+            if (role.equals("Admin")) {
+        %>      
+        <h1><% out.print(role); %>  Dashboard </h1>
+
+        <%@ include file="../pages/admin/AdminDashboard.jsp" %>
+        <%  } else if (role.equals("Patient")) {
+            String patientName = (String) request.getSession().getAttribute("patientName");
+        %>
+        <h1> Welcome, <% out.print(role + " " + patientName); %> </h1>
+        <%@ include file="../pages/patient/PatientDashboard.jsp" %>
+        <%  } else {
+            String staffName = (String) request.getSession().getAttribute("staffName");
+            
+        %>      
+        <h1> Welcome, <% out.print(role + " " + staffName);%> </h1>
+        <%@ include file="../pages/staff/StaffDashboard.jsp" %>
+>>>>>>> Stashed changes
         <%  }
         %>        
-        
+
     </body>
     <footer>
         <%@ include file="../components/Footer.jsp" %>

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : DbView
+    Document   : AdminDashboard
     Created on : 02-Dec-2020, 12:55:37
     Author     : ESD20
 --%>
@@ -14,6 +14,7 @@
         <h1>Admin Page</h1>
 
         <form method="post" action="AdminViewController">
+
 
             <input type="submit" name="action" value="Accsess Users">
             <input type="submit" name="action" value="Accsess Prescriptions">
