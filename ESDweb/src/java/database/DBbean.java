@@ -473,7 +473,7 @@ public class DBbean {
             //      query string
 
             //      prepare statement
-            String query = "SELECT * FROM Prescriptions WHERE PATIENTID = ?";
+            String query = "SELECT * FROM PRESCRIPTIONS WHERE PATIENTID = ?";
 
             pre = conn.prepareStatement(query);
 

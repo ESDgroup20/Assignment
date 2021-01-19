@@ -36,6 +36,21 @@
         <param-name>PrescriptionContext</param-name>
         <param-value>PRESCRIPTIONS</param-value>
     </context-param>
+    <context-param>
+        <description>REFERRALS TABLE</description>
+        <param-name>ReferralsContext</param-name>
+        <param-value>REFERRALS</param-value>
+    </context-param>
+      <context-param>
+        <description>SPECALIST TABLE</description>
+        <param-name>SpecalistContext</param-name>
+        <param-value>SPECALIST</param-value>
+    </context-param>
+    <context-param>
+        <description>TURNOVER TABLE</description>
+        <param-name>TurnoverContext</param-name>
+        <param-value>TURNOVER</param-value>
+    </context-param>
     <!-- =============================== FILTER ================================ -->
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
