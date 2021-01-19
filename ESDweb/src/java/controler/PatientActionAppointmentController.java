@@ -7,17 +7,21 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.AdminListOfStaff;
+import model.DropdownStaffList;
+import model.User;
 
 /**
  *
- * @author Eli
+ * @author Marken Tuan Nguyen
  */
-public class PatientViewController extends HttpServlet {
+public class PatientActionAppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,27 +35,17 @@ public class PatientViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         String action = request.getParameter("action");
-        String path = "";
-
+        
         HttpSession session = request.getSession(false);
-
-        switch (action) {
-            
-            case "Book Appointment":
-//                request.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/patient/PatientAppointmentView.jsp";
-//                path = "view/jsp/components/Booking.jsp";
-                break;
-
-            case "Request Refill":
-                request.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/patient/PatientPrescriptionView.jsp";
-                break;
-
-         
+        
+        if(action.equals("Show Staff")){
+            System.out.println("clicked show staff");
+            session.getAttribute("staffNameList");
         }
-
+        String path = "/view/jsp/pages/patient/PatientAppointmentView.jsp";
+        
         request.getRequestDispatcher(path).forward(request, response);
     }
 

@@ -151,6 +151,14 @@
         <servlet-name>AutoCompleteController</servlet-name>
         <servlet-class>controler.AutoCompleteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PatientActionAppointmentController</servlet-name>
+        <servlet-class>controler.PatientActionAppointmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientSelectAppointmentController</servlet-name>
+        <servlet-class>controler.PatientSelectAppointmentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -250,6 +258,14 @@
     <servlet-mapping>
         <servlet-name>AutoCompleteController</servlet-name>
         <url-pattern>/AutoCompleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientActionAppointmentController</servlet-name>
+        <url-pattern>/PatientActionAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientSelectAppointmentController</servlet-name>
+        <url-pattern>/PatientSelectAppointmentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

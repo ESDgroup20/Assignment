@@ -22,7 +22,7 @@
             SELECT staffname FROM users,staffs WHERE  users.username = staffs.USERNAME AND users.role = 'Doctor'
         </sql:query>
             
-        <form action="BookingServlet" method="post">
+        <form action="PatientActionAppointmentController" method="post">
             <div class="form-floating mb-2">      
                 <select class="form-select mb-2" name="doctorName" id="floatingInput">
                     <c:forEach items="${selectDoctor.rows}" var="row">
@@ -43,7 +43,7 @@
                 <div class="invalid-feedback mb-2">Test!</div>
                 <label class="fw-lighter" for="floatingInput">Booking Time</label>
             </div>
-            <button class="btn btn-primary col-12" type="submit" name="act" value="Book">Booking</button>
+            <button class="btn btn-primary col-12" type="submit" name="action" value="Book">Booking</button>
         </form>
     </div>
 </html>

@@ -5,19 +5,26 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.AddressLookUp;
+import model.AdminListOfStaff;
+import model.DropdownStaffList;
+import model.PatientListOfAppointment;
 
 /**
  *
- * @author Eli
+ * @author Marken Tuan Nguyen
  */
-public class PatientViewController extends HttpServlet {
+public class PatientSelectAppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,28 +38,33 @@ public class PatientViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
 
         HttpSession session = request.getSession(false);
 
-        switch (action) {
-            
-            case "Book Appointment":
-//                request.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/patient/PatientAppointmentView.jsp";
-//                path = "view/jsp/components/Booking.jsp";
-                break;
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+//        String patientTable = (String) getServletContext().getAttribute("patientTable");
+//        String staffTable = (String) getServletContext().getAttribute("staffTable");
 
-            case "Request Refill":
-                request.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/patient/PatientPrescriptionView.jsp";
-                break;
+        DBbean db =  new DBbean();
+        db.getConnection(conn);
+        
+        
+        DropdownStaffList staffName = new DropdownStaffList(conn);
+               
+        staffName.dbSelectStaffName();
 
-         
-        }
+        ArrayList<String> staffNameList = staffName.getStaffNameList();
+        
+//        System.out.println("test: "+staffNameList);
+        
+        request.setAttribute("staffNameList", staffNameList);
+        
+//        DropdownStaffList staffNamePull = new DropdownStaffList();
+//        
+        String staffNameHTML = staffName.createHTML();
 
-        request.getRequestDispatcher(path).forward(request, response);
+        request.setAttribute("staffNameHTML", staffNameHTML);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
