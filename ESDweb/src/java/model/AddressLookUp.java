@@ -90,11 +90,17 @@ public class AddressLookUp {
                 addressBoxHTML = addressBoxHTML + "<option value=\"" + addressList.get(i) + "\">";
                 addressBoxHTML = addressBoxHTML + addressList.get(i) +"</option>";
 
+ 
+
             }
             addressBoxHTML = addressBoxHTML + "</select>";
+            addressBoxHTML = addressBoxHTML +  "<button class=\"btn btn-primary col-12\" type=\"submit\" name=\"act\" value=\"SelectAddress\">Select Address</button>";
+            
              
             return addressBoxHTML;
         }
+
+ 
 
     }
 

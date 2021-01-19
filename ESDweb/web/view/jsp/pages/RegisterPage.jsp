@@ -4,12 +4,20 @@
     Author     : ESD20
 --%>
 
+ 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String addressPull = (String) request.getAttribute("addressHTML");
-
-
+    String address = (String)  request.getAttribute("address");
+    if (address == null){
+        System.out.println("is null");
+         address = "";
+    }
+    String sss ="wrd";
+    System.out.println("address"+address);
+ 
 %>
 <html>
     <head>
@@ -25,6 +33,8 @@
                     <label for="floatingInput">Username</label>
                 </div>
 
+ 
+
                 <div class="form-floating mb-2">
                     <input type="text" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password"/>
                     <label for="floatingInput">Password</label>
@@ -34,19 +44,30 @@
                     <label for="floatingInput">Name</label>
                 </div>
 
+ 
+
                 <div class="form-floating mb-2" id="addressFramee" data-bs-target="#addressControl" name = "Address"> 
                     <input id="autocomplete" 
                            class="form-control is-valid "
                            placeholder="Enter your address"
                            name = "address"
-                           type="text">
+                           type="text"
+                           value =<%=address%>
+                           >
+                           
                     </input>
+
+ 
 
 
                     <label for="floatingInput">Address</label>
 
+ 
+
                     <button class="btn btn-primary col-12" type="submit" name="act" value="FindAddress">Find Address</button>
                   
+
+ 
 
                 </div>
                 
@@ -54,7 +75,11 @@
                             out.println(addressPull);
                         }
 
+ 
+
                     %>
+
+ 
 
                 <div class="form-floating mb-2">     
                     <select class="form-select mb-2" name="role" id="floatingInput">
@@ -67,7 +92,11 @@
                 <button class="btn btn-primary col-12" type="submit" name="act" value="SignUp">Sign Up</button>
             </div>
 
+ 
+
         </form>
+
+ 
 
         <%@ include file="../components/Footer.jsp"%>
     </body>
