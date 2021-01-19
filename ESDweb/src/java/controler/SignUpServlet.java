@@ -8,6 +8,7 @@ package controler;
 import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,13 +49,13 @@ public class SignUpServlet extends HttpServlet {
         db.getConnection(conn);
 
 //      get parameter from front-end file
-        String action   = request.getParameter("act");
+        String action = request.getParameter("act");
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
-        String role     = request.getParameter("role");
-        String name     = request.getParameter("name");
-        
-        String address  = request.getParameter("address");
+        String role = request.getParameter("role");
+        String name = request.getParameter("name");
+
+        String address = request.getParameter("address");
 //        String number   = request.getParameter("number");
 //        String route    = request.getParameter("route");
 //        String postcode = request.getParameter("postcode");
@@ -62,21 +63,19 @@ public class SignUpServlet extends HttpServlet {
 //        String area     = request.getParameter("area");
 //        String country  = request.getParameter("country");
 //        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
-        
 
 //      save path string
         String path = null;
-        System.out.println("Action Equals"+ action);
+        System.out.println("Action Equals" + action);
         //      if front-end click btn Register
         if (action.equals("Register")) {
             request.setAttribute("addressHTML", "");
 //          init path
             path = "/view/jsp/pages/RegisterPage.jsp";
-        } else if(action.equals("SignUp")){
+        } else if (action.equals("SignUp")) {
 //          create user from DBbean.createUser
             User newUser = new User(username, password, role);
-            db.createUser(userTable, newUser);     
-            
+            db.createUser(userTable, newUser);
 
             switch (role) {
                 case "Patient":
@@ -85,7 +84,7 @@ public class SignUpServlet extends HttpServlet {
                     db.createPatient(patientTable, newPatient);
                     session.setAttribute("patientData", newPatient);
                     break;
-    
+
                 case "Doctor":
                 case "Nurse":
                     Staff newStaff = new Staff(name, address, username, password);
@@ -94,21 +93,29 @@ public class SignUpServlet extends HttpServlet {
                     session.setAttribute("staffData", newStaff);
                     break;
             }
-            
-            
 
-            
 //          init path
             path = "/view/jsp/pages/SuccessPage.jsp";
+        } else if (action.equals("FindAddress")) {
+//            If look up adress button pressed sent to this controller
+            path = "/AutoCompleteController";
+
+        } else if (action.equals("SelectAddress")) {
+//            if select adress is pressed in the look up box these other parameters must also be countinly pased so boxes remain full
+            request.setAttribute("us", username);
+            request.setAttribute("pw", password);
+            request.setAttribute("name", name);
+            request.setAttribute("role", role);
+
+            String addressPull = (String) request.getParameter("addressPull");
+            System.out.println("addressPull" + addressPull);
+            request.setAttribute("address", addressPull);
+
+            path = "/view/jsp/pages/RegisterPage.jsp";
+
         }
-        
-        else if (action.equals("FindAddress")){
-                    
-                    path = "/AutoCompleteController";
-                    
-                    }
 //      access path
-        request.getServletContext().getRequestDispatcher(path).forward(request,response);
+        request.getServletContext().getRequestDispatcher(path).forward(request, response);
 
     }
 

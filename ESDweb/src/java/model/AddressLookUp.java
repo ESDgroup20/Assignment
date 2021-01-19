@@ -22,11 +22,18 @@ public class AddressLookUp {
     private ArrayList<String> addressList;
 
     public void lookUp(String Address) {
+        
+        
+//        clearning string of spaces to remove 400 erroers
+        Address = Address.replaceAll(" ", "");
+      
 
         String apiKey = "ak_kk2v74myhq3k7JEAyVu7qrCwuUQgw";
         try {
             URL url = new URL("https://api.ideal-postcodes.co.uk/v1/autocomplete/addresses?api_key=" + apiKey + "&query=" + Address);
             System.out.println("url" + url);
+            
+//            Connecting to internet and retrving json
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -35,7 +42,8 @@ public class AddressLookUp {
             int responsecode = conn.getResponseCode();
 
             System.out.println("responsecode" + responsecode);
-
+            
+//            if an error code that isn't sucsses code 200
             if (responsecode != 200) {
                 addressList = null;
                 throw new RuntimeException("HttpResponseCode: " + responsecode);
@@ -44,7 +52,7 @@ public class AddressLookUp {
                 String inline = "";
                 Scanner scanner = new Scanner(url.openStream());
 
-                //Write all the JSON data into a string using a scanner
+                //Json data is turned into a huge string using scanner
                 while (scanner.hasNext()) {
                     inline += scanner.nextLine();
                 }
@@ -52,20 +60,24 @@ public class AddressLookUp {
                 //Close the scanner
                 scanner.close();
 
-                //Using the JSON simple library parse the string into a json object
+                //JSON parses is needed to acsses object
                 JSONParser parse = new JSONParser();
                 JSONObject allData = (JSONObject) parse.parse(inline);
-
+                
+//                Getting data from result node
                 JSONObject result = (JSONObject) allData.get("result");
-
+//                  Getting data from hit node
                 JSONArray hits = (JSONArray) result.get("hits");
 
+                
+//              Variables for manipulation JSON to get list
                 JSONObject tempObj;
                 addressList = new ArrayList<String>();
                 String singleAddress;
+                
                 for (int i = 0; i < hits.size(); i++) {
                     tempObj = (JSONObject) hits.get(i);
-
+//                    Suggestion is the node the adresses are under, they're taken from the json and stored on the string
                     singleAddress = (String) tempObj.get("suggestion");
 
                     addressList.add(singleAddress);
@@ -80,27 +92,23 @@ public class AddressLookUp {
     }
 
     public String createHTML() {
-
+        System.out.println("addresslist" + addressList);
+//        if the json return was nothing
         if (addressList.isEmpty()) {
-           return "Please Enter a valid address";
+            return "Please Enter a valid address";
         } else {
-           
-              String addressBoxHTML = "<label for=\"Address\">List Of Addreses:</label> <select id=\"Address\" name=\"address\"> ";
+//          An String containing html showing all options to be selected is created
+            String addressBoxHTML = "<label for=\"Address\">List Of Addreses:</label> <select id=\"Address\" name=\"addressPull\"> ";
             for (int i = 0; i < addressList.size(); i++) {
                 addressBoxHTML = addressBoxHTML + "<option value=\"" + addressList.get(i) + "\">";
-                addressBoxHTML = addressBoxHTML + addressList.get(i) +"</option>";
-
- 
+                addressBoxHTML = addressBoxHTML + addressList.get(i) + "</option>";
 
             }
             addressBoxHTML = addressBoxHTML + "</select>";
-            addressBoxHTML = addressBoxHTML +  "<button class=\"btn btn-primary col-12\" type=\"submit\" name=\"act\" value=\"SelectAddress\">Select Address</button>";
-            
-             
+            addressBoxHTML = addressBoxHTML + "<button class=\"btn btn-primary col-12\" type=\"submit\" name=\"act\" value=\"SelectAddress\">Select Address</button>";
+
             return addressBoxHTML;
         }
-
- 
 
     }
 
