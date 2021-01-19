@@ -165,12 +165,21 @@ public class DatabaseRun {
         System.out.println("Table PRESCRIPTIONS created successfully!");
         
         String query =
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (1, 'Parctamol',2);\n" +
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (2, 'Asprin', 1);\n" +
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (2, 'Calpol', 0);";
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (1, 'Parctamol',2);\n" +
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (2, 'Asprin', 1);\n" +
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (2, 'Calpol', 0);";
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (2, 'Asprin', '2021-01-16', '2021-01-16', 4, 4, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Parctamol', '2020-12-17', '2020-12-17', 1, 1, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Asprin', '2021-01-16', '2021-01-16', 3, 3, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Calpol', '2021-01-03', '2021-01-03', 5, 5, true);";
+        
         exeQuery(query);
         System.out.println("Table PRESCRIPTIONS insert successfully!");
     }
