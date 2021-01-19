@@ -4,6 +4,7 @@
     Author     : Eli
 --%>
 
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,18 @@
         <title>JSP Page</title>
     </head>
     <body>
-            <form method="post" action="StaffViewController">
+        <form method="post" action="StaffViewController">
 
-            <input type="submit" name="action" value="Refer To Specalist">
+            <%
+                
+//                if user is a doctor then give them the ability to refer to a specalist 
+                User user = (User) request.getSession().getAttribute("userData");
+                if(user.getUserRole().equals("Doctor")){
+                out.println(
+                        "<input type='submit' name='action' value='Refer To Specalist'>"
+                );
+                }
+            %>
             <input type="submit" name="action" value="Set Patient Prescription">
             <input type="submit" name="action" value="Approve Prescription Refill">
             <input type="submit" name="action" value="View Appointments">
@@ -23,4 +33,8 @@
 
         </form>
     </body>
+
+    <footer>
+        <%@ include file="/view/jsp/components/Footer.jsp" %>
+    </footer>
 </html>

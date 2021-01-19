@@ -35,6 +35,9 @@ public class StaffSelectPrescriptionController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(false);
+        
+        String sucsessHTML = (String) session.getAttribute("sucsessHTML");
+       
 
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String patientTable = (String) getServletContext().getAttribute("patientTable");
@@ -47,6 +50,7 @@ public class StaffSelectPrescriptionController extends HttpServlet {
 
         String patientHTML = listOfPrescriptions.getPatientHTML();
         String medicationHTML = listOfPrescriptions.getMedicationHTML();
+        String refillsHTML = listOfPrescriptions.getRefillsHTML();
         
         System.out.println("listOfPrescriptions");
         System.out.println(listOfPrescriptions);
@@ -54,6 +58,8 @@ public class StaffSelectPrescriptionController extends HttpServlet {
         session.setAttribute("listOfPrescriptions",listOfPrescriptions);
         request.setAttribute("patientHTML", patientHTML);
         request.setAttribute("medicationHTML", medicationHTML);
+        request.setAttribute("refillsHTML", refillsHTML);
+        request.setAttribute("sucsessHTML", sucsessHTML);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

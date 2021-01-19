@@ -36,9 +36,7 @@
         <param-name>PrescriptionContext</param-name>
         <param-value>PRESCRIPTIONS</param-value>
     </context-param>
-    
     <!-- =============================== FILTER ================================ -->
-
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>filter.AuthenticationFilter</filter-class>
@@ -47,13 +45,11 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
     <!-- ============================== LISTENER =============================== -->
     <listener>
         <description>ServletContextListener</description>
         <listener-class>controler.BaseListener</listener-class>
     </listener>
-    
     <!-- =============================== SERVLET =============================== -->
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
@@ -108,16 +104,52 @@
         <servlet-class>controler.StaffViewController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffSelectRefilController</servlet-name>
-        <servlet-class>controler.StaffSelectRefilController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StaffSelectPrescriptionController</servlet-name>
         <servlet-class>controler.StaffSelectPrescriptionController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminViewTestController</servlet-name>
+        <servlet-class>controler.adminViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>staffViewTestController</servlet-name>
+        <servlet-class>controler.staffViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>patientViewTestController</servlet-name>
+        <servlet-class>controler.patientViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientSelectPrescriptionController</servlet-name>
+        <servlet-class>controler.PatientSelectPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientViewController</servlet-name>
+        <servlet-class>controler.PatientViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientActionPrescriptionController</servlet-name>
+        <servlet-class>controler.PatientActionPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSelectRefillController</servlet-name>
+        <servlet-class>controler.StaffSelectRefillController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffActionRefillController</servlet-name>
+        <servlet-class>controler.StaffActionRefillController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testServlet</servlet-name>
+        <servlet-class>controler.testServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutoCompleteController</servlet-name>
+        <servlet-class>controler.AutoCompleteController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
@@ -172,10 +204,6 @@
         <url-pattern>/StaffViewController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffSelectRefilController</servlet-name>
-        <url-pattern>/StaffSelectRefilController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>StaffSelectPrescriptionController</servlet-name>
         <url-pattern>/StaffSelectPrescriptionController</url-pattern>
     </servlet-mapping>
@@ -183,12 +211,51 @@
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <url-pattern>/StaffActionPrescriptionController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminViewTestController</servlet-name>
+        <url-pattern>/adminViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staffViewTestController</servlet-name>
+        <url-pattern>/staffViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>patientViewTestController</servlet-name>
+        <url-pattern>/patientViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientSelectPrescriptionController</servlet-name>
+        <url-pattern>/PatientSelectPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientViewController</servlet-name>
+        <url-pattern>/PatientViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientActionPrescriptionController</servlet-name>
+        <url-pattern>/PatientActionPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectRefillController</servlet-name>
+        <url-pattern>/StaffSelectRefillController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionRefillController</servlet-name>
+        <url-pattern>/StaffActionRefillController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testServlet</servlet-name>
+        <url-pattern>/testServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutoCompleteController</servlet-name>
+        <url-pattern>/AutoCompleteController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             1
         </session-timeout>
     </session-config>
-    
     <!-- =============================== WELCOME =============================== -->
     <welcome-file-list>
         <welcome-file>view/jsp/pages/LoginPage.jsp</welcome-file>

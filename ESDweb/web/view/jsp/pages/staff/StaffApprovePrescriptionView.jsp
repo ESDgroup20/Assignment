@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/StaffSelectRefillController" ></jsp:include>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form  method = 'post' action = 'StaffActionRefillController' >
+            <%=request.getAttribute("prescriptionHTML")%>
+            
+        </form>
+        
+        <p><%=request.getAttribute("sucssesHTML")%></p>
     </body>
 </html>

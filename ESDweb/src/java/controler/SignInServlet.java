@@ -78,26 +78,24 @@ public class SignInServlet extends HttpServlet {
                     case "Nurse":
                         String staffName = db.selectNameByRole(staffTable, "staffname", user);
                         session.setAttribute("staffName", staffName);
+                         path = "/view/jsp/pages/staff/StaffDashboard.jsp";
                         break;
                     case "Patient":
                         String patientName = db.selectNameByRole(patientTable, "patientname", user);
                         session.setAttribute("patientName", patientName);
+                         path = "/view/jsp/pages/patient/PatientDashboard.jsp";
                         break;
+                    case "Admin":
+                        path = "/view/jsp/pages/admin/AdminDashboard.jsp";
                 }
                 
                 
 //              init path
-                path = "/view/jsp/pages/DashboardPage.jsp";
+             
             }
 
 //        if front-end click btn FastTrack
-        } else if (action.equals("FastTrack")) {
-//          access user table
-            String s = db.signInSelection(userTable);
-            request.setAttribute("str", s);
-            path = "/view/jsp/pages/TestPage.jsp";
-            
-        }
+        } 
 //      access path
         request.getServletContext().getRequestDispatcher(path).forward(request,response);
         

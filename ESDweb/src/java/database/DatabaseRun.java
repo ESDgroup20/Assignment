@@ -89,6 +89,8 @@ public class DatabaseRun {
             "USERNAME VARCHAR(20) REFERENCES USERS(USERNAME),\n" +
             "PRIMARY KEY (STAFFID)\n" +
             ");";
+        
+       
         exeQuery(create);
         System.out.println("Table STAFFS created successfully!");
         
@@ -130,6 +132,7 @@ public class DatabaseRun {
             "QUANTITY INTEGER, \n" +
             "PRIMARY KEY (MEDICATIONNAME)\n" +
             ");";
+        
         exeQuery(create);
         System.out.println("Table MEDICATIONS created successfully!");
         
@@ -149,9 +152,15 @@ public class DatabaseRun {
             "CREATE TABLE PRESCRIPTIONS (\n" +
             "PATIENTID INTEGER REFERENCES PATIENTS(PATIENTID), \n" +
             "MEDICATIONNAME VARCHAR(20) REFERENCES MEDICATIONS(MEDICATIONNAME), \n" +
-            "REFILLS INTEGER,\n" +
+            "DATECREATED DATE, \n" +
+            "LASTREFILLDATE DATE, \n" +
+            "INITIALREFILLS INTEGER, \n" +
+            "REMAININGREFILLS INTEGER, \n" +
+            "APPROVED BOOLEAN, \n" +
             "PRIMARY KEY (PATIENTID, MEDICATIONNAME)\n" +
             ");";
+        
+        
         exeQuery(create);
         System.out.println("Table PRESCRIPTIONS created successfully!");
         

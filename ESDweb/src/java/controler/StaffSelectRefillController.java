@@ -7,18 +7,19 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.StaffListOfPrescriptions;
+import model.StaffListOfRefills;
 
 /**
  *
  * @author Eli
  */
-public class StaffActionPrescriptionController extends HttpServlet {
+public class StaffSelectRefillController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +33,26 @@ public class StaffActionPrescriptionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         HttpSession session = request.getSession(false);
 
-        String patient = request.getParameter("patient");
-        String medication = request.getParameter("medication");
-        String refills = request.getParameter("refills");
-       
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String prescriptionTable = (String) getServletContext().getAttribute("prescriptionTable");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
 
-        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
-
-        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
-
-        System.out.println(sucsessHTML);
+        StaffListOfRefills listOfRefills = new StaffListOfRefills(conn, prescriptionTable,patientTable);
+        listOfRefills.dbSelect();
         
-        session.setAttribute("sucsessHTML", sucsessHTML);
+        String prescriptionHTML = listOfRefills.createHTML();
 
-        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
+        String sucsessHTML = (String) session.getAttribute("sucsessHTML");
+        
+        
+        session.setAttribute("listOfRefills",listOfRefills);
+        request.setAttribute("sucsessHTML", sucsessHTML);
+        request.setAttribute("prescriptionHTML", prescriptionHTML);
+        
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

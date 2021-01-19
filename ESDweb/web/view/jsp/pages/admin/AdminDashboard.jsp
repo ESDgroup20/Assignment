@@ -29,7 +29,9 @@
 
     </body>
 
-
+    <footer>
+        <%@ include file="/view/jsp/components/Footer.jsp" %>
+    </footer>
 
 
 

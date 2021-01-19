@@ -54,21 +54,22 @@ public class SignUpServlet extends HttpServlet {
         String role     = request.getParameter("role");
         String name     = request.getParameter("name");
         
-        String number   = request.getParameter("number");
-        String route    = request.getParameter("route");
-        String postcode = request.getParameter("postcode");
-        String city     = request.getParameter("city");
-        String area     = request.getParameter("area");
-        String country  = request.getParameter("country");
-        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
+        String address  = request.getParameter("address");
+//        String number   = request.getParameter("number");
+//        String route    = request.getParameter("route");
+//        String postcode = request.getParameter("postcode");
+//        String city     = request.getParameter("city");
+//        String area     = request.getParameter("area");
+//        String country  = request.getParameter("country");
+//        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
         
 
 //      save path string
         String path = null;
-
+        System.out.println("Action Equals"+ action);
         //      if front-end click btn Register
         if (action.equals("Register")) {
-
+            request.setAttribute("addressHTML", "");
 //          init path
             path = "/view/jsp/pages/RegisterPage.jsp";
         } else if(action.equals("SignUp")){
@@ -93,11 +94,19 @@ public class SignUpServlet extends HttpServlet {
                     session.setAttribute("staffData", newStaff);
                     break;
             }
+            
+            
 
             
 //          init path
             path = "/view/jsp/pages/SuccessPage.jsp";
         }
+        
+        else if (action.equals("FindAddress")){
+                    
+                    path = "/AutoCompleteController";
+                    
+                    }
 //      access path
         request.getServletContext().getRequestDispatcher(path).forward(request,response);
 

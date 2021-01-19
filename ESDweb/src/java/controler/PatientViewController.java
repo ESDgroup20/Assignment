@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.StaffListOfPrescriptions;
 
 /**
  *
  * @author Eli
  */
-public class StaffActionPrescriptionController extends HttpServlet {
+public class PatientViewController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +31,26 @@ public class StaffActionPrescriptionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         String action = request.getParameter("action");
+        String path = "";
 
         HttpSession session = request.getSession(false);
 
-        String patient = request.getParameter("patient");
-        String medication = request.getParameter("medication");
-        String refills = request.getParameter("refills");
-       
+        switch (action) {
+            case "Book Appointment":
 
-        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
+                path = "view/jsp/pages/patient/PatientAppointmentView.jsp";
+                break;
 
-        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
+            case "Request Refill":
+                request.setAttribute("sucssesHTML","");
+                path = "view/jsp/pages/patient/PatientPrescriptionView.jsp";
+                break;
 
-        System.out.println(sucsessHTML);
-        
-        session.setAttribute("sucsessHTML", sucsessHTML);
+         
+        }
 
-        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
+        request.getRequestDispatcher(path).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

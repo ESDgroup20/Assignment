@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.StaffListOfPrescriptions;
+import model.Patient;
+
 
 /**
  *
  * @author Eli
  */
-public class StaffActionPrescriptionController extends HttpServlet {
+public class patientViewTestController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +33,29 @@ public class StaffActionPrescriptionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        HttpSession session = request.getSession(false);
-
-        String patient = request.getParameter("patient");
-        String medication = request.getParameter("medication");
-        String refills = request.getParameter("refills");
-       
-
-        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
-
-        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
-
-        System.out.println(sucsessHTML);
         
-        session.setAttribute("sucsessHTML", sucsessHTML);
-
-        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
+        
+//        test data, final version this will be set by login features
+//        not set by consturtor in order allow for posbility to change to bean
+        Patient patient = new Patient();
+        patient.setUserName("caidan");
+        patient.setUserRole("Patient");
+        patient.setPatientID("1");
+        
+        
+        HttpSession session = request.getSession(false);
+         
+        session.setAttribute("patient",patient);
+        
+        
+        
+        System.out.println("Patient Sucsses:" + patient);
+        System.out.println("Patient Sucsses:" + patient.getUserName());
+        System.out.println("Patient Sucsses:" + patient.getUserRole());
+        
+       
+        request.getRequestDispatcher("view/jsp/pages/patient/PatientDashboard.jsp").forward(request, response); 
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -32,6 +32,7 @@ public class AdminViewController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 //        PrintWriter out = response.getWriter();
 
+        
         String action = request.getParameter("action");
         String path = "";
 
