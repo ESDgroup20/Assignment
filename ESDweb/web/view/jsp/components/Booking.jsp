@@ -43,6 +43,17 @@
                 <div class="invalid-feedback mb-2">Test!</div>
                 <label class="fw-lighter" for="floatingInput">Booking Time</label>
             </div>
+            
+            <div class="form-floating mb-2">  
+                <select class="form-select mb-2" name="length" id="floatingInput">
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                    <option>25</option>
+                </select>
+                <label class="fw-lighter" for="floatingInput">Length</label>
+            </div>
+            
             <button class="btn btn-primary col-12" type="submit" name="act" value="Book">Booking</button>
         </form>
     </div>

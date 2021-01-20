@@ -58,23 +58,23 @@ public class BookingServlet extends HttpServlet {
             
             String date = request.getParameter("date");
             String time = request.getParameter("time");
+            String length = request.getParameter("length");
             String staffName = request.getParameter("staffName");
             
             System.out.println("--------Booking:-----------");
+            System.err.println("length: "+length);
             System.out.println(date+ " at " +time);
             System.out.println("staffName:" + staffName);
 //            System.out.println("username: "+user.getUserName());
 //            System.out.println("password: "+user.getUserPass());
             
-            String patientName = db.selectNameByRole(patientTable, "patientname", user);
-            System.out.println("Patient name: "+patientName);
+            Patient patient = (Patient) session.getAttribute("ThisPatientData");
+            System.out.println("Patient name: "+patient.getPatientName());
             System.out.println("----------------------------");
             
-            
-            int patientID = db.selectIdByName("patient",patientName);
             int staffID = db.selectIdByName("staff",staffName);
-            System.out.println(patientID + " : "+staffID);
-            db.bookAppointment(patientID, staffID, (date), (time));
+            
+            db.bookAppointment(patient.getPatientID(), staffID, (date), (time), Integer.valueOf(length));
         }
 
     }

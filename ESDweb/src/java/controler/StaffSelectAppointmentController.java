@@ -9,10 +9,15 @@ import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Appointment;
+import model.Staff;
 
 /**
  *
@@ -39,10 +44,12 @@ public class StaffSelectAppointmentController extends HttpServlet {
         DBbean db =  new DBbean();
         db.getConnection(conn);  
         
-//        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
+        HttpSession session = request.getSession(false);
+        Staff staff= (Staff) session.getAttribute("ThisStaffData");
+        ArrayList<Appointment> staffAptList = db.retreiveAppointment(staff.getStaffID());
 
-        String listOfAppointments = db.getAppointment(appointmentTable);
-        request.setAttribute("listOfAppointments", listOfAppointments);
+                
+        session.setAttribute("StaffAppointmentList", staffAptList);
         
     }
 

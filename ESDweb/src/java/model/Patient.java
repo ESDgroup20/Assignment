@@ -11,14 +11,25 @@ package model;
  */
 public class Patient extends User{
  
+    private int patientID;
     private String patientUsername;
     private String patientPassword;
     private String patientName;
     private String patientAddress;
     private String patientType;
+    
 
     public Patient() {
     }
+
+    public Patient(int patientID, String patientName, String patientAddress, String patientType, String patientUsername) {
+        this.patientID = patientID;
+        this.patientUsername = patientUsername;
+        this.patientName = patientName;
+        this.patientAddress = patientAddress;
+        this.patientType = patientType;
+    }
+        
 
     public Patient(String patientName, String patientAddress) {
         this.patientName = patientName;
@@ -31,6 +42,14 @@ public class Patient extends User{
         this.patientPassword = userPass;
         this.patientName = patientName;
         this.patientAddress = patientAddress;
+    }
+
+    public int getPatientID() {
+        return patientID;
+    }
+
+    public void setPatientID(int patientID) {
+        this.patientID = patientID;
     }
     
     

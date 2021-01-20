@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
+import model.Staff;
 import model.User;
 
 /**
@@ -76,12 +78,14 @@ public class SignInServlet extends HttpServlet {
                 switch(user.getUserRole()){
                     case "Doctor":
                     case "Nurse":
-                        String staffName = db.selectNameByRole(staffTable, "staffname", user);
-                        session.setAttribute("staffName", staffName);
+                        Staff staff = db.retreiveStaff(user.getUserName());
+                        System.out.println("test: "+staff.getStaffName() + staff.getStaffID());
+                        session.setAttribute("ThisStaffData", staff);
                         break;
                     case "Patient":
-                        String patientName = db.selectNameByRole(patientTable, "patientname", user);
-                        session.setAttribute("patientName", patientName);
+                        Patient patient = db.retreivePatient(user.getUserName());
+                        System.out.println("test: "+patient.getPatientName() + patient.getPatientUsername());
+                        session.setAttribute("ThisPatientData", patient);
                         break;
                 }
                 

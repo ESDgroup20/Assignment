@@ -120,8 +120,8 @@
         <servlet-class>controler.StaffSelectAppointmentController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffActionApointmentController</servlet-name>
-        <servlet-class>controler.StaffActionApointmentController</servlet-class>
+        <servlet-name>StaffActionAppointmentController</servlet-name>
+        <servlet-class>controler.StaffActionAppointmentController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
@@ -192,8 +192,8 @@
         <url-pattern>/StaffSelectAppointmentController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffActionApointmentController</servlet-name>
-        <url-pattern>/StaffActionApointmentController</url-pattern>
+        <servlet-name>StaffActionAppointmentController</servlet-name>
+        <url-pattern>/StaffActionAppointmentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

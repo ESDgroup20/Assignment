@@ -40,8 +40,6 @@ public class AdminSelectAppointmentController extends HttpServlet {
         DBbean db =  new DBbean();
         db.getConnection(conn);  
         
-//        AdminAppointmentList appointmentList = new AdminAppointmentList(conn, appointmentTable);
-
         String listOfAppointments = db.getAppointment(appointmentTable);
         request.setAttribute("listOfAppointments", listOfAppointments);
     }

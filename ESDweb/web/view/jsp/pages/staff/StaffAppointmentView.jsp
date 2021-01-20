@@ -4,6 +4,9 @@
     Author     : Marken Tuan Nguyen
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Appointment"%>
+<%@page import="model.Staff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/StaffSelectAppointmentController" ></jsp:include>
 <!DOCTYPE html>
@@ -13,7 +16,42 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <h1><%=request.getAttribute("listOfAppointments") %></h1>
+        
+        <%
+            Staff staff = (Staff) request.getSession().getAttribute("ThisStaffData");
+            ArrayList<Appointment> staffAptList = (ArrayList<Appointment>) request.getSession().getAttribute("StaffAppointmentList");
+        %>      
+        
+        <h1><%=staff.getStaffName()%>'s Appointment</h1>
+        
+        <form action="StaffActionAppointmentController" method="post"> 
+            <table class="table table-sm table-hover table-bordered text-center">
+                <thead class="table-dark "id="tableUser" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    <tr>
+                        <th>AppointmentID</th>
+                        <th>StaffID</th>
+                        <th>PatientID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Charge</th>
+                    </tr>
+                </thead>   
+
+                <tbody id="collapse1" class="collapse" aria-labelledby="tableUser" >
+                    <% for(Appointment apt: staffAptList){ %>
+                        <tr>      
+                            <td><%=apt.getAID()%></td>
+                            <td><%=apt.getStaffID()%></td>
+                            <td><%=apt.getPatientID()%></td>
+                            <td><%=apt.getADate()%></td>
+                            <td><%=apt.getATime()%></td>
+
+                        </tr>
+                    <% } %>
+
+                </tbody>
+            </table>
+        </form>
+                    
     </body>
 </html>

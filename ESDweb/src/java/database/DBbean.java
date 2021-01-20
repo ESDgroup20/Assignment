@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Appointment;
 import model.Patient;
 import model.Staff;
 import model.User;
@@ -64,10 +65,44 @@ public class DBbean {
     public String getAppointment(String table) {
 
         String returnString = "Appointment: <br>";
-        returnString = returnString + "Apointment ID, Staff ID,Patient ID, Date, Time, Slot, Charge <br>";
+        returnString = returnString + "Apointment ID, Staff ID,Patient ID, Date, Time <br>";
         returnString = returnString + selectByTable(table);
 
         return returnString;
+    }
+    
+    public ArrayList<Appointment> retreiveAppointment(int staffID) {
+        ArrayList<Appointment> temp = new ArrayList<>();
+        try {
+            //      query string
+            String query = "SELECT * FROM APPOINTMENTS where APPOINTMENTS.SID = " +staffID;
+            //      prepare statement
+            pre = conn.prepareStatement(query);
+            //      execute query
+            rs = pre.executeQuery();   
+//                  loop each column
+            System.out.println("query: "+query);
+            
+            while (rs.next()) {
+                
+                temp.add( new Appointment(
+                        rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getDate(4), 
+                        rs.getTime(5)
+                ));
+            }
+            
+            rs.close();
+            pre.close();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return temp;
+
     }
     
     
@@ -108,6 +143,35 @@ public class DBbean {
     }
 //  -----------------------------------------------------------------------------
 
+    public Staff retreiveStaff(String staffUserName){
+        try {
+            String query = "Select * from Staffs where staffs.username = '"+staffUserName+"'";
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            System.out.println("query: "+query);
+            while (rs.next()) {
+                return new Staff(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getString(5));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Patient retreivePatient(String patientUserName){
+        try {
+            String query = "Select * from Patients where Patients.username = '"+patientUserName+"'";
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            System.out.println("query: "+query);
+            while (rs.next()) {
+                return new Patient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------
     public User signInAuth(String table, User user) {
@@ -276,19 +340,19 @@ public class DBbean {
 
     }
     
-    public void bookAppointment(int patientID, int staffID, String date, String time){
+    public void bookAppointment(int patientID, int staffID, String date, String time, int length){
         
         try {
             
             
-            String bookAppointment = "INSERT INTO APPOINTMENTS (PID, SID, ADATE, ATIME) VALUES (?,?,?,?)";
+            String bookAppointment = "INSERT INTO APPOINTMENTS (PID, SID, ADATE, ATIME, ALENGTH) VALUES (?,?,?,?,?)";
             
             pre = conn.prepareStatement(bookAppointment);
             pre.setInt(1, patientID);
             pre.setInt(2, staffID);
             pre.setDate(3, Date.valueOf(date));
             pre.setTime(4, Time.valueOf(time.concat(":00")));
-
+            pre.setInt(5, length);
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -403,6 +467,7 @@ public class DBbean {
         }
         return 0;
     }
+    
 //    
 
     public String selectPatientName(String patientID) {
