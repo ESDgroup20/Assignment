@@ -33,7 +33,7 @@
                         <th>PatientID</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Charge</th>
+                        <th>Length</th>
                     </tr>
                 </thead>   
 
@@ -45,6 +45,7 @@
                             <td><%=apt.getPatientID()%></td>
                             <td><%=apt.getADate()%></td>
                             <td><%=apt.getATime()%></td>
+                            <td><%=apt.getALength()%></td>
 
                         </tr>
                     <% } %>

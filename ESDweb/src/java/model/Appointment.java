@@ -18,13 +18,15 @@ public class Appointment {
     private int PatientID;
     private Date ADate;
     private Time ATime;
+    private int ALength;
 
-    public Appointment(int AID, int StaffID, int PatientID, Date ADate, Time ATime) {
+    public Appointment(int AID, int StaffID, int PatientID, Date ADate, Time ATime, int ALength) {
         this.AID = AID;
         this.StaffID = StaffID;
         this.PatientID = PatientID;
         this.ADate = ADate;
         this.ATime = ATime;
+        this.ALength = ALength;
     }
     
     public int getAID() {
@@ -65,6 +67,14 @@ public class Appointment {
 
     public void setATime(Time ATime) {
         this.ATime = ATime;
+    }
+
+    public int getALength() {
+        return ALength;
+    }
+
+    public void setALength(int ALength) {
+        this.ALength = ALength;
     }
     
     

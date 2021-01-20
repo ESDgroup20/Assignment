@@ -90,7 +90,8 @@ public class DBbean {
                         rs.getInt(2), 
                         rs.getInt(3), 
                         rs.getDate(4), 
-                        rs.getTime(5)
+                        rs.getTime(5),
+                        rs.getInt(6)
                 ));
             }
             
