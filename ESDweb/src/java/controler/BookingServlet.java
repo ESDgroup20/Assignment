@@ -9,7 +9,12 @@ import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +45,7 @@ public class BookingServlet extends HttpServlet {
         
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         String patientTable = (String) getServletContext().getAttribute("patientTable");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
 
 //      apply context into database
         DBbean db =  new DBbean();
@@ -52,17 +58,23 @@ public class BookingServlet extends HttpServlet {
             
             String date = request.getParameter("date");
             String time = request.getParameter("time");
-            String doctor = request.getParameter("doctorName");
+            String staffName = request.getParameter("staffName");
             
             System.out.println("--------Booking:-----------");
             System.out.println(date+ " at " +time);
-            System.out.println("doctor:" + doctor);
+            System.out.println("staffName:" + staffName);
 //            System.out.println("username: "+user.getUserName());
 //            System.out.println("password: "+user.getUserPass());
             
             String patientName = db.selectNameByRole(patientTable, "patientname", user);
             System.out.println("Patient name: "+patientName);
             System.out.println("----------------------------");
+            
+            
+            int patientID = db.selectIdByName("patient",patientName);
+            int staffID = db.selectIdByName("staff",staffName);
+            System.out.println(patientID + " : "+staffID);
+            db.bookAppointment(patientID, staffID, (date), (time));
         }
 
     }

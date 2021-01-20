@@ -7,10 +7,12 @@ package database;
 
 import java.sql.Array;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -62,7 +64,7 @@ public class DBbean {
     public String getAppointment(String table) {
 
         String returnString = "Appointment: <br>";
-        returnString = returnString + "Apointment ID, Apointment ID, Staff ID,Patient ID, <br>";
+        returnString = returnString + "Apointment ID, Staff ID,Patient ID, Date, Time, Slot, Charge <br>";
         returnString = returnString + selectByTable(table);
 
         return returnString;
@@ -232,15 +234,36 @@ public class DBbean {
         }
     }
     
-//  insert ---------------------------------------------------------------------
-    public boolean insertPrescription(String patient, String medication) {
+    public boolean deletePrescription(String patientID, String medication) {
         try {
+            String deleteQuery = "DELETE FROM PRESCRIPTIONS WHERE PATIENTID = ? AND MEDICATIONNAME = ?";
 
-            String updateQuery = "INSERT INTO PRESCRIPTION (PATIENTID, MED_NAME) VALUES (?, ?)";
+            pre = conn.prepareStatement(deleteQuery);
+            pre.setString(1, patientID);
+            pre.setString(2, medication);
+            pre.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+//  insert ---------------------------------------------------------------------
+    public boolean insertPrescription(String patientID, String medication, Date date, String refills) {
+        System.out.println("Insrt prescription function reached");
+        try {
+            System.out.println("Try  prescription function reached");
+            String updateQuery = "INSERT INTO PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) VALUES (?,?,?,?,?,?,?)";
 
             pre = conn.prepareStatement(updateQuery);
-            pre.setString(1, patient);
+            pre.setString(1, patientID);
             pre.setString(2, medication);
+            pre.setDate(3, date);
+            pre.setDate(4, date);
+            pre.setString(5, refills);
+            pre.setString(6, refills);
+            pre.setBoolean(7, true);
 
             pre.executeUpdate();
             pre.close();
@@ -251,6 +274,26 @@ public class DBbean {
             return false;
         }
 
+    }
+    
+    public void bookAppointment(int patientID, int staffID, String date, String time){
+        
+        try {
+            
+            
+            String bookAppointment = "INSERT INTO APPOINTMENTS (PID, SID, ADATE, ATIME) VALUES (?,?,?,?)";
+            
+            pre = conn.prepareStatement(bookAppointment);
+            pre.setInt(1, patientID);
+            pre.setInt(2, staffID);
+            pre.setDate(3, Date.valueOf(date));
+            pre.setTime(4, Time.valueOf(time.concat(":00")));
+
+            pre.executeUpdate();
+            pre.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
 //  select----------------------------------------------------------------------
@@ -342,7 +385,102 @@ public class DBbean {
         }
         return value;
     }
+    
+    public int selectIdByName(String type, String name){
+        try {
+            String query;
+            if(type.equals("patient")){
+                query = "SELECT patientid FROM patients WHERE patientname = '"+name+"'";
+            } else {  
+                query = "SELECT staffid FROM staffs WHERE staffname = '"+name+"'";
+            }
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            while (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+//    
 
+    public String selectPatientName(String patientID) {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT PATIENTNAME FROM PATIENTS WHERE PATIENTID = ?";
+
+            pre = conn.prepareStatement(query);
+
+            pre.setString(1, patientID);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+//                  loop each column
+            String returnString = "";
+            while (rs.next()) {
+
+                returnString = rs.getString(1);
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnString;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList selectUnapprovedPrescriptions() {
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM Prescriptions WHERE APPROVED = false ";
+
+            pre = conn.prepareStatement(query);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+
+                returnList.add(rs.getString(5));
+                returnList.add(rs.getString(6));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
     public ArrayList selectAllPatientNameID() {
 
         try {
@@ -486,5 +624,8 @@ public class DBbean {
             return false;
         }
     }
+    
+
+    
 
 }

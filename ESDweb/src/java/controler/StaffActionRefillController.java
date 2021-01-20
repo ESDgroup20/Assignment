@@ -7,18 +7,19 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.StaffListOfPrescriptions;
+import model.StaffListOfRefills;
 
 /**
  *
  * @author Eli
  */
-public class StaffActionPrescriptionController extends HttpServlet {
+public class StaffActionRefillController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,21 +35,29 @@ public class StaffActionPrescriptionController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession(false);
+        StaffListOfRefills listOfRefills = (StaffListOfRefills) session.getAttribute("listOfRefills");
 
-        String patient = request.getParameter("patient");
-        String medication = request.getParameter("medication");
-        String refills = request.getParameter("refills");
-       
+        ArrayList<String> prescriptionData = listOfRefills.getPrescriptionData();
 
-        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
-
-        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
-
-        System.out.println(sucsessHTML);
         
-        session.setAttribute("sucsessHTML", sucsessHTML);
-
-        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
+        String idMedicine;
+        String approvedMed;
+        
+        String sucssesHTML = "";
+        
+        for (int i = 0; i< prescriptionData.size(); i += 4) {
+            idMedicine =  prescriptionData.get(i) + prescriptionData.get(i+1);
+            approvedMed = request.getParameter(idMedicine);
+            System.out.println("approvedMed "+approvedMed);
+            if(approvedMed != null ){
+                sucssesHTML = sucssesHTML + listOfRefills.dbUpdate(prescriptionData.get(i),prescriptionData.get(i+1)); 
+                
+            }
+        }
+        
+         request.setAttribute("sucssesHTML", sucssesHTML);
+        
+        request.getRequestDispatcher("view/jsp/pages/staff/StaffApprovePrescriptionView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

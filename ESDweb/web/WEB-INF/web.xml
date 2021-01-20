@@ -36,9 +36,7 @@
         <param-name>PrescriptionContext</param-name>
         <param-value>PRESCRIPTIONS</param-value>
     </context-param>
-    
     <!-- =============================== FILTER ================================ -->
-
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>filter.AuthenticationFilter</filter-class>
@@ -47,13 +45,11 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
     <!-- ============================== LISTENER =============================== -->
     <listener>
         <description>ServletContextListener</description>
         <listener-class>controler.BaseListener</listener-class>
     </listener>
-    
     <!-- =============================== SERVLET =============================== -->
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
@@ -119,6 +115,14 @@
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffSelectAppointmentController</servlet-name>
+        <servlet-class>controler.StaffSelectAppointmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffActionApointmentController</servlet-name>
+        <servlet-class>controler.StaffActionApointmentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -183,12 +187,19 @@
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <url-pattern>/StaffActionPrescriptionController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectAppointmentController</servlet-name>
+        <url-pattern>/StaffSelectAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionApointmentController</servlet-name>
+        <url-pattern>/StaffActionApointmentController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             1
         </session-timeout>
     </session-config>
-    
     <!-- =============================== WELCOME =============================== -->
     <welcome-file-list>
         <welcome-file>view/jsp/pages/LoginPage.jsp</welcome-file>

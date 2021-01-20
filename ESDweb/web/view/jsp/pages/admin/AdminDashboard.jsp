@@ -11,8 +11,6 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Admin Page</h1>
-
         <form method="post" action="AdminViewController">
 
             <input type="submit" name="action" value="Accsess Users">

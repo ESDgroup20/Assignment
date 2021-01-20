@@ -5,20 +5,20 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.StaffListOfPrescriptions;
 
 /**
  *
- * @author Eli
+ * @author Marken Tuan Nguyen
  */
-public class StaffActionPrescriptionController extends HttpServlet {
+public class StaffActionApointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +32,9 @@ public class StaffActionPrescriptionController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        HttpSession session = request.getSession(false);
-
-        String patient = request.getParameter("patient");
-        String medication = request.getParameter("medication");
-        String refills = request.getParameter("refills");
-       
-
-        StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
-
-        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
-
-        System.out.println(sucsessHTML);
         
-        session.setAttribute("sucsessHTML", sucsessHTML);
-
-        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
