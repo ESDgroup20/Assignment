@@ -6,6 +6,21 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/DoctorSelectSpecalistController" ></jsp:include>
+<% 
+    String sucssesHTML = (String) request.getAttribute("sucssesHTML");
+    String downloadButton ;
+    
+    if(sucssesHTML == null){
+        sucssesHTML = "";
+        downloadButton = "";
+    }
+    else{
+    
+        downloadButton = "<input type='submit'  value = 'Download'>";
+    }
+
+
+%>
     <!DOCTYPE html>
     <html>
         <head>
@@ -17,10 +32,11 @@
             <%=request.getAttribute("refillsHTML")%>
 
         </form>
-            <%=request.getAttribute("sucssesHTML")%>
-        <form action="DoctorActionSpecalistController" method="get" >
+            
+            <%=sucssesHTML%>
+        <form action="DoctorActionSpecalistController" method="post" >
   
-            <%=request.getAttribute("referalsHTML")%>
+            <%=downloadButton%>
         </form>
 
     </body>

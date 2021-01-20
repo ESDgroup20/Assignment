@@ -16,18 +16,19 @@
         <form method="post" action="StaffViewController">
 
             <%
-                
+
 //                if user is a doctor then give them the ability to refer to a specalist 
                 User user = (User) request.getSession().getAttribute("userData");
-                if(user.getUserRole().equals("Doctor")){
-                out.println(
-                        "<input type='submit' name='action' value='Refer To Specalist'>"
-                );
+                if (user.getUserRole().equals("Doctor")) {
+                    out.println(
+                            "<input type='submit' name='action' value='Refer To Specalist'>"
+                    );
                 }
             %>
             <input type="submit" name="action" value="Set Patient Prescription">
             <input type="submit" name="action" value="Approve Prescription Refill">
             <input type="submit" name="action" value="View Appointments">
+            <input type="submit" name="action" value="Create Invoice">
 
 
 

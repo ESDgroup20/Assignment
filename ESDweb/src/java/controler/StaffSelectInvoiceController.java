@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.DoctorListOfSpecalists;
 
 /**
  *
  * @author Eli
  */
-public class DoctorSelectSpecalistController extends HttpServlet {
+public class StaffSelectInvoiceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,31 +31,26 @@ public class DoctorSelectSpecalistController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession session = request.getSession(false);
 
-        DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
 
-        if (listOfSpeclists == null) {
-            Connection conn = (Connection) getServletContext().getAttribute("conn");
-
-            listOfSpeclists = new DoctorListOfSpecalists(conn);
-
-            listOfSpeclists.dbSelect();
-            listOfSpeclists.createHTML();
+        
+        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet StaffSelectInvoiceController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet StaffSelectInvoiceController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        String refillsHTML = listOfSpeclists.getRefillsHTML();
-
-        String referalsHTML = listOfSpeclists.getReferalsHTML();
-
-        System.out.println("refillsHTML" + refillsHTML);
-
-        request.setAttribute("refillsHTML", refillsHTML);
-
-        request.setAttribute("referalsHTML", referalsHTML);
-
-        session.setAttribute("listofSpecalists", listOfSpeclists);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

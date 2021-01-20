@@ -9,12 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,31 +35,37 @@ public class DoctorActionSpecalistController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(false);
 
         String patient = request.getParameter("patient");
         String specalist = request.getParameter("specalist");
-        String referals = request.getParameter("referals");
 
+//       Local path is found to save to
         ServletContext context = request.getServletContext();
         String path = context.getRealPath("/") + "letters/";
 
-     
-
+//        if the create referal button is made, object for creating pdf is made and is used with input from view to create pdf and save
         if (patient != null && specalist != null) {
             response.setContentType("text/html;charset=UTF-8");
             DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
             String doctor = (String) session.getAttribute("staffName");
             String sucssesHTML = listOfSpeclists.createPDF(path, patient, specalist, doctor);
+      
+            
+            session.setAttribute("listofSpecalists",listOfSpeclists);
             request.setAttribute("sucssesHTML", sucssesHTML);
             request.getRequestDispatcher("view/jsp/pages/staff/DoctorReferToSpecalist.jsp").forward(request, response);
+//        selected pdf is sent to browser using get method and used to print out to the user
+        } else {
+            DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
+            String letter = listOfSpeclists.getLetterCreated();
+            System.out.println("letter"+letter);
 
-        } else if (referals != null) {
-            File pdfFile = new File(path + referals);
+            File pdfFile = new File(path + letter);
 
             response.setContentType("application/pdf");
-            response.addHeader("Content-Disposition", "attachment; filename=" + referals);
+            response.addHeader("Content-Disposition", "attachment; filename=" + letter);
             response.setContentLength((int) pdfFile.length());
 
             FileInputStream fileInputStream = new FileInputStream(pdfFile);
@@ -73,11 +74,9 @@ public class DoctorActionSpecalistController extends HttpServlet {
             while ((bytes = fileInputStream.read()) != -1) {
                 System.out.println("bytes " + bytes);
                 responseOutputStream.write(bytes);
-            }   
-         
+            }
+
         }
-
-
 
     }
 

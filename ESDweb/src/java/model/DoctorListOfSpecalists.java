@@ -26,10 +26,12 @@ public class DoctorListOfSpecalists {
 
     private ArrayList<String> patientData;
     private ArrayList<String> specalistData;
-    private ArrayList<String> refferalData;
+//    private ArrayList<String> refferalData;
 
     private String refillsHTML;
     private String referalsHTML;
+
+    private String letterCreated;
 
     public DoctorListOfSpecalists(Connection conn) {
         this.conn = conn;
@@ -43,7 +45,7 @@ public class DoctorListOfSpecalists {
 
         patientData = dao.selectAllPatientNameID();
         specalistData = dao.selectAllSpecalists();
-        refferalData = dao.selectAllReferal();
+//        refferalData = dao.selectAllReferal();
 
     }
 
@@ -67,26 +69,24 @@ public class DoctorListOfSpecalists {
         refillsHTML = refillsHTML + "</select><br>";
 
         refillsHTML = refillsHTML + "<input type='submit'  value = 'Create Referal'>";
-        
-        
-        
-//        creating html to download referal
-        referalsHTML = "<label>Choose refill to download: </label>";
 
-        referalsHTML = referalsHTML + "<select name='referals' id = 'referals'>";
-        for (int i = 0 ; i <refferalData.size(); i+=5){
-        referalsHTML = referalsHTML + "<option value='" + refferalData.get(i + 3) + "'>" + " Paitient "+ refferalData.get(i + 2) ;
-        
-        referalsHTML = referalsHTML +", refered to "+ refferalData.get(i+4)+" created by Dr."+ refferalData.get(i+1) + "</option> ";
-        
-        }
-          referalsHTML = referalsHTML + "</select><br>";
-
-        referalsHTML = referalsHTML + "<input type='submit'  value = 'Download'>";
+////        creating html to download referal
+//        referalsHTML = "<label>Choose refill to download: </label>";
+//
+//        referalsHTML = referalsHTML + "<select name='referals' id = 'referals'>";
+//        for (int i = 0 ; i <refferalData.size(); i+=5){
+//        referalsHTML = referalsHTML + "<option value='" + refferalData.get(i + 3) + "'>" + " Paitient "+ refferalData.get(i + 2) ;
+//        
+//        referalsHTML = referalsHTML +", refered to "+ refferalData.get(i+4)+" created by Dr."+ refferalData.get(i+1) + "</option> ";
+//        
+//        }
+//          referalsHTML = referalsHTML + "</select><br>";
+//
+//        referalsHTML = referalsHTML + "<input type='submit'  value = 'Download'>";
     }
 
     public String createPDF(String directory, String patient, String specalist, String doctor) {
-
+//        using iText pdf to write to write to folder
         DBbean dao = new DBbean();
 
         dao.getConnection(conn);
@@ -155,7 +155,7 @@ public class DoctorListOfSpecalists {
 
             page.add(
                     new Paragraph(
-                            "After a recent appointment with " + patient + " I felt best I refer them to you for a spcalist " + specalism + " appointment.",
+                            "After a recent appointment with " + patient + " I felt best I refer them to you for a specalist " + specalism + " appointment.",
                             smallFont));
 
             page.add(
@@ -179,12 +179,16 @@ public class DoctorListOfSpecalists {
 
         }
 
-        boolean sucsses = dao.insertRefferal(email, doctor, patient, (patient + specalist).replaceAll(" ", "") + ".pdf",specalism);
+        letterCreated = (patient + specalist).replaceAll(" ", "") + ".pdf";
+        System.out.println("letterCreated"+ letterCreated);
+
+        boolean sucsses = dao.insertRefferal(email, doctor, patient, letterCreated, specalism);
 
         if (sucsses) {
-            return "<p>Referal Letter Created</p>";
+            return "<p>Referal Letter for paitnet " + patient + " created for " + specalism + " to see "+specalist + " .Please email to " + email +"</p>";
         } else {
-            return "<p>Referal Letter Already Exists</p>";
+            return "<p>Referal Letter for paitnet " + patient + " already exists " + specalism + " to see "+specalist + " .Please email to " + email +"</p>";
+           
         }
 
     }
@@ -197,4 +201,10 @@ public class DoctorListOfSpecalists {
         return refillsHTML;
     }
 
+    public String getLetterCreated() {
+        return letterCreated;
+    }
+
+    
+    
 }

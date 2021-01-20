@@ -182,6 +182,10 @@
         <servlet-name>DoctorSelectSpecalistController</servlet-name>
         <servlet-class>controler.DoctorSelectSpecalistController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffSelectInvoiceController</servlet-name>
+        <servlet-class>controler.StaffSelectInvoiceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -297,6 +301,10 @@
     <servlet-mapping>
         <servlet-name>DoctorSelectSpecalistController</servlet-name>
         <url-pattern>/DoctorSelectSpecalistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectInvoiceController</servlet-name>
+        <url-pattern>/StaffSelectInvoiceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
