@@ -41,7 +41,7 @@
         <param-name>ReferralsContext</param-name>
         <param-value>REFERRALS</param-value>
     </context-param>
-      <context-param>
+    <context-param>
         <description>SPECALIST TABLE</description>
         <param-name>SpecalistContext</param-name>
         <param-value>SPECALIST</param-value>
@@ -174,6 +174,14 @@
         <servlet-name>PatientSelectAppointmentController</servlet-name>
         <servlet-class>controler.PatientSelectAppointmentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoctorActionSpecalistController</servlet-name>
+        <servlet-class>controler.DoctorActionSpecalistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorSelectSpecalistController</servlet-name>
+        <servlet-class>controler.DoctorSelectSpecalistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -281,6 +289,14 @@
     <servlet-mapping>
         <servlet-name>PatientSelectAppointmentController</servlet-name>
         <url-pattern>/PatientSelectAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorActionSpecalistController</servlet-name>
+        <url-pattern>/DoctorActionSpecalistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorSelectSpecalistController</servlet-name>
+        <url-pattern>/DoctorSelectSpecalistController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

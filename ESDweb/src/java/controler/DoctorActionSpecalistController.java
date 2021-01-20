@@ -5,19 +5,29 @@
  */
 package controler;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.DoctorListOfSpecalists;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class DoctorActionSpecalistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,38 +40,44 @@ public class StaffViewController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
+        
         HttpSession session = request.getSession(false);
 
-   
+        String patient = request.getParameter("patient");
+        String specalist = request.getParameter("specalist");
+        String referals = request.getParameter("referals");
 
-      
+        ServletContext context = request.getServletContext();
+        String path = context.getRealPath("/") + "letters/";
 
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
+     
 
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
+        if (patient != null && specalist != null) {
+            response.setContentType("text/html;charset=UTF-8");
+            DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
+            String doctor = (String) session.getAttribute("staffName");
+            String sucssesHTML = listOfSpeclists.createPDF(path, patient, specalist, doctor);
+            request.setAttribute("sucssesHTML", sucssesHTML);
+            request.getRequestDispatcher("view/jsp/pages/staff/DoctorReferToSpecalist.jsp").forward(request, response);
 
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
+        } else if (referals != null) {
+            File pdfFile = new File(path + referals);
 
-            case "View Appointments":
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + referals);
+            response.setContentLength((int) pdfFile.length());
 
-                break;
-
+            FileInputStream fileInputStream = new FileInputStream(pdfFile);
+            OutputStream responseOutputStream = response.getOutputStream();
+            int bytes;
+            while ((bytes = fileInputStream.read()) != -1) {
+                System.out.println("bytes " + bytes);
+                responseOutputStream.write(bytes);
+            }   
+         
         }
 
-        request.getRequestDispatcher(path).forward(request, response);
+
 
     }
 
@@ -77,6 +93,7 @@ public class StaffViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 

@@ -267,6 +267,44 @@ public class DBbean {
         }
 
     }
+    
+    
+    
+    
+    
+    
+        public boolean insertRefferal(String email,String doctorName, String paitnetName,String letterLocation,String specalism) {
+
+        try {
+
+            String updateQuery = "INSERT INTO REFERRALS (EMAIL, DOCTORNAME, PATIENTNAME,LETTER,SPECALISM ) VALUES (?,?,?,?,?)";
+
+            pre = conn.prepareStatement(updateQuery);
+           
+            
+            pre.setString(1, email);
+             pre.setString(2, doctorName);
+            pre.setString(3, paitnetName);
+            pre.setString(4, letterLocation);
+            pre.setString(5, specalism);
+
+            pre.executeUpdate();
+            pre.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+
+
+    
+    
+    
+    
+    
 
 //  select----------------------------------------------------------------------
     //  Show all data in this table     
@@ -467,6 +505,92 @@ public class DBbean {
         return null;
     }
 
+
+            
+            
+     public ArrayList selectAllReferal () {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM REFERRALS";
+
+            pre = conn.prepareStatement(query);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+                returnList.add(rs.getString(3));
+                returnList.add(rs.getString(4));
+                returnList.add(rs.getString(5));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList selectAllSpecalists() {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM SPECALIST";
+
+            pre = conn.prepareStatement(query);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+                returnList.add(rs.getString(3));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
+    
+    
+    
     public ArrayList selectPatientPrescriptions(String patientID) {
 
         try {

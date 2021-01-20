@@ -7,17 +7,19 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.DoctorListOfSpecalists;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class DoctorSelectSpecalistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,38 +33,25 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
         HttpSession session = request.getSession(false);
 
-   
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
 
-      
+        DoctorListOfSpecalists listofSpecalists = new DoctorListOfSpecalists(conn);
 
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
+        listofSpecalists.dbSelect();
+        listofSpecalists.createHTML();
+        String refillsHTML = listofSpecalists.getRefillsHTML();
+        
+        String referalsHTML = listofSpecalists.getReferalsHTML();
 
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
+        System.out.println("refillsHTML" + refillsHTML);
 
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML","");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
+        request.setAttribute("refillsHTML", refillsHTML);
+        
+         request.setAttribute("referalsHTML", referalsHTML);
 
-            case "View Appointments":
-
-                break;
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
+        session.setAttribute("listofSpecalists", listofSpecalists);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
