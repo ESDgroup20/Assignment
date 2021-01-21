@@ -29,10 +29,7 @@
                     
                     <form class="me-auto" method="post" action="AdminViewController">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <button type="submit" name="action" value="Home" class="btn">Home</button>
-                                <!--<a class="nav-link active" aria-current="page" href="#">Home</a>-->
-                            </li>
+                       
                             <li class="nav-item">
                                 <button type="submit" name="action" value="Approve Staff" class="btn">Applications</button>
                                 <!--<a class="nav-link" href="AdminApproveStaffView.jsp">Applications</a>-->

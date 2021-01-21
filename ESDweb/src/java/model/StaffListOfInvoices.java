@@ -43,9 +43,10 @@ public class StaffListOfInvoices {
         dao.getConnection(conn);
 
         Date date = new Date(System.currentTimeMillis());
+        System.out.println("staff+ " + staff);
 
 //        selecting all todays current appointments
-        String SqlQuery = "SELECT * FROM APPOINTMENTS WHERE ADATE = '" + date + "' AND" + " SID = " + staff.getStaffID();
+        String SqlQuery = "SELECT * FROM APPOINTMENTS WHERE ADATE = '" + date + "' AND" + " SID = " + Integer.toString(staff.getStaffID());
         apointmentData = dao.selectByQuery(SqlQuery);
 
         ArrayList<String> patientIDList = new ArrayList<String>();
@@ -142,6 +143,7 @@ public class StaffListOfInvoices {
         String SqlQuery = "SELECT COST FROM PRICES WHERE LENGTH = "+length +"";
        
         ArrayList<String> dbReturn = (ArrayList<String>) dao.selectByQuery(SqlQuery).get(0);
+        System.out.println("dbReturn=" + dbReturn);
         String amount = dbReturn.get(0);
 //        dao.insertInvoice(appointmentID,amount,date,filename);
 

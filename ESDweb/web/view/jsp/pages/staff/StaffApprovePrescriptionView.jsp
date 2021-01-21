@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/StaffSelectRefillController" ></jsp:include>
+<% String sucsessHTML = (String) request.getAttribute("sucsessHTML"); 
+   if (sucsessHTML == null){
+       sucsessHTML= "";
+   }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +24,6 @@
             
         </form>
         
-        <p><%=request.getAttribute("sucssesHTML")%></p>
+        <p><%=sucsessHTML%></p>
     </body>
 </html>

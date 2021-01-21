@@ -6,7 +6,6 @@
         <param-name>nhsEmail</param-name>
         <param-value>nhs@gov.co.uk</param-value>
     </context-param>
-    
     <context-param>
         <description>DATABASE NAME</description>
         <param-name>DbContext</param-name>
@@ -56,6 +55,11 @@
         <description>TURNOVER TABLE</description>
         <param-name>TurnoverContext</param-name>
         <param-value>TURNOVER</param-value>
+    </context-param>
+    <context-param>
+        <description>INVOICES TABLE</description>
+        <param-name>InvoiceContext</param-name>
+        <param-value>INVOICES</param-value>
     </context-param>
     <!-- =============================== FILTER ================================ -->
     <filter>
@@ -203,7 +207,18 @@
     <servlet>
         <servlet-name>PatientSelectBookingController</servlet-name>
         <servlet-class>controler.PatientSelectBookingController</servlet-class>
-      
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectTurnoverController</servlet-name>
+        <servlet-class>controler.AdminSelectTurnoverController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminActionTurnoverController</servlet-name>
+        <servlet-class>controler.AdminActionTurnoverController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSelectInvoiceController</servlet-name>
+        <servlet-class>controler.AdminSelectInvoiceController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
@@ -330,14 +345,24 @@
         <url-pattern>/StaffSelectInvoiceController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>StaffActionInvoiceController</servlet-name>
         <url-pattern>/StaffActionInvoiceController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PatientSelectBookingController</servlet-name>
         <url-pattern>/PatientSelectBookingController</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectTurnoverController</servlet-name>
+        <url-pattern>/AdminSelectTurnoverController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminActionTurnoverController</servlet-name>
+        <url-pattern>/AdminActionTurnoverController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSelectInvoiceController</servlet-name>
+        <url-pattern>/AdminSelectInvoiceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

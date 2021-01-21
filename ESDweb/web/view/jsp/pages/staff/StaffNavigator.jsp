@@ -31,9 +31,7 @@
                     
                     <form class="me-auto" method="post" action="StaffViewController">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <button type="submit" name="action" value="Home" class="btn">Home</button>
-                            </li>
+                           
                             
                             <%
                                 User user = (User) request.getSession().getAttribute("userData");
