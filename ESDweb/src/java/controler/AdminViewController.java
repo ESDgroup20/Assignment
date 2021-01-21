@@ -59,6 +59,7 @@ public class AdminViewController extends HttpServlet {
                 break;
 
             case "Acssess Invoices":
+                path = "view/jsp/pages/admin/AdminInvoicesView.jsp";
                 break;
             case "Handle Turnover":
                 break;

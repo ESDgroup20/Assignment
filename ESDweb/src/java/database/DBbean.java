@@ -175,6 +175,8 @@ public class DBbean {
         }
         return null;
     }
+    
+   
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------
     public User signInAuth(String table, User user) {
@@ -376,18 +378,18 @@ public class DBbean {
     }
     
     
-    public boolean insertInvoice(String appointment, String moneyGenerated,String date,String document) {
+    public static boolean insertInvoice(String appointment, String moneyGenerated,Date date,String document) {
 
         try {
 
-            String updateQuery = "INSERT INTO INVOICES (APPOINTMENT, MONEYGENERATED, DATE,DOCUMENT ) VALUES (?,?,?,?)";
+            String updateQuery = "INSERT INTO INVOICES (APPOINTMENT, MONEYGENERATED, DATE, DOCUMENT ) VALUES (?,?,?,?)";
 
             pre = conn.prepareStatement(updateQuery);
            
             
             pre.setString(1, appointment);
-             pre.setString(2, moneyGenerated);
-            pre.setString(3, date);
+            pre.setString(2, moneyGenerated);
+            pre.setDate(3, date);
             pre.setString(4, document);
           
 
@@ -404,7 +406,7 @@ public class DBbean {
     
     
     
-        public boolean insertRefferal(String email,String doctorName, String paitnetName,String letterLocation,String specalism) {
+    public boolean insertRefferal(String email,String doctorName, String paitnetName,String letterLocation,String specalism) {
 
         try {
 
@@ -477,7 +479,7 @@ public class DBbean {
         return null;
     }
 
-    public ArrayList selectByQuery(String query) {
+    public static ArrayList selectByQuery(String query) {
         try {
             pre = conn.prepareStatement(query);
             rs = pre.executeQuery();
@@ -485,6 +487,7 @@ public class DBbean {
             int size = metaData.getColumnCount();
             ArrayList<ArrayList> returnList = new ArrayList<>();
 
+            System.out.println("ok?");
             while (rs.next()) {
                 ArrayList<String> temp = new ArrayList<>();
                 for (int i = 0; i < size; i++) {  // check how many column

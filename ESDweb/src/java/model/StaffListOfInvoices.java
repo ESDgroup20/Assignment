@@ -143,7 +143,7 @@ public class StaffListOfInvoices {
        
         ArrayList<String> dbReturn = (ArrayList<String>) dao.selectByQuery(SqlQuery).get(0);
         String amount = dbReturn.get(0);
-        dao.insertInvoice(appointmentID,amount,date,filename);
+//        dao.insertInvoice(appointmentID,amount,date,filename);
 
 //        using iText pdf to write to write to folder
         String file = directory + filename + ".pdf";
