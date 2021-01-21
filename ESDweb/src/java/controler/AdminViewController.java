@@ -39,6 +39,10 @@ public class AdminViewController extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         switch (action) {
+            case "Home":
+                path = "view/jsp/pages/admin/AdminDashboard.jsp";
+                break;
+                
             case "Accsess Users":
 
                 path = "view/jsp/pages/admin/AdminUserView.jsp";

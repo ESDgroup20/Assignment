@@ -17,11 +17,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <%@ include file="AdminNavigator.jsp" %>
+        <title>Applications Page</title>
     </head>
     <body>
-        <h1>Admin Approve Staff View</h1>
-
+        
         <form action="AdminActionAproveStaffController" method="post" >
             <%            for (ArrayList i : unapprovedStaff) {
 

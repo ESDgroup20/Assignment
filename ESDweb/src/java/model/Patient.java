@@ -17,7 +17,6 @@ public class Patient extends User{
     private String patientName;
     private String patientAddress;
     private String patientType;
-    private String patientID;
 
     public Patient() {
     }
@@ -44,18 +43,14 @@ public class Patient extends User{
         this.patientAddress = patientAddress;
     }
 
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
-    }
-
-    public String getPatientID() {
+    public int getPatientID() {
         return patientID;
     }
 
-   
-    
-    
-    
+    public void setPatientID(int patientID) {
+        this.patientID = patientID;
+    }
+  
 
     public String getPatientName() {
         return patientName;

@@ -7,6 +7,7 @@ package controler;
 
 import database.DBbean;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -14,15 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Appointment;
-import model.Patient;
 import model.Staff;
 
 /**
  *
  * @author Marken Tuan Nguyen
  */
-public class PatientSelectAppointmentController extends HttpServlet {
+public class PatientSelectBookingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,24 +35,16 @@ public class PatientSelectAppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         HttpSession session = request.getSession(false);
-
+        
         Connection conn = (Connection) getServletContext().getAttribute("conn");
-        
-
+//      apply context into database
         DBbean db =  new DBbean();
-        db.getConnection(conn);
- 
-        
-        Patient patient = (Patient) session.getAttribute("ThisPatientData");
-        ArrayList<Appointment> patientAptList= db.retreiveAppointment("patient",patient.getPatientID());
-        
-        System.out.println("list apt: "+patientAptList);
-        
-        session.setAttribute("patientAptList", patientAptList);
-        
+        db.getConnection(conn);  
 
+        ArrayList<Staff> showStaff= db.selectApprovedStaff();
+        session.setAttribute("showStaff", showStaff);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

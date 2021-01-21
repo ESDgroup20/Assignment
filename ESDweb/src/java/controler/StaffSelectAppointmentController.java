@@ -46,9 +46,9 @@ public class StaffSelectAppointmentController extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         Staff staff= (Staff) session.getAttribute("ThisStaffData");
-        ArrayList<Appointment> staffAptList = db.retreiveAppointment(staff.getStaffID());
+        ArrayList<Appointment> staffAptList = db.retreiveAppointment("staff", staff.getStaffID());
 
-                
+        session.setAttribute("staffName", staff.getStaffName());
         session.setAttribute("StaffAppointmentList", staffAptList);
         
     }

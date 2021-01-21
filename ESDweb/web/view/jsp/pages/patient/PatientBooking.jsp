@@ -4,34 +4,37 @@
     Author     : Marken Tuan Nguyen
 --%>
 
+<%@page import="model.Staff"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/PatientSelectBookingController"/>
 <!DOCTYPE html>
 <html>
     <div class="position-absolute top-50 start-50 translate-middle">
 
-     
-<!--        <sql:setDataSource 
-            var = "snapshot" 
-            driver = "org.apache.derby.jdbc.ClientDriver"
-            url = "jdbc:derby://localhost:1527/ESDweb"
-            user = "root" password = "123456"/>-->
-        <sql:query dataSource = "${snapshot}" var = "selectStaff">
-            SELECT staffname FROM users,staffs WHERE  users.username = staffs.USERNAME AND STAFFS.APPROVED = true
-        </sql:query>
+          <% 
+                ArrayList<Staff> showStaff = (ArrayList<Staff>) session.getAttribute("showStaff");
+          %>
+
             
-        <form action="PatientActionAppointmentController" method="post">
+        <form action="PatientActionBookingController" method="post">
+            
+            <div class="mb-4">
+                <h4>Start New Booking</h4>
+            </div>
+            
             <div class="form-floating mb-2">      
                 <select class="form-select mb-2" name="staffName" id="floatingInput">
-                    <c:forEach items="${selectStaff.rows}" var="row">
-                        <option>${row.STAFFNAME}</option>
-                    </c:forEach>
+                    <% for(Staff s: showStaff){ %>
+                        <option><%=s.getStaffName()%></option>
+                    <% } %>
                 </select>
                 <label class="fw-lighter" for="floatingInput">Staff</label>
             </div>
             
+                    
+                    
+                    
             <div class="form-floating mb-2">   
                 <input type="date" name="date" class="form-control is-invalid" id="floatingInput"/>
                 <div class="invalid-feedback mb-2">Test!</div>
@@ -50,6 +53,7 @@
                     <option>15</option>
                     <option>20</option>
                     <option>25</option>
+                    <option>30</option>
                 </select>
                 <label class="fw-lighter" for="floatingInput">Length</label>
             </div>

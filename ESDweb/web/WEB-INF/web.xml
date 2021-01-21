@@ -87,8 +87,8 @@
         <servlet-class>controler.ActionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BookingServlet</servlet-name>
-        <servlet-class>controler.BookingServlet</servlet-class>
+        <servlet-name>PatientActionBookingController</servlet-name>
+        <servlet-class>controler.PatientActionBookingController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminViewController</servlet-name>
@@ -125,10 +125,6 @@
     <servlet>
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>adminViewTestController</servlet-name>
-        <servlet-class>controler.adminViewTestController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>staffViewTestController</servlet-name>
@@ -194,6 +190,10 @@
         <servlet-name>StaffActionAppointmentController</servlet-name>
         <servlet-class>controler.StaffActionAppointmentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PatientSelectBookingController</servlet-name>
+        <servlet-class>controler.PatientSelectBookingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -215,8 +215,8 @@
         <url-pattern>/ActionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BookingServlet</servlet-name>
-        <url-pattern>/BookingServlet</url-pattern>
+        <servlet-name>PatientActionBookingController</servlet-name>
+        <url-pattern>/PatientActionBookingController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminViewController</servlet-name>
@@ -261,8 +261,6 @@
     <servlet-mapping>
         <servlet-name>StaffActionAppointmentController</servlet-name>
         <url-pattern>/StaffActionAppointmentController</url-pattern>
-        <servlet-name>adminViewTestController</servlet-name>
-        <url-pattern>/adminViewTestController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staffViewTestController</servlet-name>
@@ -319,6 +317,10 @@
     <servlet-mapping>
         <servlet-name>StaffSelectInvoiceController</servlet-name>
         <url-pattern>/StaffSelectInvoiceController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientSelectBookingController</servlet-name>
+        <url-pattern>/PatientSelectBookingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

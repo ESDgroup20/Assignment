@@ -31,7 +31,7 @@
                 Patient patient = (Patient) request.getSession().getAttribute("ThisPatientData");
         %>
                 <h1> Welcome, <% out.print(role + " " + patient.getPatientName()); %> </h1>
-                <%@ include file="../components/Booking.jsp" %>
+                <%@ include file="../pages/patient/PatientDashboard.jsp" %>
         <%  }
             else{
                 Staff staff = (Staff) request.getSession().getAttribute("ThisStaffData");

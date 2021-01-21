@@ -27,7 +27,7 @@ import model.User;
  *
  * @author Marken Tuan Nguyen
  */
-public class BookingServlet extends HttpServlet {
+public class PatientActionBookingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,8 +65,6 @@ public class BookingServlet extends HttpServlet {
             System.err.println("length: "+length);
             System.out.println(date+ " at " +time);
             System.out.println("staffName:" + staffName);
-//            System.out.println("username: "+user.getUserName());
-//            System.out.println("password: "+user.getUserPass());
             
             Patient patient = (Patient) session.getAttribute("ThisPatientData");
             System.out.println("Patient name: "+patient.getPatientName());
@@ -75,6 +73,11 @@ public class BookingServlet extends HttpServlet {
             int staffID = db.selectIdByName("staff",staffName);
             
             db.bookAppointment(patient.getPatientID(), staffID, (date), (time), Integer.valueOf(length));
+        
+            
+            String path = "/view/jsp/pages/patient/PatientDashboard.jsp";
+        
+            request.getRequestDispatcher(path).forward(request, response);
         }
 
     }

@@ -40,7 +40,7 @@ public class patientViewTestController extends HttpServlet {
         Patient patient = new Patient();
         patient.setUserName("caidan");
         patient.setUserRole("Patient");
-        patient.setPatientID("1");
+        patient.setPatientID(1);
         
         
         HttpSession session = request.getSession(false);

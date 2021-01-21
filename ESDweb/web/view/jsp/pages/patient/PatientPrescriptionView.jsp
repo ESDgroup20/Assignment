@@ -10,12 +10,13 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <%@ include file="PatientNavigator.jsp" %>
             <title>JSP Page</title>
         </head>
         <body>
             <form action = 'PatientActionPrescriptionController' method = 'POST'>
                 <p><%=request.getAttribute("patientHTML")%></p>
-        </form>
-        <p><%=request.getAttribute("sucssesHTML")%></p>
-    </body>
+            </form>
+            <p><%=request.getAttribute("sucssesHTML")%></p>
+        </body>
 </html>

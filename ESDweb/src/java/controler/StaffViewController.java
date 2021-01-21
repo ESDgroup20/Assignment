@@ -42,6 +42,10 @@ public class StaffViewController extends HttpServlet {
       
 
         switch (action) {
+            case "Home":
+                path = "view/jsp/pages/staff/StaffDashboard.jsp";
+                break;
+                
             case "Refer To Specalist":
                 path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
                 break;
@@ -61,7 +65,6 @@ public class StaffViewController extends HttpServlet {
                 break;
 
             case "Create Invoice":
-      
                 path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
                 break;
 

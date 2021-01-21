@@ -81,14 +81,17 @@ public class SignInServlet extends HttpServlet {
                         Staff staff = db.retreiveStaff(user.getUserName());
                         System.out.println("test: "+staff.getStaffName() + staff.getStaffID());
                         session.setAttribute("ThisStaffData", staff);
+                        path = "/view/jsp/pages/staff/StaffDashboard.jsp";
                         break;
                     case "Patient":
                         Patient patient = db.retreivePatient(user.getUserName());
                         System.out.println("test: "+patient.getPatientName() + patient.getPatientUsername());
                         session.setAttribute("ThisPatientData", patient);
+                        path = "/view/jsp/pages/patient/PatientDashboard.jsp";
                         break;
                     case "Admin":
                         path = "/view/jsp/pages/admin/AdminDashboard.jsp";
+                        break;
                 }
                 
                 
