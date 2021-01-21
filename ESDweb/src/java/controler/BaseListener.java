@@ -51,6 +51,8 @@ public class BaseListener implements ServletContextListener {
 
         String turnoverTable = context.getInitParameter("TurnoverContext");
         
+        String nhsEmail = context.getInitParameter("nhsEmail");
+        
         
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -71,6 +73,7 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("referralsTable", referralsTable);
         context.setAttribute("specalistTable", specalistTable);
         context.setAttribute("turnoverTable", turnoverTable);
+        context.setAttribute("nhsEmail",nhsEmail);
     }
 
     @Override

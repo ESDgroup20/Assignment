@@ -38,6 +38,7 @@ public class AutoCompleteController extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String role = request.getParameter("role");
+        String email = request.getParameter("email");
 //      Adress look up object is made and used for api call and create html, an "Please enter valid adress message" is returned if call doesn't return anything
         AddressLookUp adressFinder = new AddressLookUp();
         adressFinder.lookUp(address);
@@ -48,6 +49,7 @@ public class AutoCompleteController extends HttpServlet {
         request.setAttribute("name", name);
         request.setAttribute("address", address);
         request.setAttribute("role", role);
+        request.setAttribute("email", email);
 
         request.setAttribute("addressHTML", addressHTML);
 

@@ -14,6 +14,8 @@ public class Staff extends User{
     private String staffPassword;
     private String staffName;
     private String staffAddress;
+    private String staffID;
+    
 
     public Staff() {
     }
@@ -53,6 +55,14 @@ public class Staff extends User{
 
     public String getStaffPassword() {
         return staffPassword;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
+
+    public String getStaffID() {
+        return staffID;
     }
     
 }

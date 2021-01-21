@@ -6,6 +6,19 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/StaffSelectInvoiceController" ></jsp:include>
+<%
+    String downLoadHTML = (String) request.getAttribute("downLoadHTML");
+    String downloadButton;
+    if (downLoadHTML == null) {
+        downLoadHTML = "";
+        downloadButton = "";
+    } else {
+
+        downloadButton = "<input type='submit'  value = 'Download'>";
+    }
+
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +26,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action ="StaffActionInvoiceController" method="post">
+            <%=request.getAttribute("invoiceHTML")%>
+        </form>
+          <form action="StaffActionInvoiceController" method="post" >
+              <%=downLoadHTML%>
+            <%=downloadButton%>
+        </form>
+        
+        
+        
     </body>
 </html>

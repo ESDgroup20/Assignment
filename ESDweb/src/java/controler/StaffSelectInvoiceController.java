@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Staff;
+import model.StaffListOfInvoices;
 
 /**
  *
@@ -31,26 +33,29 @@ public class StaffSelectInvoiceController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession(false);
 
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        StaffListOfInvoices listOfInvoices = (StaffListOfInvoices) session.getAttribute("listOfInvoices");
 
-        
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StaffSelectInvoiceController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet StaffSelectInvoiceController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if (listOfInvoices == null) {
+
+            Connection conn = (Connection) getServletContext().getAttribute("conn");
+
+            Staff staff = (Staff) session.getAttribute("staff");
+
+            listOfInvoices = new StaffListOfInvoices(conn, staff);
+
+            listOfInvoices.dbSelect();
         }
+
+        String invoiceHTML = listOfInvoices.createHTML();
+
+        System.out.println("invoiceHTML" + invoiceHTML);
+        request.setAttribute("invoiceHTML", invoiceHTML);
+        session.setAttribute("listOfInvoices", listOfInvoices);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

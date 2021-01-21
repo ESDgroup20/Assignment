@@ -37,12 +37,22 @@
     }
 
     String role = (String) request.getAttribute("role");
-    String[] roles = {"Patient", "Nurse", "Doctor"};
+    String[] roles = {"Patient-Private","Patient-NHS","Nurse", "Doctor"};
     String roleHTML = "";
 // if there isn't a value default is set to patient as it is the first
     if (role == null) {
-        role = "Patient";
+        role = "Patient-Private";
     }
+    
+    
+     String email = (String) request.getAttribute("email");
+    if (email == null) {
+        email = "";
+    }
+    
+    
+    
+    
 // so box for sign up is kept if the role is the same as the list that is the one preselected
       for (int i = 0; i < roles.length; i++) {
             roleHTML = roleHTML + "<option";
@@ -70,7 +80,7 @@
 
 
                 <div class="form-floating mb-2">
-                    <input type="text" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password"  value =<%= "'" + password + "'"%>  />
+                    <input type="password" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password"  value =<%= "'" + password + "'"%>  />
                     <label for="floatingInput">Password</label>
                 </div>
                 <div class="form-floating mb-2">
@@ -107,7 +117,10 @@
 
                 <%=addressPull%>
 
-
+                <div class="form-floating mb-2">
+                    <input type="text" name="email" class="form-control is-valid" id="floatingInput" placeholder="Email"  value =<%= "'" + email + "'"%>/>
+                    <label for="floatingInput">Email</label>
+                </div>
 
                 <div class="form-floating mb-2">     
                     <select class="form-select mb-2" name="role" id="floatingInput">
@@ -117,7 +130,8 @@
                 </div>
                 <button class="btn btn-primary col-12" type="submit" name="act" value="SignUp">Sign Up</button>
             </div>
-
+                    
+            
 
 
         </form>

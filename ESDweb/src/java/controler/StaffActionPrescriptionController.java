@@ -44,7 +44,7 @@ public class StaffActionPrescriptionController extends HttpServlet {
 
         String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
 
-        System.out.println(sucsessHTML);
+        System.out.println("sucsessHTML"+sucsessHTML);
         
         session.setAttribute("sucsessHTML", sucsessHTML);
 

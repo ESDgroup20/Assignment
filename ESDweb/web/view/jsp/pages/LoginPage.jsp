@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/SignOutServlet" ></jsp:include>
+<%
+ String sessionHTML = (String) request.getAttribute("Session");
+ if(sessionHTML == null){
+     sessionHTML = "";
+ }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +36,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password" />
+                        <input type="password" name="pw" class="form-control is-valid" id="floatingInput" placeholder="Password" />
                         <label for="floatingInput">Password</label> 
                     </div>
 
@@ -39,8 +46,10 @@
 
                 <form action="SignUpServlet" method="POST" class="d-flex flex-column align-items-center">
                     <input type="submit" name="act" value="Register" class="btn btn-light col-12"/>  
-                </form>  
+                </form>
+               
             </div>
+            <%=sessionHTML%>
         </div>
             
          

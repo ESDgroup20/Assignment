@@ -43,13 +43,14 @@ public class DoctorActionSpecalistController extends HttpServlet {
 
 //       Local path is found to save to
         ServletContext context = request.getServletContext();
-        String path = context.getRealPath("/") + "letters/";
+        String path = context.getRealPath("/") ;
 
 //        if the create referal button is made, object for creating pdf is made and is used with input from view to create pdf and save
         if (patient != null && specalist != null) {
             response.setContentType("text/html;charset=UTF-8");
             DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
             String doctor = (String) session.getAttribute("staffName");
+            System.out.println("doctor"+doctor);
             String sucssesHTML = listOfSpeclists.createPDF(path, patient, specalist, doctor);
       
             
@@ -65,9 +66,11 @@ public class DoctorActionSpecalistController extends HttpServlet {
             File pdfFile = new File(path + letter);
 
             response.setContentType("application/pdf");
-            response.addHeader("Content-Disposition", "attachment; filename=" + letter);
+            response.addHeader("Content-Disposition", "attachment; filename=" +letter);
             response.setContentLength((int) pdfFile.length());
-
+            
+            System.out.println("pdfFile"+pdfFile);
+            
             FileInputStream fileInputStream = new FileInputStream(pdfFile);
             OutputStream responseOutputStream = response.getOutputStream();
             int bytes;

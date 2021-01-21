@@ -54,6 +54,8 @@ public class SignUpServlet extends HttpServlet {
         String password = request.getParameter("pw");
         String role = request.getParameter("role");
         String name = request.getParameter("name");
+        
+        String email = request.getParameter("email");
 
         String address = request.getParameter("address");
 //        String number   = request.getParameter("number");
@@ -73,15 +75,28 @@ public class SignUpServlet extends HttpServlet {
 //          init path
             path = "/view/jsp/pages/RegisterPage.jsp";
         } else if (action.equals("SignUp")) {
+            String patitentType = null;
+            if (role.equals("Patient-Private") || role.equals("Patient-NHS")) {
+                String[] patientRole = role.split("-");
+                role = patientRole[0];
+                 patitentType = patientRole[1];
+                System.out.println("patitentType" + patitentType);
+
+            }
 //          create user from DBbean.createUser
             User newUser = new User(username, password, role);
             db.createUser(userTable, newUser);
 
             switch (role) {
                 case "Patient":
+
                     Patient newPatient = new Patient(name, address, username, password);
                     String patientTable = (String) getServletContext().getAttribute("patientTable");
-                    db.createPatient(patientTable, newPatient);
+                    System.out.println("patientTable"+patientTable);
+                    System.out.println("newPatient"+newPatient);
+                    System.out.println("patitentType"+patitentType);
+                    System.out.println("email"+email);
+                    db.createPatient(patientTable, newPatient, patitentType,email);
                     session.setAttribute("patientData", newPatient);
                     break;
 
@@ -106,6 +121,7 @@ public class SignUpServlet extends HttpServlet {
             request.setAttribute("pw", password);
             request.setAttribute("name", name);
             request.setAttribute("role", role);
+            request.setAttribute("email", email);
 
             String addressPull = (String) request.getParameter("addressPull");
             System.out.println("addressPull" + addressPull);

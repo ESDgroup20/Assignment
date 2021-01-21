@@ -156,16 +156,18 @@ public class DBbean {
 
     }
 
-    public void createPatient(String table, Patient patient) {
+    public void createPatient(String table, Patient patient, String patientType,String email) {
         try {
             //      query
-            String registerQuery = "INSERT INTO " + table + " (PATIENTNAME, PATIENTADDRESS, USERNAME) VALUES (?, ?, ?)";
+            String registerQuery = "INSERT INTO " + table + " (PATIENTNAME, PATIENTADDRESS, USERNAME,PATIENTTYPE, EMAIL) VALUES (?, ?, ?,?,?)";
             //      prepare statement
             pre = conn.prepareStatement(registerQuery);
             //      set statement position
             pre.setString(1, patient.getPatientName());
             pre.setString(2, patient.getPatientAddress());
             pre.setString(3, patient.getPatientUsername());
+            pre.setString(4, patientType);
+               pre.setString(5, email);
             pre.executeUpdate();
             pre.close();
         } catch (SQLException ex) {
@@ -269,7 +271,31 @@ public class DBbean {
     }
     
     
-    
+    public boolean insertInvoice(String appointment, String moneyGenerated,String date,String document) {
+
+        try {
+
+            String updateQuery = "INSERT INTO INVOICES (APPOINTMENT, MONEYGENERATED, DATE,DOCUMENT ) VALUES (?,?,?,?)";
+
+            pre = conn.prepareStatement(updateQuery);
+           
+            
+            pre.setString(1, appointment);
+             pre.setString(2, moneyGenerated);
+            pre.setString(3, date);
+            pre.setString(4, document);
+          
+
+            pre.executeUpdate();
+            pre.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
     
     
     
@@ -293,6 +319,7 @@ public class DBbean {
 
             return true;
         } catch (SQLException ex) {
+            System.out.println("INSERT REF ERROR");
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }

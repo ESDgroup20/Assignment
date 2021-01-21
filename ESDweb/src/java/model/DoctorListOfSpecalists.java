@@ -70,19 +70,7 @@ public class DoctorListOfSpecalists {
 
         refillsHTML = refillsHTML + "<input type='submit'  value = 'Create Referal'>";
 
-////        creating html to download referal
-//        referalsHTML = "<label>Choose refill to download: </label>";
-//
-//        referalsHTML = referalsHTML + "<select name='referals' id = 'referals'>";
-//        for (int i = 0 ; i <refferalData.size(); i+=5){
-//        referalsHTML = referalsHTML + "<option value='" + refferalData.get(i + 3) + "'>" + " Paitient "+ refferalData.get(i + 2) ;
-//        
-//        referalsHTML = referalsHTML +", refered to "+ refferalData.get(i+4)+" created by Dr."+ refferalData.get(i+1) + "</option> ";
-//        
-//        }
-//          referalsHTML = referalsHTML + "</select><br>";
-//
-//        referalsHTML = referalsHTML + "<input type='submit'  value = 'Download'>";
+
     }
 
     public String createPDF(String directory, String patient, String specalist, String doctor) {
@@ -99,7 +87,8 @@ public class DoctorListOfSpecalists {
                 email = specalistData.get(i + 2);
             }
         }
-        String file = (directory + patient + specalist).replaceAll(" ", "") + ".pdf";
+        String file = (directory + "SpecalistLetter-"+ patient + specalist).replaceAll(" ", "") + ".pdf";
+        System.out.println("file"+file);
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(file));
@@ -179,7 +168,7 @@ public class DoctorListOfSpecalists {
 
         }
 
-        letterCreated = (patient + specalist).replaceAll(" ", "") + ".pdf";
+        letterCreated = "SpecalistLetter-"+(patient + specalist).replaceAll(" ", "") + ".pdf";
         System.out.println("letterCreated"+ letterCreated);
 
         boolean sucsses = dao.insertRefferal(email, doctor, patient, letterCreated, specalism);

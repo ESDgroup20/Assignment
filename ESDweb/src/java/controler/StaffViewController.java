@@ -46,12 +46,12 @@ public class StaffViewController extends HttpServlet {
                 break;
 
             case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
+             
                 path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
                 break;
 
             case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
+                
                 path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
                 break;
 
@@ -60,7 +60,7 @@ public class StaffViewController extends HttpServlet {
                 break;
 
             case "Create Invoice":
-      
+                 
                 path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
                 break;
 

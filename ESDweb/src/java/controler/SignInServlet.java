@@ -8,12 +8,14 @@ package controler;
 import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Staff;
 import model.User;
 
 /**
@@ -34,6 +36,7 @@ public class SignInServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
 
 //      get context from BaseListener
         Connection conn = (Connection) getServletContext().getAttribute("conn");
@@ -46,59 +49,67 @@ public class SignInServlet extends HttpServlet {
         db.getConnection(conn);
 
 //      Set session at beginning
-        HttpSession session = request.getSession();
+        
 
 //      get parameter from front-end file
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
-        
-        String action   = request.getParameter("act");
-        
+
+        String action = request.getParameter("act");
+
 //        System.out.println("GET DATE: " + datetime);
 //      save path string       
         String path = null;
 //        if front-end click btn Login
         if (action.equals("Login")) {
 //          check Auth from DBbean.signInAuth
-            User user = db.signInAuth(userTable, new User(username,password));
-            
+            User user = db.signInAuth(userTable, new User(username, password));
+
 //          check valid user            
             if (user == null) {
                 path = "/view/jsp/pages/ErrorPage.jsp";
 
             } else {
-                
+
                 session.setAttribute("userData", user);
                 session.setAttribute("sessionKey", session.getId());
                 
+               
+
 //                System.out.println("test: "+user.getUserRole());
-                
-                switch(user.getUserRole()){
+                switch (user.getUserRole()) {
                     case "Doctor":
                     case "Nurse":
+                        Staff staff = new Staff();
+
                         String staffName = db.selectNameByRole(staffTable, "staffname", user);
                         session.setAttribute("staffName", staffName);
-                         path = "/view/jsp/pages/staff/StaffDashboard.jsp";
+                        
+
+                        ArrayList<ArrayList<String>> staffData = db.selectByQuery("SELECT * FROM STAFFS WHERE USERNAME = '" + username + "'");
+                        String staffID = staffData.get(0).get(0);
+                        System.out.println("staffID"+staffID);
+                        staff.setStaffID(staffID);
+                        session.setAttribute("staff", staff);
+                        path = "/view/jsp/pages/staff/StaffDashboard.jsp";
                         break;
                     case "Patient":
                         String patientName = db.selectNameByRole(patientTable, "patientname", user);
                         session.setAttribute("patientName", patientName);
-                         path = "/view/jsp/pages/patient/PatientDashboard.jsp";
+                        path = "/view/jsp/pages/patient/PatientDashboard.jsp";
                         break;
                     case "Admin":
                         path = "/view/jsp/pages/admin/AdminDashboard.jsp";
                 }
-                
-                
+
 //              init path
-             
             }
 
 //        if front-end click btn FastTrack
-        } 
+        }
 //      access path
-        request.getServletContext().getRequestDispatcher(path).forward(request,response);
-        
+        request.getServletContext().getRequestDispatcher(path).forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

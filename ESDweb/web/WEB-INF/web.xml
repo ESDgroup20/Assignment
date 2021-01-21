@@ -2,6 +2,12 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- =============================== CONTEXT =============================== -->
     <context-param>
+        <description>NHS EMAil</description>
+        <param-name>nhsEmail</param-name>
+        <param-value>nhs@gov.co.uk</param-value>
+    </context-param>
+    
+    <context-param>
         <description>DATABASE NAME</description>
         <param-name>DbContext</param-name>
         <param-value>ESDweb</param-value>
@@ -186,6 +192,10 @@
         <servlet-name>StaffSelectInvoiceController</servlet-name>
         <servlet-class>controler.StaffSelectInvoiceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffActionInvoiceController</servlet-name>
+        <servlet-class>controler.StaffActionInvoiceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/SignInServlet</url-pattern>
@@ -306,9 +316,13 @@
         <servlet-name>StaffSelectInvoiceController</servlet-name>
         <url-pattern>/StaffSelectInvoiceController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionInvoiceController</servlet-name>
+        <url-pattern>/StaffActionInvoiceController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            1
+            5
         </session-timeout>
     </session-config>
     <!-- =============================== WELCOME =============================== -->
