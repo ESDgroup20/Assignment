@@ -39,6 +39,7 @@ public class DatabaseRun {
         tableMEDICATIONS(conn);
         tablePRESCRIPTIONS(conn);
         tableAPPOINTMENTS(conn);
+        tablePRICES(conn);
 
     }
     
@@ -73,7 +74,13 @@ public class DatabaseRun {
             "INSERT INTO ROOT.USERS (USERNAME, PASSWORD, ROLE) \n" +
             "	VALUES ('princehassan', 'prince_passwd', 'Patient');\n" +
             "INSERT INTO ROOT.USERS (USERNAME, PASSWORD, ROLE) \n" +
-            "	VALUES ('admin', 'admin', 'Admin');";
+            "	VALUES ('admin', 'admin', 'Admin');"+
+            "INSERT INTO ROOT.USERS (USERNAME, PASSWORD, ROLE) \n" +
+                "	VALUES ('doctor', 'doctor', 'Doctor');"+
+            "INSERT INTO ROOT.USERS (USERNAME, PASSWORD, ROLE) \n" +
+            "	VALUES ('nurse', 'nurse', 'Nurse');"+
+            "INSERT INTO ROOT.USERS (USERNAME, PASSWORD, ROLE) \n" +
+            "	VALUES ('patient', 'patient', 'Patient');";
         exeQuery(query);
         System.out.println("Table USERS insert successfully!");
         
@@ -89,6 +96,8 @@ public class DatabaseRun {
             "USERNAME VARCHAR(20) REFERENCES USERS(USERNAME),\n" +
             "PRIMARY KEY (STAFFID)\n" +
             ");";
+        
+       
         exeQuery(create);
         System.out.println("Table STAFFS created successfully!");
         
@@ -96,7 +105,11 @@ public class DatabaseRun {
             "INSERT INTO ROOT.STAFFS (STAFFNAME, STAFFADDRESS, USERNAME) \n" +
             "	VALUES ('Mehmet Aydin', 'Mehmets Address, London, NW4 0BH', 'meaydin');\n" +
             "INSERT INTO ROOT.STAFFS (STAFFNAME, STAFFADDRESS, USERNAME) \n" +
-            "	VALUES ('Emin Aydin', 'Emiin''s Address, Bristol, BS16', 'eaydin');";
+            "	VALUES ('Emin Aydin', 'Emiin''s Address, Bristol, BS16', 'eaydin');"+
+            "INSERT INTO ROOT.STAFFS (STAFFNAME, STAFFADDRESS, USERNAME) \n" +
+            "	VALUES ('Doctor TTT', 'Emiin''s Address, Bristol, BS16', 'doctor');"+
+            "INSERT INTO ROOT.STAFFS (STAFFNAME, STAFFADDRESS, USERNAME) \n" +
+            "	VALUES ('Nurse TTT', 'Emiin''s Address, Bristol, BS16', 'nurse');";
         exeQuery(query);
         System.out.println("Table STAFFS insert successfully!");
     }
@@ -118,7 +131,11 @@ public class DatabaseRun {
             "INSERT INTO ROOT.PATIENTS (PATIENTNAME, PATIENTADDRESS, PATIENTTYPE, USERNAME) \n" +
             "	VALUES ('Charly Aidan', '14 King Street, Aberdeen, AB24 1BR', 'NHS', 'caidan');\n" +
             "INSERT INTO ROOT.PATIENTS (PATIENTNAME, PATIENTADDRESS, PATIENTTYPE, USERNAME) \n" +
-            "	VALUES ('Prince Hassan', 'Non-UK street, Non-UK Town, Non_UK', 'private', 'princehassan');";
+            "	VALUES ('Prince Hassan', 'Non-UK street, Non-UK Town, Non_UK', 'private', 'princehassan');"+
+            "INSERT INTO ROOT.PATIENTS (PATIENTNAME, PATIENTADDRESS, PATIENTTYPE, USERNAME) \n" +
+            "	VALUES ('Patient TTT', 'Non-UK street, Non-UK Town, Non_UK', 'private', 'patient');";
+       
+        
         exeQuery(query);
         System.out.println("Table PATIENTS insert successfully!");
     }
@@ -130,6 +147,7 @@ public class DatabaseRun {
             "QUANTITY INTEGER, \n" +
             "PRIMARY KEY (MEDICATIONNAME)\n" +
             ");";
+        
         exeQuery(create);
         System.out.println("Table MEDICATIONS created successfully!");
         
@@ -149,37 +167,60 @@ public class DatabaseRun {
             "CREATE TABLE PRESCRIPTIONS (\n" +
             "PATIENTID INTEGER REFERENCES PATIENTS(PATIENTID), \n" +
             "MEDICATIONNAME VARCHAR(20) REFERENCES MEDICATIONS(MEDICATIONNAME), \n" +
-            "REFILLS INTEGER,\n" +
+            "DATECREATED DATE, \n" +
+            "LASTREFILLDATE DATE, \n" +
+            "INITIALREFILLS INTEGER, \n" +
+            "REMAININGREFILLS INTEGER, \n" +
+            "APPROVED BOOLEAN, \n" +
             "PRIMARY KEY (PATIENTID, MEDICATIONNAME)\n" +
             ");";
+        
+        
         exeQuery(create);
         System.out.println("Table PRESCRIPTIONS created successfully!");
         
         String query =
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (1, 'Parctamol',2);\n" +
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (2, 'Asprin', 1);\n" +
-            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
-            "	VALUES (2, 'Calpol', 0);";
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (1, 'Parctamol',2);\n" +
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (2, 'Asprin', 1);\n" +
+//            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, REFILLS) \n" +
+//            "	VALUES (2, 'Calpol', 0);";
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (2, 'Asprin', '2021-01-16', '2021-01-16', 4, 4, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Parctamol', '2020-12-17', '2020-12-17', 1, 1, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Asprin', '2021-01-16', '2021-01-16', 3, 3, true);\n" +
+            "INSERT INTO ROOT.PRESCRIPTIONS (PATIENTID, MEDICATIONNAME, DATECREATED, LASTREFILLDATE, INITIALREFILLS, REMAININGREFILLS, APPROVED) \n" +
+                " VALUES (1, 'Calpol', '2021-01-03', '2021-01-03', 5, 5, true);";
+        
         exeQuery(query);
         System.out.println("Table PRESCRIPTIONS insert successfully!");
     }
     
     public static void tableAPPOINTMENTS(Connection conn) throws SQLException{
-        ps = conn.prepareStatement("CREATE TABLE APPOINTMENTS (\n" +
+        String create = "CREATE TABLE APPOINTMENTS (\n" +
             "    AID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY, \n" +
             "    SID INTEGER REFERENCES STAFFS(STAFFID),\n" +
             "    PID INTEGER REFERENCES PATIENTS(PATIENTID),\n" +
             "    ADATE DATE, \n" +
             "    ATIME TIME, \n" +
-            "    ASLOT INTEGER, \n" +
-            "    ACHARGE FLOAT, \n" +
+            "    ALENGTH INTEGER, \n" +
             "    PRIMARY KEY (AID)\n" +
-            ")"
-        );
-        ps.executeUpdate();
+            ");";
+        
+        exeQuery(create);
         System.out.println("Table APPOINTMENTS created successfully!");
+        
+    }
+    
+    public static void tablePRICES(Connection conn) throws SQLException{
+        String create = "CREATE TABLE PRICES (LENGTH INTEGER NOT NULL, COST INTEGER, PRIMARY KEY (LENGTH));";
+        
+        exeQuery(create);
+        System.out.println("Table PRICES created successfully!");
+        
     }
     
 }

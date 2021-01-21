@@ -10,13 +10,27 @@ package model;
  * @author ESD20
  */
 public class Staff extends User{
+    private int staffID;
     private String staffUsername;
     private String staffPassword;
     private String staffName;
     private String staffAddress;
+    private boolean staffApproved;
+//    private String staffID;
+    
 
     public Staff() {
     }
+
+    public Staff(int staffID, String staffName, String staffAddress, boolean staffApproved, String staffUsername) {
+        this.staffID = staffID;
+        this.staffUsername = staffUsername;
+        this.staffName = staffName;
+        this.staffAddress = staffAddress;
+        this.staffApproved = staffApproved;
+    }
+
+    
 
     public Staff(String staffName, String staffAddress) {
         this.staffName = staffName;
@@ -30,6 +44,16 @@ public class Staff extends User{
         this.staffName = staffName;
         this.staffAddress = staffAddress;
     }  
+
+    public int getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(int staffID) {
+        this.staffID = staffID;
+    }
+    
+    
 
     public String getStaffName() {
         return staffName;
@@ -54,5 +78,13 @@ public class Staff extends User{
     public String getStaffPassword() {
         return staffPassword;
     }
+
+//    public void setStaffID(String staffID) {
+//        this.staffID = staffID;
+//    }
+//
+//    public String getStaffID() {
+//        return staffID;
+//    }
     
 }

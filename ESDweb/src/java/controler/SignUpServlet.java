@@ -8,6 +8,7 @@ package controler;
 import database.DBbean;
 import java.io.IOException;
 import java.sql.Connection;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,43 +49,57 @@ public class SignUpServlet extends HttpServlet {
         db.getConnection(conn);
 
 //      get parameter from front-end file
-        String action   = request.getParameter("act");
+        String action = request.getParameter("act");
         String username = request.getParameter("us");
         String password = request.getParameter("pw");
-        String role     = request.getParameter("role");
-        String name     = request.getParameter("name");
+        String role = request.getParameter("role");
+        String name = request.getParameter("name");
         
-        String number   = request.getParameter("number");
-        String route    = request.getParameter("route");
-        String postcode = request.getParameter("postcode");
-        String city     = request.getParameter("city");
-        String area     = request.getParameter("area");
-        String country  = request.getParameter("country");
-        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
-        
+        String email = request.getParameter("email");
+
+        String address = request.getParameter("address");
+//        String number   = request.getParameter("number");
+//        String route    = request.getParameter("route");
+//        String postcode = request.getParameter("postcode");
+//        String city     = request.getParameter("city");
+//        String area     = request.getParameter("area");
+//        String country  = request.getParameter("country");
+//        String address = number+", "+route+", "+postcode+", "+city+", "+area+", "+country;
 
 //      save path string
         String path = null;
-
+        System.out.println("Action Equals" + action);
         //      if front-end click btn Register
         if (action.equals("Register")) {
-
+            request.setAttribute("addressHTML", "");
 //          init path
             path = "/view/jsp/pages/RegisterPage.jsp";
-        } else if(action.equals("SignUp")){
+        } else if (action.equals("SignUp")) {
+            String patitentType = null;
+            if (role.equals("Patient-Private") || role.equals("Patient-NHS")) {
+                String[] patientRole = role.split("-");
+                role = patientRole[0];
+                 patitentType = patientRole[1];
+                System.out.println("patitentType" + patitentType);
+
+            }
 //          create user from DBbean.createUser
             User newUser = new User(username, password, role);
-            db.createUser(userTable, newUser);     
-            
+            db.createUser(userTable, newUser);
 
             switch (role) {
                 case "Patient":
+
                     Patient newPatient = new Patient(name, address, username, password);
                     String patientTable = (String) getServletContext().getAttribute("patientTable");
-                    db.createPatient(patientTable, newPatient);
+                    System.out.println("patientTable"+patientTable);
+                    System.out.println("newPatient"+newPatient);
+                    System.out.println("patitentType"+patitentType);
+                    System.out.println("email"+email);
+                    db.createPatient(patientTable, newPatient, patitentType,email);
                     session.setAttribute("patientData", newPatient);
                     break;
-    
+
                 case "Doctor":
                 case "Nurse":
                     Staff newStaff = new Staff(name, address, username, password);
@@ -94,12 +109,29 @@ public class SignUpServlet extends HttpServlet {
                     break;
             }
 
-            
 //          init path
             path = "/view/jsp/pages/SuccessPage.jsp";
+        } else if (action.equals("FindAddress")) {
+//            If look up adress button pressed sent to this controller
+            path = "/AutoCompleteController";
+
+        } else if (action.equals("SelectAddress")) {
+//            if select adress is pressed in the look up box these other parameters must also be countinly pased so boxes remain full
+            request.setAttribute("us", username);
+            request.setAttribute("pw", password);
+            request.setAttribute("name", name);
+            request.setAttribute("role", role);
+            request.setAttribute("email", email);
+
+            String addressPull = (String) request.getParameter("addressPull");
+            System.out.println("addressPull" + addressPull);
+            request.setAttribute("address", addressPull);
+
+            path = "/view/jsp/pages/RegisterPage.jsp";
+
         }
 //      access path
-        request.getServletContext().getRequestDispatcher(path).forward(request,response);
+        request.getServletContext().getRequestDispatcher(path).forward(request, response);
 
     }
 

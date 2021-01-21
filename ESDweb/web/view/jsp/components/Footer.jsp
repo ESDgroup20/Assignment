@@ -10,7 +10,7 @@
     <form action="SignOutServlet" method="POST">
         <br>
         <button type="submit" class="btn btn-outline-primary" value="GoHome">
-            <i data-feather="chevron-left"></i><script>feather.replace();</script>
+            <i data-feather="chevron-left"></i>
             Go Home
         </button>
     </form>

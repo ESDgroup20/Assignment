@@ -32,12 +32,17 @@ public class AdminViewController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 //        PrintWriter out = response.getWriter();
 
+        
         String action = request.getParameter("action");
         String path = "";
 
         HttpSession session = request.getSession(false);
 
         switch (action) {
+            case "Home":
+                path = "view/jsp/pages/admin/AdminDashboard.jsp";
+                break;
+                
             case "Accsess Users":
 
                 path = "view/jsp/pages/admin/AdminUserView.jsp";
@@ -54,8 +59,11 @@ public class AdminViewController extends HttpServlet {
                 break;
 
             case "Acssess Invoices":
+                path = "view/jsp/pages/admin/AdminInvoiceView.jsp";
                 break;
+              
             case "Handle Turnover":
+                 path = "view/jsp/pages/admin/AdminTurnoverView.jsp";
                 break;
             case "Approve Staff":
                 path = "view/jsp/pages/admin/AdminApproveStaffView.jsp";

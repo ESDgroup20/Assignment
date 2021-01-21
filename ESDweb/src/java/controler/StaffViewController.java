@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Staff;
 
 /**
  *
@@ -36,22 +37,36 @@ public class StaffViewController extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
+        
+
+      
+
         switch (action) {
-            case "Refer To Specalist":
+            case "Home":
+                path = "view/jsp/pages/staff/StaffDashboard.jsp";
                 break;
-              
+                
+            case "Refer To Specalist":
+                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
+                break;
 
             case "Set Patient Prescription":
-
+             
                 path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
                 break;
 
             case "Approve Prescription Refill":
-
+                
+                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
                 break;
 
             case "View Appointments":
+                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
+                break;
 
+            case "Create Invoice":
+                System.out.println("gets to create invoice");
+                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
                 break;
 
         }

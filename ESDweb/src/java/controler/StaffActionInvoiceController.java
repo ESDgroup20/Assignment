@@ -5,24 +5,25 @@
  */
 package controler;
 
-import database.DBbean;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Patient;
-import model.User;
+import model.DoctorListOfSpecalists;
+import model.StaffListOfInvoices;
 
 /**
  *
- * @author Marken Tuan Nguyen
+ * @author Eli
  */
-public class BookingServlet extends HttpServlet {
+public class StaffActionInvoiceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +36,43 @@ public class BookingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(false);
-        
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String patientTable = (String) getServletContext().getAttribute("patientTable");
+        response.setContentType("text/html;charset=UTF-8");
 
-//      apply context into database
-        DBbean db =  new DBbean();
-        db.getConnection(conn);        
-        
-        
-        String action   = request.getParameter("act");
-        if(action.equals("Book")){
-            User user = (User) session.getAttribute("userData");
-            
-            String date = request.getParameter("date");
-            String time = request.getParameter("time");
-            String doctor = request.getParameter("doctorName");
-            
-            System.out.println("--------Booking:-----------");
-            System.out.println(date+ " at " +time);
-            System.out.println("doctor:" + doctor);
-//            System.out.println("username: "+user.getUserName());
-//            System.out.println("password: "+user.getUserPass());
-            
-            String patientName = db.selectNameByRole(patientTable, "patientname", user);
-            System.out.println("Patient name: "+patientName);
-            System.out.println("----------------------------");
+        HttpSession session = request.getSession(false);
+
+        StaffListOfInvoices listOfInvoices = (StaffListOfInvoices) session.getAttribute("listOfInvoices");
+
+        String invoice = request.getParameter("invoice");
+
+        ServletContext context = request.getServletContext();
+        String path = context.getRealPath("/") + "Invoice-";
+
+        if (invoice != null) {
+            String nhsEmail = (String) getServletContext().getAttribute("nhsEmail");
+            String downLoadHTML = listOfInvoices.createPDF(path, invoice, nhsEmail);
+
+            request.setAttribute("downLoadHTML", downLoadHTML);
+            session.setAttribute("listOfInvoices", listOfInvoices);
+            request.getRequestDispatcher("view/jsp/pages/staff/StaffCreateInvoice.jsp").forward(request, response);
+        } else {
+
+            String letter = listOfInvoices.getFilename();
+            System.out.println("letter" + letter);
+
+            File pdfFile = new File(path + letter +".pdf");
+            System.out.println("pdfFile+ "+pdfFile);
+
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" +"Invoice-" +letter +".pdf");
+            response.setContentLength((int) pdfFile.length());
+
+            FileInputStream fileInputStream = new FileInputStream(pdfFile);
+            OutputStream responseOutputStream = response.getOutputStream();
+            int bytes;
+            while ((bytes = fileInputStream.read()) != -1) {
+                System.out.println("bytes " + bytes);
+                responseOutputStream.write(bytes);
+            }
         }
 
     }

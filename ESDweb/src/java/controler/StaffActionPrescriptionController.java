@@ -37,16 +37,18 @@ public class StaffActionPrescriptionController extends HttpServlet {
 
         String patient = request.getParameter("patient");
         String medication = request.getParameter("medication");
+        String refills = request.getParameter("refills");
+       
 
         StaffListOfPrescriptions listOfPrescriptions = (StaffListOfPrescriptions) session.getAttribute("listOfPrescriptions");
 
-        String sucsess = listOfPrescriptions.dbInsert(patient, medication);
-        
-    
-        System.out.println(sucsess);
-        
-        
+        String sucsessHTML = listOfPrescriptions.dbInsert(patient, medication, refills);
 
+        System.out.println("sucsessHTML"+sucsessHTML);
+        
+        session.setAttribute("sucsessHTML", sucsessHTML);
+
+        request.getServletContext().getRequestDispatcher("/view/jsp/pages/StaffSetPrescriptionView.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

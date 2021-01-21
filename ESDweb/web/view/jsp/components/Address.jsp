@@ -12,20 +12,11 @@
         <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
         <!--<link type="text/css" rel="stylesheet" href="./view/css/address.css">-->
         <!--AIzaSyBEaO3olBwKp6l8izcyoMWfxy8T0riWg6s-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEaO3olBwKp6l8izcyoMWfxy8T0riWg6s&libraries=places&callback=initAutocomplete"
-        async defer></script>
-        <script src="./view/js/address.js" type="text/javascript"></script>
+  
+
     </head>
     <body>
-        <div class="form-floating mb-2" id="addressFramee" data-bs-toggle="collapse" data-bs-target="#addressControl" > 
-            <input id="autocomplete" 
-                   class="form-control is-valid "
-                   placeholder="Enter your address"
-                   onClick="geolocate()" 
-                   type="text">
-            </input>
-            <label for="floatingInput">Address</label>
-        </div>
+       
 
         <form action="SignUpServlet" method="post">
             <table class="table table-light table-borderless collapse" id="addressControl" aria-labelledby="addressFrame">
