@@ -6,16 +6,11 @@
 package controler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.AdminListOfStaff;
-import model.DropdownStaffList;
-import model.User;
 
 /**
  *
@@ -40,10 +35,7 @@ public class PatientActionAppointmentController extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
-        if(action.equals("Show Staff")){
-            System.out.println("clicked show staff");
-            session.getAttribute("staffNameList");
-        }
+        
         String path = "/view/jsp/pages/patient/PatientAppointmentView.jsp";
         
         request.getRequestDispatcher(path).forward(request, response);

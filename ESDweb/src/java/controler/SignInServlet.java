@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
 import model.Staff;
 import model.User;
 
@@ -80,6 +81,9 @@ public class SignInServlet extends HttpServlet {
                 switch (user.getUserRole()) {
                     case "Doctor":
                     case "Nurse":
+                        Staff staff = db.retreiveStaff(user.getUserName());
+                        System.out.println("test: "+staff.getStaffName() + staff.getStaffID());
+                        session.setAttribute("ThisStaffData", staff);
                         Staff staff = new Staff();
 
                         String staffName = db.selectNameByRole(staffTable, "staffname", user);
@@ -94,12 +98,14 @@ public class SignInServlet extends HttpServlet {
                         path = "/view/jsp/pages/staff/StaffDashboard.jsp";
                         break;
                     case "Patient":
-                        String patientName = db.selectNameByRole(patientTable, "patientname", user);
-                        session.setAttribute("patientName", patientName);
+                        Patient patient = db.retreivePatient(user.getUserName());
+                        System.out.println("test: "+patient.getPatientName() + patient.getPatientUsername());
+                        session.setAttribute("ThisPatientData", patient);
                         path = "/view/jsp/pages/patient/PatientDashboard.jsp";
                         break;
                     case "Admin":
                         path = "/view/jsp/pages/admin/AdminDashboard.jsp";
+                        break;
                 }
 
 //              init path

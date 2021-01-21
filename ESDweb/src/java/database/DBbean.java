@@ -12,10 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Appointment;
 import model.Patient;
 import model.Staff;
 import model.User;
@@ -62,10 +64,50 @@ public class DBbean {
     public String getAppointment(String table) {
 
         String returnString = "Appointment: <br>";
-        returnString = returnString + "Apointment ID, Apointment ID, Staff ID,Patient ID, <br>";
+        returnString = returnString + "Apointment ID, Staff ID,Patient ID, Date, Time <br>";
         returnString = returnString + selectByTable(table);
 
         return returnString;
+    }
+    
+    public ArrayList<Appointment> retreiveAppointment(String type, int typeID) {
+        ArrayList<Appointment> temp = new ArrayList<>();
+        try {
+            //      query string
+            String query;
+            if("staff".equals(type.toLowerCase())){
+                query = "SELECT * FROM APPOINTMENTS where APPOINTMENTS.SID = " +typeID;
+            } else {
+                query = "SELECT * FROM APPOINTMENTS where APPOINTMENTS.PID = " +typeID;
+            }
+            //      prepare statement
+            pre = conn.prepareStatement(query);
+            //      execute query
+            rs = pre.executeQuery();   
+//                  loop each column
+            System.out.println("query: "+query);
+            
+            while (rs.next()) {
+                
+                temp.add( new Appointment(
+                        rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getDate(4), 
+                        rs.getTime(5),
+                        rs.getInt(6)
+                ));
+            }
+            
+            rs.close();
+            pre.close();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return temp;
+
     }
 
 //  Show all data in this table     --------------FAST TRACK-PAGE------------------
@@ -103,6 +145,36 @@ public class DBbean {
         return null;
     }
 //  -----------------------------------------------------------------------------
+
+    public Staff retreiveStaff(String staffUserName){
+        try {
+            String query = "Select * from Staffs where staffs.username = '"+staffUserName+"'";
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            System.out.println("query: "+query);
+            while (rs.next()) {
+                return new Staff(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getString(5));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Patient retreivePatient(String patientUserName){
+        try {
+            String query = "Select * from Patients where Patients.username = '"+patientUserName+"'";
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            System.out.println("query: "+query);
+            while (rs.next()) {
+                return new Patient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 //  Show only valid user from table     ------------SIGN-IN-PAGE----------------
     public User signInAuth(String table, User user) {
@@ -270,6 +342,39 @@ public class DBbean {
 
     }
     
+    public void bookAppointment(int patientID, int staffID, String date, String time, int length){
+        
+        try {
+            
+            
+            String bookAppointment = "INSERT INTO APPOINTMENTS (PID, SID, ADATE, ATIME, ALENGTH) VALUES (?,?,?,?,?)";
+            
+            pre = conn.prepareStatement(bookAppointment);
+            pre.setInt(1, patientID);
+            pre.setInt(2, staffID);
+            pre.setDate(3, Date.valueOf(date));
+            pre.setTime(4, Time.valueOf(time.concat(":00")));
+            pre.setInt(5, length);
+            pre.executeUpdate();
+            pre.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    public static String deleteAppointment(int AID){
+        try {
+            String query = "DELETE FROM APPOINTMENTS WHERE AID = " + AID +"";
+            System.out.println("del "+query);
+            pre = conn.prepareStatement(query);
+            pre.executeUpdate();
+            pre.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return null;
+    }
+    
     
     public boolean insertInvoice(String appointment, String moneyGenerated,String date,String document) {
 
@@ -422,7 +527,122 @@ public class DBbean {
         }
         return value;
     }
+    
+    public int selectIdByName(String type, String name){
+        try {
+            String query;
+            if(type.equals("patient")){
+                query = "SELECT patientid FROM patients WHERE patientname = '"+name+"'";
+            } else {  
+                query = "SELECT staffid FROM staffs WHERE staffname = '"+name+"'";
+            }
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            while (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public static String selectNameById(String type, int typeId){
+        try {
+            String query;
+            if(type.equals("patient")){
+                query = "SELECT patientname FROM patients WHERE patientid = "+typeId+"";
+            } else {  
+                query = "SELECT staffname FROM staffs WHERE staffid = "+typeId+"";
+            }
+            pre = conn.prepareStatement(query);
+            rs = pre.executeQuery();
+            System.out.println("query"+query);
+            while (rs.next())
+                return rs.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+//    
 
+    public String selectPatientName(String patientID) {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT PATIENTNAME FROM PATIENTS WHERE PATIENTID = ?";
+
+            pre = conn.prepareStatement(query);
+
+            pre.setString(1, patientID);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+//                  loop each column
+            String returnString = "";
+            while (rs.next()) {
+
+                returnString = rs.getString(1);
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnString;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList selectUnapprovedPrescriptions() {
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM Prescriptions WHERE APPROVED = false ";
+
+            pre = conn.prepareStatement(query);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+
+                returnList.add(rs.getString(5));
+                returnList.add(rs.getString(6));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
     public ArrayList selectAllPatientNameID() {
 
         try {
@@ -618,7 +838,7 @@ public class DBbean {
     
     
     
-    public ArrayList selectPatientPrescriptions(String patientID) {
+    public ArrayList selectPatientPrescriptions(int patientID) {
 
         try {
             //      query string
@@ -628,7 +848,7 @@ public class DBbean {
 
             pre = conn.prepareStatement(query);
 
-            pre.setString(1, patientID);
+            pre.setInt(1, patientID);
 
             //      execute query
             rs = pre.executeQuery();
@@ -696,81 +916,28 @@ public class DBbean {
         }
         return null;
     }
-
-    public ArrayList selectUnapprovedPrescriptions() {
+    
+    public ArrayList<Staff> selectApprovedStaff(){
+        ArrayList<Staff> temp = new ArrayList<>();
         try {
-            //      query string
-
-            //      prepare statement
-            String query = "SELECT * FROM Prescriptions WHERE APPROVED = false ";
-
+            String query = "SELECT * FROM Staffs where APPROVED = true";
             pre = conn.prepareStatement(query);
-
-            //      execute query
             rs = pre.executeQuery();
-            //      array of each elements
-
-            //      get column size
-            ArrayList<String> returnList = new ArrayList<String>();
-
-//                  loop each column
+            System.out.println("query "+query);
             while (rs.next()) {
-                returnList.add(rs.getString(1));
-                returnList.add(rs.getString(2));
-
-                returnList.add(rs.getString(5));
-                returnList.add(rs.getString(6));
-
+                temp.add(new Staff(
+                        rs.getInt(1), 
+                        rs.getString(2), 
+                        rs.getString(3), 
+                        rs.getBoolean(4), 
+                        rs.getString(5))
+                );
+                
             }
-
-            rs.close();
-            pre.close();
-
-            //      return each elements each lines
-            return returnList;
-
         } catch (SQLException ex) {
             Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
-
-    }
-
-    public String selectPatientName(String patientID) {
-
-        try {
-            //      query string
-
-            //      prepare statement
-            String query = "SELECT PATIENTNAME FROM PATIENTS WHERE PATIENTID = ?";
-
-            pre = conn.prepareStatement(query);
-
-            pre.setString(1, patientID);
-
-            //      execute query
-            rs = pre.executeQuery();
-            //      array of each elements
-
-            //      get column size
-//                  loop each column
-            String returnString = "";
-            while (rs.next()) {
-
-                returnString = rs.getString(1);
-
-            }
-
-            rs.close();
-            pre.close();
-
-            //      return each elements each lines
-            return returnString;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        return temp;
     }
 
     public boolean isStaffUnapproved(String uname) {
@@ -806,5 +973,8 @@ public class DBbean {
             return false;
         }
     }
+    
+
+    
 
 }

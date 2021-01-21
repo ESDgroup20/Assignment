@@ -5,13 +5,18 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Patient;
+import model.Staff;
 
 /**
  *
@@ -31,17 +36,21 @@ public class PatientViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        
+        
         String action = request.getParameter("action");
         String path = "";
 
-        HttpSession session = request.getSession(false);
-
+        
         switch (action) {
             
-            case "Book Appointment":
+            case "Home":
+                path = "view/jsp/pages/patient/PatientDashboard.jsp";
+                break;
+            case "My Appointment":
 //                request.setAttribute("sucssesHTML","");
                 path = "view/jsp/pages/patient/PatientAppointmentView.jsp";
-//                path = "view/jsp/components/Booking.jsp";
                 break;
 
             case "Request Refill":

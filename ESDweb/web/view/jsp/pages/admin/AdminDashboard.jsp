@@ -3,18 +3,18 @@
     Created on : 02-Dec-2020, 12:55:37
     Author     : ESD20
 --%>
-<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
-<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
+    <head>
+        <%@ include file="AdminNavigator.jsp" %>
+        <title>Admin Page</title>
+    </head>
     <body>
-        <h1>Admin Page</h1>
+<!--        <form method="post" action="AdminViewController">
 
-        <form method="post" action="AdminViewController">
-
+            
             <input type="submit" name="action" value="Accsess Users">
             <input type="submit" name="action" value="Accsess Prescriptions">
             <input type="submit" name="action" value="Accsess Appointments">
@@ -23,17 +23,10 @@
             <input type="submit" name="action" value="Approve Staff">
 
 
-        </form>
+        </form>-->
 
 
 
     </body>
-
-    <footer>
-        <%@ include file="/view/jsp/components/Footer.jsp" %>
-    </footer>
-
-
-
 
 </html>

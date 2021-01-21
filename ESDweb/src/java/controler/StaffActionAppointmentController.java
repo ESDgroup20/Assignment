@@ -11,18 +11,19 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Patient;
-import model.User;
+import model.Appointment;
 
 /**
  *
  * @author Marken Tuan Nguyen
  */
-public class BookingServlet extends HttpServlet {
+
+public class StaffActionAppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,36 +36,22 @@ public class BookingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
+        System.out.println("Its opened");
         
         HttpSession session = request.getSession(false);
         
-        Connection conn = (Connection) getServletContext().getAttribute("conn");
-        String patientTable = (String) getServletContext().getAttribute("patientTable");
-
-//      apply context into database
-        DBbean db =  new DBbean();
-        db.getConnection(conn);        
+        String action = request.getParameter("action");
         
         
-        String action   = request.getParameter("act");
-        if(action.equals("Book")){
-            User user = (User) session.getAttribute("userData");
-            
-            String date = request.getParameter("date");
-            String time = request.getParameter("time");
-            String doctor = request.getParameter("doctorName");
-            
-            System.out.println("--------Booking:-----------");
-            System.out.println(date+ " at " +time);
-            System.out.println("doctor:" + doctor);
-//            System.out.println("username: "+user.getUserName());
-//            System.out.println("password: "+user.getUserPass());
-            
-            String patientName = db.selectNameByRole(patientTable, "patientname", user);
-            System.out.println("Patient name: "+patientName);
-            System.out.println("----------------------------");
-        }
-
+        
+        
+        
+        String path = "/view/jsp/pages/staff/StaffAppointmentView.jsp";
+        
+        request.getRequestDispatcher(path).forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

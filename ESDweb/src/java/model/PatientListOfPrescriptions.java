@@ -151,7 +151,7 @@ public class PatientListOfPrescriptions {
 
         String currentDate = dateTimeFormatter.format(now);
 
-        String patientID = patient.getPatientID();
+        int patientID = patient.getPatientID();
 
         for (int i = 0; i < refillsAllowed.size(); i++) {
 

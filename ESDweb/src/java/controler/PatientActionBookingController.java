@@ -5,20 +5,29 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.Patient;
+import model.User;
 
 /**
  *
- * @author Eli
+ * @author Marken Tuan Nguyen
  */
-public class StaffViewController extends HttpServlet {
+public class PatientActionBookingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,47 +40,45 @@ public class StaffViewController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
-
         
+        HttpSession session = request.getSession(false);
+        
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String patientTable = (String) getServletContext().getAttribute("patientTable");
+        String staffTable = (String) getServletContext().getAttribute("staffTable");
 
-      
-
-        switch (action) {
-            case "Home":
-                path = "view/jsp/pages/staff/StaffDashboard.jsp";
-                break;
-                
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
-
-            case "Set Patient Prescription":
-             
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-                 
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
+//      apply context into database
+        DBbean db =  new DBbean();
+        db.getConnection(conn);        
+        
+        
+        String action   = request.getParameter("act");
+        if(action.equals("Book")){
+            User user = (User) session.getAttribute("userData");
+            
+            String date = request.getParameter("date");
+            String time = request.getParameter("time");
+            String length = request.getParameter("length");
+            String staffName = request.getParameter("staffName");
+            
+            System.out.println("--------Booking:-----------");
+            System.err.println("length: "+length);
+            System.out.println(date+ " at " +time);
+            System.out.println("staffName:" + staffName);
+            
+            Patient patient = (Patient) session.getAttribute("ThisPatientData");
+            System.out.println("Patient name: "+patient.getPatientName());
+            System.out.println("----------------------------");
+            
+            int staffID = db.selectIdByName("staff",staffName);
+            
+            db.bookAppointment(patient.getPatientID(), staffID, (date), (time), Integer.valueOf(length));
+        
+            
+            String path = "/view/jsp/pages/patient/PatientDashboard.jsp";
+        
+            request.getRequestDispatcher(path).forward(request, response);
         }
-
-        request.getRequestDispatcher(path).forward(request, response);
 
     }
 
