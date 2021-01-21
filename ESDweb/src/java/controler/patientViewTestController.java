@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.Patient;
+
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class patientViewTestController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,43 +33,29 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
-
         
-
+        
+//        test data, final version this will be set by login features
+//        not set by consturtor in order allow for posbility to change to bean
+        Patient patient = new Patient();
+        patient.setUserName("caidan");
+        patient.setUserRole("Patient");
+        patient.setPatientID("1");
+        
+        
+        HttpSession session = request.getSession(false);
+         
+        session.setAttribute("patient",patient);
+        
+        
+        
+        System.out.println("Patient Sucsses:" + patient);
+        System.out.println("Patient Sucsses:" + patient.getUserName());
+        System.out.println("Patient Sucsses:" + patient.getUserRole());
+        
+       
+        request.getRequestDispatcher("view/jsp/pages/patient/PatientDashboard.jsp").forward(request, response); 
       
-
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

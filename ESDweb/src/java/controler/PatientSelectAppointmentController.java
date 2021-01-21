@@ -5,20 +5,26 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.AddressLookUp;
+import model.AdminListOfStaff;
+import model.DropdownStaffList;
+import model.PatientListOfAppointment;
 
 /**
  *
- * @author Eli
+ * @author Marken Tuan Nguyen
  */
-public class StaffViewController extends HttpServlet {
+public class PatientSelectAppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,42 +38,32 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
 
         HttpSession session = request.getSession(false);
 
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+//        String patientTable = (String) getServletContext().getAttribute("patientTable");
+//        String staffTable = (String) getServletContext().getAttribute("staffTable");
+
+        DBbean db =  new DBbean();
+        db.getConnection(conn);
         
+        
+        DropdownStaffList staffName = new DropdownStaffList(conn);
+               
+        staffName.dbSelectStaffName();
 
-      
+        ArrayList<String> staffNameList = staffName.getStaffNameList();
+        
+//        System.out.println("test: "+staffNameList);
+        
+        request.setAttribute("staffNameList", staffNameList);
+        
+//        DropdownStaffList staffNamePull = new DropdownStaffList();
+//        
+        String staffNameHTML = staffName.createHTML();
 
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
+        request.setAttribute("staffNameHTML", staffNameHTML);
 
     }
 

@@ -7,18 +7,19 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.DoctorListOfSpecalists;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class DoctorSelectSpecalistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,43 +33,30 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
         HttpSession session = request.getSession(false);
 
-        
+        DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
 
-      
+        if (listOfSpeclists == null) {
+            Connection conn = (Connection) getServletContext().getAttribute("conn");
 
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
+            listOfSpeclists = new DoctorListOfSpecalists(conn);
 
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
+            listOfSpeclists.dbSelect();
+            listOfSpeclists.createHTML();
         }
 
-        request.getRequestDispatcher(path).forward(request, response);
+        String refillsHTML = listOfSpeclists.getRefillsHTML();
 
+        String referalsHTML = listOfSpeclists.getReferalsHTML();
+
+        System.out.println("refillsHTML" + refillsHTML);
+
+        request.setAttribute("refillsHTML", refillsHTML);
+
+        request.setAttribute("referalsHTML", referalsHTML);
+
+        session.setAttribute("listofSpecalists", listOfSpeclists);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,18 +7,18 @@ package controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.AddressLookUp;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class AutoCompleteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,43 +32,26 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
+//      All parameters are based along so box is full up
+        String userName = request.getParameter("us");
+        String password = request.getParameter("pw");
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String role = request.getParameter("role");
+//      Adress look up object is made and used for api call and create html, an "Please enter valid adress message" is returned if call doesn't return anything
+        AddressLookUp adressFinder = new AddressLookUp();
+        adressFinder.lookUp(address);
+        String addressHTML = adressFinder.createHTML();
 
-        HttpSession session = request.getSession(false);
+        request.setAttribute("us", userName);
+        request.setAttribute("pw", password);
+        request.setAttribute("name", name);
+        request.setAttribute("address", address);
+        request.setAttribute("role", role);
 
-        
+        request.setAttribute("addressHTML", addressHTML);
 
-      
-
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
+        request.getServletContext().getRequestDispatcher("/view/jsp/pages/RegisterPage.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

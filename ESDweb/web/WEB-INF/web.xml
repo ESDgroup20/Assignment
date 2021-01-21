@@ -36,6 +36,21 @@
         <param-name>PrescriptionContext</param-name>
         <param-value>PRESCRIPTIONS</param-value>
     </context-param>
+    <context-param>
+        <description>REFERRALS TABLE</description>
+        <param-name>ReferralsContext</param-name>
+        <param-value>REFERRALS</param-value>
+    </context-param>
+    <context-param>
+        <description>SPECALIST TABLE</description>
+        <param-name>SpecalistContext</param-name>
+        <param-value>SPECALIST</param-value>
+    </context-param>
+    <context-param>
+        <description>TURNOVER TABLE</description>
+        <param-name>TurnoverContext</param-name>
+        <param-value>TURNOVER</param-value>
+    </context-param>
     <!-- =============================== FILTER ================================ -->
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
@@ -104,16 +119,72 @@
         <servlet-class>controler.StaffViewController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffSelectRefilController</servlet-name>
-        <servlet-class>controler.StaffSelectRefilController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StaffSelectPrescriptionController</servlet-name>
         <servlet-class>controler.StaffSelectPrescriptionController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffActionPrescriptionController</servlet-name>
         <servlet-class>controler.StaffActionPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminViewTestController</servlet-name>
+        <servlet-class>controler.adminViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>staffViewTestController</servlet-name>
+        <servlet-class>controler.staffViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>patientViewTestController</servlet-name>
+        <servlet-class>controler.patientViewTestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientSelectPrescriptionController</servlet-name>
+        <servlet-class>controler.PatientSelectPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientViewController</servlet-name>
+        <servlet-class>controler.PatientViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientActionPrescriptionController</servlet-name>
+        <servlet-class>controler.PatientActionPrescriptionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSelectRefillController</servlet-name>
+        <servlet-class>controler.StaffSelectRefillController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffActionRefillController</servlet-name>
+        <servlet-class>controler.StaffActionRefillController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testServlet</servlet-name>
+        <servlet-class>controler.testServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutoCompleteController</servlet-name>
+        <servlet-class>controler.AutoCompleteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientActionAppointmentController</servlet-name>
+        <servlet-class>controler.PatientActionAppointmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PatientSelectAppointmentController</servlet-name>
+        <servlet-class>controler.PatientSelectAppointmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorActionSpecalistController</servlet-name>
+        <servlet-class>controler.DoctorActionSpecalistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorSelectSpecalistController</servlet-name>
+        <servlet-class>controler.DoctorSelectSpecalistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffSelectInvoiceController</servlet-name>
+        <servlet-class>controler.StaffSelectInvoiceController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffSelectAppointmentController</servlet-name>
@@ -176,10 +247,6 @@
         <url-pattern>/StaffViewController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffSelectRefilController</servlet-name>
-        <url-pattern>/StaffSelectRefilController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>StaffSelectPrescriptionController</servlet-name>
         <url-pattern>/StaffSelectPrescriptionController</url-pattern>
     </servlet-mapping>
@@ -194,6 +261,64 @@
     <servlet-mapping>
         <servlet-name>StaffActionAppointmentController</servlet-name>
         <url-pattern>/StaffActionAppointmentController</url-pattern>
+        <servlet-name>adminViewTestController</servlet-name>
+        <url-pattern>/adminViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staffViewTestController</servlet-name>
+        <url-pattern>/staffViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>patientViewTestController</servlet-name>
+        <url-pattern>/patientViewTestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientSelectPrescriptionController</servlet-name>
+        <url-pattern>/PatientSelectPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientViewController</servlet-name>
+        <url-pattern>/PatientViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientActionPrescriptionController</servlet-name>
+        <url-pattern>/PatientActionPrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectRefillController</servlet-name>
+        <url-pattern>/StaffSelectRefillController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffActionRefillController</servlet-name>
+        <url-pattern>/StaffActionRefillController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testServlet</servlet-name>
+        <url-pattern>/testServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutoCompleteController</servlet-name>
+        <url-pattern>/AutoCompleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientActionAppointmentController</servlet-name>
+        <url-pattern>/PatientActionAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientSelectAppointmentController</servlet-name>
+        <url-pattern>/PatientSelectAppointmentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorActionSpecalistController</servlet-name>
+        <url-pattern>/DoctorActionSpecalistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorSelectSpecalistController</servlet-name>
+        <url-pattern>/DoctorSelectSpecalistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffSelectInvoiceController</servlet-name>
+        <url-pattern>/StaffSelectInvoiceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

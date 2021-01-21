@@ -11,14 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Staff;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class testServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,43 +30,18 @@ public class StaffViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
-
-        
-
-      
-
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
-
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
-
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet testServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet testServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,20 +5,24 @@
  */
 package controler;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Staff;
+import model.DoctorListOfSpecalists;
 
 /**
  *
  * @author Eli
  */
-public class StaffViewController extends HttpServlet {
+public class DoctorActionSpecalistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,43 +35,48 @@ public class StaffViewController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String path = "";
 
         HttpSession session = request.getSession(false);
 
-        
+        String patient = request.getParameter("patient");
+        String specalist = request.getParameter("specalist");
 
+//       Local path is found to save to
+        ServletContext context = request.getServletContext();
+        String path = context.getRealPath("/") + "letters/";
+
+//        if the create referal button is made, object for creating pdf is made and is used with input from view to create pdf and save
+        if (patient != null && specalist != null) {
+            response.setContentType("text/html;charset=UTF-8");
+            DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
+            String doctor = (String) session.getAttribute("staffName");
+            String sucssesHTML = listOfSpeclists.createPDF(path, patient, specalist, doctor);
       
+            
+            session.setAttribute("listofSpecalists",listOfSpeclists);
+            request.setAttribute("sucssesHTML", sucssesHTML);
+            request.getRequestDispatcher("view/jsp/pages/staff/DoctorReferToSpecalist.jsp").forward(request, response);
+//        selected pdf is sent to browser using get method and used to print out to the user
+        } else {
+            DoctorListOfSpecalists listOfSpeclists = (DoctorListOfSpecalists) session.getAttribute("listofSpecalists");
+            String letter = listOfSpeclists.getLetterCreated();
+            System.out.println("letter"+letter);
 
-        switch (action) {
-            case "Refer To Specalist":
-                path = "view/jsp/pages/staff/DoctorReferToSpecalist.jsp";
-                break;
+            File pdfFile = new File(path + letter);
 
-            case "Set Patient Prescription":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffSetPrescriptionView.jsp";
-                break;
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + letter);
+            response.setContentLength((int) pdfFile.length());
 
-            case "Approve Prescription Refill":
-                session.setAttribute("sucssesHTML", "");
-                path = "view/jsp/pages/staff/StaffApprovePrescriptionView.jsp";
-                break;
-
-            case "View Appointments":
-                path = "view/jsp/pages/staff/StaffAppointmentView.jsp";
-                break;
-
-            case "Create Invoice":
-      
-                path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
-                break;
+            FileInputStream fileInputStream = new FileInputStream(pdfFile);
+            OutputStream responseOutputStream = response.getOutputStream();
+            int bytes;
+            while ((bytes = fileInputStream.read()) != -1) {
+                System.out.println("bytes " + bytes);
+                responseOutputStream.write(bytes);
+            }
 
         }
-
-        request.getRequestDispatcher(path).forward(request, response);
 
     }
 
@@ -83,6 +92,7 @@ public class StaffViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 

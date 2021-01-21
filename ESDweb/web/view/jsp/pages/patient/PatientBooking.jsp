@@ -22,7 +22,7 @@
             SELECT staffname FROM users,staffs WHERE  users.username = staffs.USERNAME AND STAFFS.APPROVED = true
         </sql:query>
             
-        <form action="BookingServlet" method="post">
+        <form action="PatientActionAppointmentController" method="post">
             <div class="form-floating mb-2">      
                 <select class="form-select mb-2" name="staffName" id="floatingInput">
                     <c:forEach items="${selectStaff.rows}" var="row">

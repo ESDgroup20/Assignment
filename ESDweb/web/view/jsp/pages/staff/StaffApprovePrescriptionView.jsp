@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<jsp:include page="/StaffSelectRefillController" ></jsp:include>--%>
+<jsp:include page="/StaffSelectRefillController" ></jsp:include>
 <!DOCTYPE html>
 <html>
     <head>

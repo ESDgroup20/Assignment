@@ -87,21 +87,17 @@ public class SignInServlet extends HttpServlet {
                         System.out.println("test: "+patient.getPatientName() + patient.getPatientUsername());
                         session.setAttribute("ThisPatientData", patient);
                         break;
+                    case "Admin":
+                        path = "/view/jsp/pages/admin/AdminDashboard.jsp";
                 }
                 
                 
 //              init path
-                path = "/view/jsp/pages/DashboardPage.jsp";
+             
             }
 
 //        if front-end click btn FastTrack
-        } else if (action.equals("FastTrack")) {
-//          access user table
-            String s = db.signInSelection(userTable);
-            request.setAttribute("str", s);
-            path = "/view/jsp/pages/TestPage.jsp";
-            
-        }
+        } 
 //      access path
         request.getServletContext().getRequestDispatcher(path).forward(request,response);
         

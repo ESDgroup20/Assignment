@@ -16,13 +16,12 @@
     </head>
   
     <body>
+       
         <div class="position-absolute top-50 start-50 translate-middle">
+           <h2> Welcome to SmartCare GP </h2>
             <div class="flex-column "> 
                 <form action="SignInServlet" method="POST" class="d-flex flex-column align-items-center ">
-                    Fast Track button:
-                    <input type="submit" name="act" value="FastTrack" class="btn btn-success col-12 mb-3">         
-          
-                    
+                
                     
                     <div class="form-floating mb-3">
                         <input type="text" name="us" class="form-control is-valid" id="floatingInput" placeholder="Username" >
