@@ -22,14 +22,14 @@
     </head>
     <body>
         <nav class="navbar navbar-light navbar-expand-lg bg-light">
-            <div class="container-fluid ">
-                <a class="btn btn-outline-success navbar-brand mb-0 h1" href="#">Staff Dashboard</a>
+            <form class="me-auto container-fluid" method="post" action="StaffViewController">
+                <button type="submit" name="action" value="Home" class="btn btn-outline-success navbar-brand mb-0 h1">Staff Dashboard</button>
+                <!--<a class="btn btn-outline-success navbar-brand mb-0 h1" href="#">Staff Dashboard</a>-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     
-                    <form class="me-auto" method="post" action="StaffViewController">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                            
                             
@@ -56,7 +56,6 @@
                             </li>
                             
                         </ul>
-                    </form>
                     
                     <div>
                         
@@ -65,14 +64,14 @@
                             Hi, <%=staff.getStaffName()%>
                         </label>
                     </div>
-                    
-                    <form action="SignOutServlet" method="POST">
-                        <button type="submit" class="btn" value="GoHome">
-                            <i data-feather="log-out"></i><script>feather.replace();</script>
-                        </button>
-                    </form>
                 </div>
-            </div>
+            </form>
+            <form action="SignOutServlet" method="POST">
+                <button type="submit" class="btn" value="GoHome">
+                    <i data-feather="log-out"></i><script>feather.replace();</script>
+                </button>
+            </form>
+            <!--</div>-->
         </nav>
     </body>
 </html>

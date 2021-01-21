@@ -22,28 +22,23 @@
     </head>
     <body>
         <nav class="navbar navbar-light navbar-expand-lg bg-light">
-            <div class="container-fluid ">
-                <a class="btn btn-outline-success navbar-brand mb-0 h1" href="#">Patient Dashboard</a>
+            <form class="me-auto container-fluid" method="post" action="PatientViewController">
+                <button type="submit" name="action" value="Home" class="btn btn-outline-success navbar-brand mb-0 h1">Patient Dashboard</button>
+                <!--<a class="btn btn-outline-success navbar-brand mb-0 h1" href="#">Patient Dashboard</a>-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     
-                    <form class="me-auto" method="post" action="PatientViewController">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <button type="submit" name="action" value="Home" class="btn">Home</button>
-                            </li>
+                           
                             <li class="nav-item">
                                 <button type="submit" name="action" value="My Appointment" class="btn">My Appointment</button>
                             </li>
                             <li class="nav-item">
                                 <button type="submit" name="action" value="Request Refill" class="btn">Request Refill</button>
                             </li>
-                            
-                            
                         </ul>
-                    </form>
                     
                     <div>
                         
@@ -52,14 +47,14 @@
                             Hi, <%=patient.getPatientName()%>
                         </label>
                     </div>
-                    
-                    <form action="SignOutServlet" method="POST">
-                        <button type="submit" class="btn" value="GoHome">
-                            <i data-feather="log-out"></i><script>feather.replace();</script>
-                        </button>
-                    </form>
                 </div>
-            </div>
+            </form>
+            <form action="SignOutServlet" method="POST">
+                <button type="submit" class="btn" value="GoHome">
+                    <i data-feather="log-out"></i><script>feather.replace();</script>
+                </button>
+            </form>
+          
         </nav>
     </body>
 </html>
