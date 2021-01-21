@@ -43,7 +43,8 @@ public class StaffSelectInvoiceController extends HttpServlet {
 
             Connection conn = (Connection) getServletContext().getAttribute("conn");
 
-            Staff staff = (Staff) session.getAttribute("staff");
+            Staff staff = (Staff) session.getAttribute("ThisStaffData");
+            System.out.println("staff Select" + staff);
 
             listOfInvoices = new StaffListOfInvoices(conn, staff);
 

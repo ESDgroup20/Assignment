@@ -5,18 +5,20 @@
  */
 package controler;
 
+import database.DBbean;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Eli
  */
-public class AdminViewController extends HttpServlet {
+public class AdminSelectInvoiceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,49 +32,16 @@ public class AdminViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
+
+        Connection conn = (Connection) getServletContext().getAttribute("conn");
+        String invoiceTable = (String) getServletContext().getAttribute("invoiceTable");
+
+        DBbean dao = new DBbean();
+        dao.getConnection(conn);
+        String invoiceHTML = dao.getInvoices(invoiceTable);
+        request.setAttribute("invoiceHTML", invoiceHTML);
 
         
-        String action = request.getParameter("action");
-        String path = "";
-
-        HttpSession session = request.getSession(false);
-
-        switch (action) {
-            case "Home":
-                path = "view/jsp/pages/admin/AdminDashboard.jsp";
-                break;
-                
-            case "Accsess Users":
-
-                path = "view/jsp/pages/admin/AdminUserView.jsp";
-                break;
-
-            case "Accsess Prescriptions":
-
-                path = "view/jsp/pages/admin/AdminPrescriptionView.jsp";
-                break;
-
-            case "Accsess Appointments":
-
-                path = "view/jsp/pages/admin/AdminAppointmentView.jsp";
-                break;
-
-            case "Acssess Invoices":
-                path = "view/jsp/pages/admin/AdminInvoiceView.jsp";
-                break;
-              
-            case "Handle Turnover":
-                 path = "view/jsp/pages/admin/AdminTurnoverView.jsp";
-                break;
-            case "Approve Staff":
-                path = "view/jsp/pages/admin/AdminApproveStaffView.jsp";
-                break;
-
-        }
-
-        request.getRequestDispatcher(path).forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

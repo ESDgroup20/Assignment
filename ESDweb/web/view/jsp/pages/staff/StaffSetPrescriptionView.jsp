@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/StaffSelectPrescriptionController" ></jsp:include>
+<% String sucsessHTML = (String) request.getAttribute("sucsessHTML"); 
+   if (sucsessHTML == null){
+       sucsessHTML= "";
+   }
+%>
     <!DOCTYPE html>
     <html>
         <head>
@@ -19,7 +24,7 @@
             <%=request.getAttribute("medicationHTML")%>
             <%=request.getAttribute("refillsHTML")%>
             <input type="submit">
-            <%=request.getAttribute("sucsessHTML")%>
+            <%=sucsessHTML%>
         </form>
     </body>
 </html>

@@ -60,6 +60,16 @@ public class DBbean {
 
         return returnString;
     }
+    
+    
+     public String getInvoices(String table) {
+
+        String returnString = "Invocies: <br>";
+        returnString = returnString + "Appointment, Money Generated, Date,Docuement <br>";
+        returnString = returnString + selectByTable(table);
+
+        return returnString;
+    }
 
     public String getAppointment(String table) {
 
@@ -342,6 +352,30 @@ public class DBbean {
 
     }
     
+     public boolean insertTurnover(String type, String date, String ammount) {
+    
+        try {
+      
+            String updateQuery = "INSERT INTO TURNOVER (TYPE, DATE, AMMOUNT) VALUES (?,?,?)";
+
+            pre = conn.prepareStatement(updateQuery);
+            pre.setString(1, type);
+            pre.setString(2, date);
+            pre.setString(3, ammount);
+        
+
+            pre.executeUpdate();
+            pre.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
+    
     public void bookAppointment(int patientID, int staffID, String date, String time, int length){
         
         try {
@@ -496,7 +530,7 @@ public class DBbean {
 
             rs.close();
             pre.close();
-
+            System.out.println("returnList"+returnList);
             return returnList;
 
         } catch (SQLException ex) {
@@ -818,6 +852,46 @@ public class DBbean {
                 returnList.add(rs.getString(1));
                 returnList.add(rs.getString(2));
                 returnList.add(rs.getString(3));
+
+            }
+
+            rs.close();
+            pre.close();
+
+            //      return each elements each lines
+            return returnList;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBbean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+       public ArrayList selectInvoices() {
+
+        try {
+            //      query string
+
+            //      prepare statement
+            String query = "SELECT * FROM INVOICES";
+
+            pre = conn.prepareStatement(query);
+
+            //      execute query
+            rs = pre.executeQuery();
+            //      array of each elements
+
+            //      get column size
+            ArrayList<String> returnList = new ArrayList<String>();
+
+//                  loop each column
+            while (rs.next()) {
+
+                returnList.add(rs.getString(1));
+                returnList.add(rs.getString(2));
+                returnList.add(rs.getString(3));
+                returnList.add(rs.getString(4));
+                
 
             }
 

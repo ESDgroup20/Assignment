@@ -65,7 +65,7 @@ public class StaffViewController extends HttpServlet {
                 break;
 
             case "Create Invoice":
-                 
+                System.out.println("gets to create invoice");
                 path = "view/jsp/pages/staff/StaffCreateInvoice.jsp";
                 break;
 

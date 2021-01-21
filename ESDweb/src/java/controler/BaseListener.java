@@ -51,6 +51,8 @@ public class BaseListener implements ServletContextListener {
 
         String turnoverTable = context.getInitParameter("TurnoverContext");
         
+        String invoiceTable = context.getInitParameter("InvoiceContext");
+        
         String nhsEmail = context.getInitParameter("nhsEmail");
         
         
@@ -73,6 +75,7 @@ public class BaseListener implements ServletContextListener {
         context.setAttribute("referralsTable", referralsTable);
         context.setAttribute("specalistTable", specalistTable);
         context.setAttribute("turnoverTable", turnoverTable);
+        context.setAttribute("invoiceTable", invoiceTable);
         context.setAttribute("nhsEmail",nhsEmail);
     }
 
