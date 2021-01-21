@@ -137,7 +137,5 @@
         </form>
 
 
-
-        <%@ include file="../components/Footer.jsp"%>
     </body>
 </html>

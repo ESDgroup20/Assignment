@@ -84,17 +84,17 @@ public class SignInServlet extends HttpServlet {
                         Staff staff = db.retreiveStaff(user.getUserName());
                         System.out.println("test: "+staff.getStaffName() + staff.getStaffID());
                         session.setAttribute("ThisStaffData", staff);
-                        Staff staff = new Staff();
-
-                        String staffName = db.selectNameByRole(staffTable, "staffname", user);
-                        session.setAttribute("staffName", staffName);
+//                        Staff staff = new Staff();
+//
+//                        String staffName = db.selectNameByRole(staffTable, "staffname", user);
+//                        session.setAttribute("staffName", staffName);
                         
 
-                        ArrayList<ArrayList<String>> staffData = db.selectByQuery("SELECT * FROM STAFFS WHERE USERNAME = '" + username + "'");
-                        String staffID = staffData.get(0).get(0);
-                        System.out.println("staffID"+staffID);
-                        staff.setStaffID(staffID);
-                        session.setAttribute("staff", staff);
+//                        ArrayList<ArrayList<String>> staffData = db.selectByQuery("SELECT * FROM STAFFS WHERE USERNAME = '" + username + "'");
+//                        String staffID = staffData.get(0).get(0);
+//                        System.out.println("staffID"+staffID);
+//                        staff.setStaffID(staffID);
+//                        session.setAttribute("staff", staff);
                         path = "/view/jsp/pages/staff/StaffDashboard.jsp";
                         break;
                     case "Patient":

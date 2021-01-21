@@ -16,7 +16,7 @@ public class Staff extends User{
     private String staffName;
     private String staffAddress;
     private boolean staffApproved;
-    private String staffID;
+//    private String staffID;
     
 
     public Staff() {
@@ -79,12 +79,12 @@ public class Staff extends User{
         return staffPassword;
     }
 
-    public void setStaffID(String staffID) {
-        this.staffID = staffID;
-    }
-
-    public String getStaffID() {
-        return staffID;
-    }
+//    public void setStaffID(String staffID) {
+//        this.staffID = staffID;
+//    }
+//
+//    public String getStaffID() {
+//        return staffID;
+//    }
     
 }
